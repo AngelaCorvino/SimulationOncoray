@@ -1,0 +1,295 @@
+### TOPAS-Simulation for mouseirradiation  ###
+### horizontalen Beamline der UPTD ###
+
+s:Ge/World/Material	= "Air"
+d:Ge/World/HLX		= 1.0 m
+d:Ge/World/HLY		= 1.0 m
+
+
+# Source Position
+d:Ge/BeamPosition/TransZ = -204.3 cm
+# Source Rotation
+d:Ge/BeamPosition/RotX   = 0 deg
+#Source Component
+# Protonen der Energie 90.40 MeV mit einem Energiespread von 0.77
+s:So/FBTR1/Type             = "Beam"
+s:So/FBTR1/Component        = "BeamPosition"
+s:So/FBTR1/BeamParticle     = "proton"
+d:So/FBTR1/BeamEnergy       = 92.40 MeV
+u:So/FBTR1/BeamEnergySpread = 0.77
+# Beam profile is gaussian in x- und y
+s:So/FBTR1/BeamPositionDistribution = "Gaussian"
+d:So/FBTR1/BeamPositionSpreadX      = 4.75 mm
+d:So/FBTR1/BeamPositionSpreadY      = 5.75 mm
+s:So/FBTR1/BeamPositionCutoffShape = "Ellipse"
+d:So/FBTR1/BeamPositionCutoffX     = 2.5 cm
+d:So/FBTR1/BeamPositionCutoffY     = 2.5 cm
+
+# Strahl hat gaussfˆrmige Winkelverteilung, Grenze liegt bei 90 deg
+s:So/FBTR1/BeamAngularDistribution	= "Gaussian"
+d:So/FBTR1/BeamAngularSpreadX		= 0.0035 rad
+d:So/FBTR1/BeamAngularSpreadY		= 0.0055 rad
+d:So/FBTR1/BeamAngularCutoffX		= 90 deg
+d:So/FBTR1/BeamAngularCutoffY		= 90 deg
+
+# Material der Messing-Apperturen mit 3% Bleianteil
+sv:Ma/CuZn39Pb3/Components  = 3  "Copper" "Zinc" "Lead"
+uv:Ma/CuZn39Pb3/Fractions   = 3  0.58     0.39   0.03
+d:Ma/CuZn39Pb3/Density      = 8.47 g/cm3
+
+##########################################################################
+### 1. Kollimator ###
+
+s:Ge/Collimator1/Type   = "Group"
+s:Ge/Collimator1/Parent = "World"
+s:Ge/Collimator1/empty  = "World"
+
+### erzeuge Messingzylinder ###
+s:Ge/Collimator1/metall/Type     = "TsCylinder"
+s:Ge/Collimator1/metall/Parent   = "Collimator1"
+s:Ge/Collimator1/metall/Material = "CuZn39Pb3"
+d:Ge/Collimator1/metall/HL       = 16.5 mm
+d:Ge/Collimator1/metall/Rmax     = 9 cm
+
+### erzeuge quaderfˆrmiges Loch im Messingzylinder ###
+s:Ge/Collimator1/hole/Type	= "TsBox"
+s:Ge/Collimator1/hole/Parent	= "Collimator1/metall"
+s:Ge/Collimator1/hole/Material	= Ge/Collimator1/empty
+d:Ge/Collimator1/hole/HLX	= 38.75 mm
+d:Ge/Collimator1/hole/HLY	= 38.5  mm
+d:Ge/Collimator1/hole/HLZ	= Ge/Collimator1/metall/HL mm
+
+### Positionierung des ersten Kollimators in der Welt ###
+d:Ge/Collimator1/TransZ		= -108.3 cm
+
+
+##########################################################################
+### 2. Kollimator ###
+
+s:Ge/Collimator2/Type   = "Group"
+s:Ge/Collimator2/Parent = "World"
+s:Ge/Collimator2/empty  = "World"
+
+### erzeuge Messingzylinder ###
+s:Ge/Collimator2/metall/Type     = "TsCylinder"
+s:Ge/Collimator2/metall/Parent   = "Collimator2"
+s:Ge/Collimator2/metall/Material = "CuZn39Pb3"
+d:Ge/Collimator2/metall/HL       = 16.5 mm
+d:Ge/Collimator2/metall/Rmax     = 9 cm
+
+### erzeuge zylinderfˆrmiges Loch im Messingzylinder ###
+s:Ge/Collimator2/hole/Type	= "TsCylinder"
+s:Ge/Collimator2/hole/Parent	= "Collimator2/metall"
+s:Ge/Collimator2/hole/Material	= Ge/Collimator2/empty
+d:Ge/Collimator2/hole/HL	= 16.5 mm
+d:Ge/Collimator2/hole/Rmax	= 10  mm
+d:Ge/Collimator2/hole/HLZ	= Ge/Collimator2/metall/HL m
+
+### Positionierung des zweiten Kollimators in der Welt ###
+d:Ge/Collimator2/TransZ		= -42.95 cm
+
+##########################################################################
+### PC-Platten ###
+
+s:Ge/PCplates/Type    = "Group"
+s:Ge/PCplates/Parent  = "World"
+
+### create cuboids from polycarbonate = Lexan ###
+s:Ge/PCplates/block/Type	= "TsBox"
+s:Ge/PCplates/block/Parent	= "PCplates"
+s:Ge/PCplates/block/Material	= "Lexan"
+d:Ge/PCplates/block/HLX		= 20 cm
+d:Ge/PCplates/block/HLY		= 20 cm
+
+### Thickness of the 6 PC panels totals 38,72 mm ###
+### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm,7.78 ###
+#d:Ge/PCplates/block/HLZ		= 23.25 mm
+
+
+### Thickness of the 7 PC panels totals 54.2 mm ###
+### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7 mm  ###
+#d:Ge/PCplates/block/HLZ		= 27.1 mm
+
+
+### Thickness of the 6.5 PC panels totals 54.2 mm ###
+### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,3.89 mm  ###
+d:Ge/PCplates/block/HLZ		= 25.195 mm
+
+
+
+
+
+
+### Positionierung der PC-Platten in der Welt ###
+d:Ge/PCplates/block/TransZ	= -9.185 cm
+
+##########################################################################
+### 3. Kollimator ###
+
+#s:Ge/Collimator3/Type   = "Group"
+#s:Ge/Collimator3/Parent = "World"
+#s:Ge/Collimator3/empty  = "World"
+
+### erzeuge Aluminiumblock ###
+#s:Ge/Collimator3/metall/Type		= "TsBox"
+#s:Ge/Collimator3/metall/Parent		= "Collimator3"
+#s:Ge/Collimator3/metall/Material	= "Aluminum"
+#d:Ge/Collimator3/metall/HLX	= 15 cm
+#d:Ge/Collimator3/metall/HLY	= 15 cm
+#d:Ge/Collimator3/metall/HLZ	= 6 mm
+
+### erzeuge zylinderfˆrmiges Loch im Aluminiumblock ###
+#s:Ge/Collimator3/hole/Type	= "TsCylinder"
+#s:Ge/Collimator3/hole/Parent	= "Collimator3/metall"
+#s:Ge/Collimator3/hole/Material	= Ge/Collimator3/empty
+#d:Ge/Collimator3/hole/HL	= 6 mm
+#d:Ge/Collimator3/hole/Rmax	= 3.5 mm # 1.5, 2 ,2.25, 3.5
+
+### Positionierung des dritten Kollimators in der Welt ###
+#d:Ge/Collimator3/TransZ		= -3 cm
+##########################################################################
+
+
+
+##########################################################################
+### Alluminium absorber ###
+
+s:Ge/Collimator4/Type   = "Group"
+s:Ge/Collimator4/Parent = "World"
+s:Ge/Collimator4/empty  = "World"
+
+### erzeuge Aluminiumblock ###
+s:Ge/Collimator4/metall/Type		= "TsBox"
+s:Ge/Collimator4/metall/Parent		= "Collimator4"
+s:Ge/Collimator4/metall/Material	= "Aluminum"
+d:Ge/Collimator4/metall/HLX	= 30.0625 mm
+d:Ge/Collimator4/metall/HLY	= 15.4375 mm
+d:Ge/Collimator4/metall/HLZ	=  4 mm
+
+### erzeuge zylinderfˆrmiges Loch im Aluminiumblock ###
+s:Ge/Collimator4/hole/Type	= "TsCylinder"
+s:Ge/Collimator4/hole/Parent	= "Collimator4/metall"
+s:Ge/Collimator4/hole/Material	= Ge/Collimator4/empty
+d:Ge/Collimator4/hole/HL	= 4 mm
+d:Ge/Collimator4/hole/Rmax	= 3.625 mm
+
+### Positionierung des dritten Kollimators in der Welt ###
+dc:Ge/Collimator4/TransZ		= -1 cm
+##########################################################################
+
+
+
+
+# PVTscintillator hexagonal prism
+
+s:Ge/PVTscintillator/Type             = "G4SPolyhedra"
+s:Ge/PVTscintillator/Parent           = "World"
+s:Ge/PVTscintillator/Material         = "G4_PLASTIC_SC_VINYLTOLUENE"
+d:Ge/PVTscintillator/TransX           = 0 cm
+d:Ge/PVTscintillator/TransY           = 0 cm
+dc:Ge/PVTscintillator/TransZ           = -0.4 cm #changeble
+d:Ge/PVTscintillator/RotX             = 0 deg
+d:Ge/PVTscintillator/RotY             = 0 deg
+d:Ge/PVTscintillator/RotZ             = 0 deg
+d:Ge/PVTscintillator/PhiStart         = 0 deg
+d:Ge/PVTscintillator/PhiTotal         = 360 deg
+i:Ge/PVTscintillator/NSides           = 6
+dv:Ge/PVTscintillator/R               = 5 0 0 10.2 10.2 0 mm  #10.2 is the lato dell'esagono
+dv:Ge/PVTscintillator/Z               = 5 0 0 0 11 11 mm #11 is the thickness
+s:Ge/PVTscintillator/Color            = "green"
+#s:Ge/PVTscintillator/DrawingStyle      = "Solid"
+
+b:Ge/PVTscintillator/PrintInformation  = "True"
+
+
+#PVT scibtillator reconstructed area
+s:Ge/PVTreconstructedarea/Type             = "TsBox"
+s:Ge/PVTreconstructedarea/Parent           = "PVTscintillator"
+s:Ge/PVTreconstructedarea/Material         = "G4_PLASTIC_SC_VINYLTOLUENE"
+d:Ge/PVTreconstructedarea/TransX           = 0 cm
+d:Ge/PVTreconstructedarea/TransY           = 0 cm
+d:Ge/PVTreconstructedarea/TransZ           = 5.5 mm
+d:Ge/PVTreconstructedarea/RotX             = 0 deg
+d:Ge/PVTreconstructedarea/RotY             = 0 deg
+d:Ge/PVTreconstructedarea/RotZ             = 0 deg
+d:Ge/PVTreconstructedarea/HLX =            5.1 mm
+d:Ge/PVTreconstructedarea/HLY =            5.9 mm
+d:Ge/PVTreconstructedarea/HLZ =            5.5 mm
+s:Ge/PVTreconstructedarea/Color            = "red"
+s:Ge/PVTreconstructedarea/DrawingStyle      = "Solid"
+
+b:Ge/PVTreconstructedarea/PrintInformation  = "True"
+i:Ge/PVTreconstructedarea/XBins = 161
+i:Ge/PVTreconstructedarea/YBins = 1
+i:Ge/PVTreconstructedarea/ZBins = 170
+b:Ge/QuitIfOverlapDetected = "False"
+
+
+
+
+
+
+
+#Scoring the PVT  along z
+s:Sc/MyScorer/Quantity= "DoseToWater"
+s:Sc/MyScorer/Component= "PVTreconstructedarea"
+b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
+#i:Ge/MyScorer/RBins = 1
+#i:Ge/MyScorer/PhiBins = 1
+#i:Ge/MyScorer/ZBins = 100                    #like RCF stack
+
+s:Sc/MyScorer/Outputfile = "DoseToWater_90MeVproton_PVT_1cm"
+s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/MyScorer/OutputType= "csv"
+
+
+
+#Scoring the PVT  along z
+s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
+s:Sc/EnergyDepPVT/Component                 = "PVTreconstructedarea"
+s:Sc/EnergyDepPVT/Outputfile = "EnergyDeposit_90MeVproton_PVT_1cm"
+s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/EnergyDepPVT/OutputType= "csv"
+
+
+
+
+##########################################################################
+### Grafik und sonstige Einstellungen ###
+
+i:Ts/ShowHistoryCountAtInterval			= 100
+#b:Ts/ShowHistoryCountOnSingleLine		= "True"
+
+s:Gr/ViewA/Type					      = "OpenGL"
+sv:Gr/ViewA/VisibleWorlds			= 1 "All"
+i:Gr/ViewA/WindowSizeX				= 1024
+i:Gr/ViewA/WindowSizeY				= 768
+d:Gr/ViewA/Theta				      = 90 deg
+d:Gr/ViewA/Phi					      = 0 deg
+#s:Gr/ViewA/Projection				= "Perspective"
+s:Gr/ViewA/Projection				  = "Orthogonal"
+#d:Gr/ViewA/PerspectiveAngle			= 30 deg
+u:Gr/ViewA/Zoom					= 1.
+
+#s:Gr/ViewA/AxesComponent = "PVTscintillator"
+#s:Gr/ViewA/AxesComponent = "Absorber"
+#d:Gr/ViewA/AxesSize      = 0.1 m
+
+i:Gr/ViewA/tracking/storeTrajectories= 0
+
+i:Gr/ViewA/multithreading/maxEventQueueSize =10000
+b:Gr/ViewA/HiddenLineRemovalForTrajectories	= "True"
+b:Gr/ViewA/IncludeAxes			   	= "True"
+d:Gr/ViewA/AxesSize				      = 5 cm
+b:Ge/World/Invisible				    = "True"
+
+b:Gr/Enable			                = "True"
+#b:Ge/QuitIfOverlapDetected	= "True"
+
+b:Ts/PauseBeforeSequence 	      = "True"
+b:Ts/PauseBeforeQuit		        = "True"
+b:Ts/UseQt                      = "True"
+
+### Number of simulated particles ###
+i:So/FBTR1/NumberOfHistoriesInRun		= 1000000
+i:Ts/NumberOfThreads				        = 64

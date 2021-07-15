@@ -1,0 +1,392 @@
+##################
+#
+# This is the ridge filter of exponat0.
+# The shape of the ridges has been adjusted to
+# reproduce measurements taken by
+# armin.luehr@oncoray.de AND b.lutz@hzdr.de
+#
+
+includeFile = Materials.txt
+
+s:Ge/RidgeFilter/Type          = "Group"
+s:Ge/RidgeFilter/Parent        = "World"
+s:Ge/RidgeFilter/Material      = "AlSi"
+s:Ge/RidgeFilter/EmptyMaterial = "World"
+
+
+s:Ge/RidgeFilter/basePlate/Type     = "TsBox"
+s:Ge/RidgeFilter/basePlate/Parent   = "RidgeFilter"
+s:Ge/RidgeFilter/basePlate/Material = Ge/RidgeFilter/Material
+d:Ge/RidgeFilter/basePlate/HLX      = 70 mm
+d:Ge/RidgeFilter/basePlate/HLY      = 70 mm
+d:Ge/RidgeFilter/basePlate/LZ       = 5.55 mm
+d:Ge/RidgeFilter/basePlate/HLZ      = 0.5 * Ge/RidgeFilter/basePlate/LZ m
+d:Ge/RidgeFilter/basePlate/TransZ   = Ge/RidgeFilter/basePlate/HLZ m
+d:Ge/RidgeFilter/basePlate/top      = Ge/RidgeFilter/basePlate/HLZ + Ge/RidgeFilter/basePlate/TransZ m
+
+
+s:Ge/RidgeFilter/basePlate/cutout/Type     = "TsBox"
+s:Ge/RidgeFilter/basePlate/cutout/Parent   = "RidgeFilter/basePlate"
+s:Ge/RidgeFilter/basePlate/cutout/Material = Ge/RidgeFilter/EmptyMaterial
+d:Ge/RidgeFilter/basePlate/cutout/HLX      = 57.5 mm
+d:Ge/RidgeFilter/basePlate/cutout/HLY      = 57.5 mm
+d:Ge/RidgeFilter/basePlate/cutout/HLZ      = 2.35 mm
+d:Ge/RidgeFilter/basePlate/cutout/TransZ   = Ge/RidgeFilter/basePlate/cutout/HLZ - Ge/RidgeFilter/basePlate/HLZ mm
+
+
+
+s:Ge/RidgeFilter/teeth/Type   = "Group"
+s:Ge/RidgeFilter/teeth/Parent = "RidgeFilter"
+d:Ge/RidgeFilter/teeth/RotX   = -90 deg
+d:Ge/RidgeFilter/teeth/TransZ = Ge/RidgeFilter/basePlate/top m
+s:Ge/RidgeFilter/teeth/DrawingStyle = "solid"
+
+d:Ge/RidgeFilter/tooth/1/TransX  = -60 mm
+d:Ge/RidgeFilter/tooth/2/TransX  = -55 mm
+d:Ge/RidgeFilter/tooth/3/TransX  = -50 mm
+d:Ge/RidgeFilter/tooth/4/TransX  = -45 mm
+d:Ge/RidgeFilter/tooth/5/TransX  = -40 mm
+d:Ge/RidgeFilter/tooth/6/TransX  = -35 mm
+d:Ge/RidgeFilter/tooth/7/TransX  = -30 mm
+d:Ge/RidgeFilter/tooth/8/TransX  = -25 mm
+d:Ge/RidgeFilter/tooth/9/TransX  = -20 mm
+d:Ge/RidgeFilter/tooth/10/TransX = -15 mm
+d:Ge/RidgeFilter/tooth/11/TransX = -10 mm
+d:Ge/RidgeFilter/tooth/12/TransX =  -5 mm
+d:Ge/RidgeFilter/tooth/13/TransX =   0 mm
+d:Ge/RidgeFilter/tooth/14/TransX =   5 mm
+d:Ge/RidgeFilter/tooth/15/TransX =  10 mm
+d:Ge/RidgeFilter/tooth/16/TransX =  15 mm
+d:Ge/RidgeFilter/tooth/17/TransX =  20 mm
+d:Ge/RidgeFilter/tooth/18/TransX =  25 mm
+d:Ge/RidgeFilter/tooth/19/TransX =  30 mm
+d:Ge/RidgeFilter/tooth/20/TransX =  35 mm
+d:Ge/RidgeFilter/tooth/21/TransX =  40 mm
+d:Ge/RidgeFilter/tooth/22/TransX =  45 mm
+d:Ge/RidgeFilter/tooth/23/TransX =  50 mm
+d:Ge/RidgeFilter/tooth/24/TransX =  55 mm
+
+
+s:Ge/RidgeFilter/teeth/Material  = Ge/RidgeFilter/Material
+dv:Ge/RidgeFilter/teeth/Off1     = 2 0 0 m
+dv:Ge/RidgeFilter/teeth/Off2     = 2 0 0 m
+u:Ge/RidgeFilter/teeth/Scale1    = 1
+u:Ge/RidgeFilter/teeth/Scale2    = 1
+d:Ge/RidgeFilter/teeth/HLZ       = 60 mm
+dv:Ge/RidgeFilter/teeth/Polygons = 88
+0 0
+0 1.7
+0.84832 1.7
+0.84832 3.08
+1.38556 3.08
+1.38556 4.46
+1.51561 4.46
+1.51561 5.84
+1.81032 5.84
+1.81032 7.22
+1.8898 7.22
+1.8898 8.6
+2.10587 8.6
+2.10587 9.98
+2.15355 9.98
+2.15355 11.36
+2.33839 11.36
+2.33839 12.74
+2.3518 12.74
+2.3518 14.12
+2.4323 14.12
+2.4323 15.5
+2.5677 15.5
+2.5677 14.12
+2.6482 14.12
+2.6482 12.74
+2.66161 12.74
+2.66161 11.36
+2.84645 11.36
+2.84645 9.98
+2.89413 9.98
+2.89413 8.6
+3.1102 8.6
+3.1102 7.22
+3.18968 7.22
+3.18968 5.84
+3.48439 5.84
+3.48439 4.46
+3.61444 4.46
+3.61444 3.08
+4.15168 3.08
+4.15168 1.7
+5 1.7
+5 0 mm
+
+
+
+
+
+s:Ge/RidgeFilter/tooth/1/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/1/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/1/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/1/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/1/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/1/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/1/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/1/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/1/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/2/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/2/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/2/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/2/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/2/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/2/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/2/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/2/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/2/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/3/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/3/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/3/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/3/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/3/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/3/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/3/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/3/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/3/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+
+s:Ge/RidgeFilter/tooth/4/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/4/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/4/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/4/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/4/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/4/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/4/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/4/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/4/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/5/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/5/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/5/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/5/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/5/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/5/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/5/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/5/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/5/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/6/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/6/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/6/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/6/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/6/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/6/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/6/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/6/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/6/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/7/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/7/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/7/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/7/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/7/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/7/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/7/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/7/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/7/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/8/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/8/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/8/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/8/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/8/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/8/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/8/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/8/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/8/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/9/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/9/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/9/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/9/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/9/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/9/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/9/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/9/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/9/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/10/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/10/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/10/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/10/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/10/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/10/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/10/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/10/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/10/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/11/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/11/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/11/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/11/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/11/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/11/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/11/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/11/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/11/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/12/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/12/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/12/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/12/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/12/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/12/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/12/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/12/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/12/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/13/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/13/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/13/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/13/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/13/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/13/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/13/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/13/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/13/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+
+s:Ge/RidgeFilter/tooth/14/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/14/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/14/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/14/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/14/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/14/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/14/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/14/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/14/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/15/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/15/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/15/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/15/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/15/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/15/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/15/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/15/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/15/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/16/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/16/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/16/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/16/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/16/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/16/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/16/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/16/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/16/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/17/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/17/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/17/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/17/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/17/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/17/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/17/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/17/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/17/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/18/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/18/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/18/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/18/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/18/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/18/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/18/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/18/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/18/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/19/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/19/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/19/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/19/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/19/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/19/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/19/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/19/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/19/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/20/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/20/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/20/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/20/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/20/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/20/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/20/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/20/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/20/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/21/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/21/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/21/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/21/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/21/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/21/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/21/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/21/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/21/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/22/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/22/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/22/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/22/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/22/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/22/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/22/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/22/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/22/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/23/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/23/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/23/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/23/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/23/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/23/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/23/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/23/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/23/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+s:Ge/RidgeFilter/tooth/24/Type      = "G4ExtrudedSolid"
+s:Ge/RidgeFilter/tooth/24/Parent    = "RidgeFilter/teeth"
+s:Ge/RidgeFilter/tooth/24/Material  = Ge/RidgeFilter/teeth/Material
+dv:Ge/RidgeFilter/tooth/24/Off1     = Ge/RidgeFilter/teeth/Off1 m
+dv:Ge/RidgeFilter/tooth/24/Off2     = Ge/RidgeFilter/teeth/Off2 m
+u:Ge/RidgeFilter/tooth/24/Scale1    = Ge/RidgeFilter/teeth/Scale1
+u:Ge/RidgeFilter/tooth/24/Scale2    = Ge/RidgeFilter/teeth/Scale2
+d:Ge/RidgeFilter/tooth/24/HLZ       = Ge/RidgeFilter/teeth/HLZ  m
+dv:Ge/RidgeFilter/tooth/24/Polygons = Ge/RidgeFilter/teeth/Polygons m
+
+
+s:Ge/RidgeFilter/tooth/1/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/2/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/3/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/4/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/5/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/6/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/7/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/8/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/9/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/10/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/11/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/12/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/13/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/14/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/15/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/16/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/17/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/18/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/19/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/20/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/21/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/22/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/23/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle
+s:Ge/RidgeFilter/tooth/24/DrawingStyle = Ge/RidgeFilter/teeth/DrawingStyle

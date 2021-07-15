@@ -1,0 +1,140 @@
+
+
+s:Ge/World/Material	= "Air"
+d:Ge/World/HLX		= 1.0 m
+d:Ge/World/HLY		= 1.0 m
+
+#######################################
+
+#Material
+
+sv:Ma/Polyester/Components= 3 "Hydrogen" "Carbon"  "Oxygen" # names of elements
+uv:Ma/Polyester/Fractions= 3 0.364 0.455 0.181 # fractions of elements
+d:Ma/Polyester/Density= 1.35 g/cm3
+s:Ma/Polyester/DefaultColor="lightblue"
+
+
+sv:Ma/Active/Components= 5 "Hydrogen" "Lithium" "Carbon"  "Oxygen" "Aluminum"# names of elements
+uv:Ma/Active/Fractions= 5 0.568 0.007 0.276 0.133 0.016 # fractions of elements
+d:Ma/Active/Density= 1.2 g/cm3
+s:Ma/Active/DefaultColor="yellow"
+######################################
+# RCF Group
+######################################
+
+s:Ge/RCFGroup/Parent = "World"
+s:Ge/RCFGroup/Type   = "Group"
+d:Ge/RCFGroup/RotX   = 0.0 deg
+d:Ge/RCFGroup/RotY   = 0.0 deg
+d:Ge/RCFGroup/RotZ   = 0.0 deg
+d:Ge/RCFGroup/TransX = 0.0 cm
+d:Ge/RCFGroup/TransY = 0.0 cm
+d:Ge/RCFGroup/TransZ = 0.0 cm
+
+#######################################
+#  of Polyester
+#######################################
+s:Ge/Polyester/Type     = "TsBox"
+s:Ge/Polyester/Parent   = "RCFGroup"
+s:Ge/Polyester/Material = "Polyester"
+d:Ge/Polyester/TransX   = 0.0 cm
+d:Ge/Polyester/TransY   = 0.0 cm
+d:Ge/Polyester/TransZ   = 0.075 mm
+d:Ge/Polyester/RotX     = 0.0 deg
+d:Ge/Polyester/RotY     = 0.0 deg
+d:Ge/Polyester/RotZ     = 0.0 deg
+d:Ge/Polyester/HLX   = 5.0 mm
+d:Ge/Polyester/HLY   = 5.0 mm
+d:Ge/Polyester/HLZ   = 0.0625 mm
+s:Ge/Polyester/DrawingStyle 	   = "Solid"
+b:Ge/Polyester/PrintInformation = "True"
+
+
+s:Ge/PolyesterB/Type     = "TsBox"
+s:Ge/PolyesterB/Parent   = "RCFGroup"
+s:Ge/PolyesterB/Material = "Polyester"
+d:Ge/PolyesterB/TransX   = 0.0 cm
+d:Ge/PolyesterB/TransY   = 0.0 cm
+d:Ge/PolyesterB/TransZ   = -0.075 mm
+d:Ge/PolyesterB/RotX     = 0.0 deg
+d:Ge/PolyesterB/RotY     = 0.0 deg
+d:Ge/PolyesterB/RotZ     = 0.0 deg
+d:Ge/PolyesterB/HLX   = 5.0 mm
+d:Ge/PolyesterB/HLY   = 5.0 mm
+d:Ge/PolyesterB/HLZ   = 0.0625 mm
+s:Ge/PolyesterB/DrawingStyle 	   = "Solid"
+b:Ge/PolyesterB/PrintInformation = "True"
+
+
+
+
+#  of Active
+#######################################
+s:Ge/Active/Type     = "TsBox"
+s:Ge/Active/Parent   = "RCFGroup"
+s:Ge/Active/Material = "Active"
+d:Ge/Active/TransX   = 0.0 cm
+d:Ge/Active/TransY   = 0.0 cm
+d:Ge/Active/TransZ   = 0.0 cm
+d:Ge/Active/RotX     = 0.0 deg
+d:Ge/Active/RotY     = 0.0 deg
+d:Ge/Active/RotZ     = 0.0 deg
+d:Ge/Active/HLX     = 5.0 mm
+d:Ge/Active/HLY     = 5.0 mm
+d:Ge/Active/HLZ     = 0.0125 mm
+#s:Ge/Active/DrawingStyle 	   = "Solid"
+b:Ge/Active/PrintInformation = "True"
+
+
+### ROI###
+s:Ge/Active/ROI/Type	= "TsCylinder"
+s:Ge/Active/ROI/Parent	= "Active"
+s:Ge/Active/ROI/Material	= "Active"
+d:Ge/Active/ROI/HL	= 0.025 mm
+d:Ge/Active/ROI/Rmax	= 5  mm
+s:Ge/Active/ROI/DrawingStyle 	   = "Solid"
+
+
+
+
+
+# Then copy a layer  and place it using Displacement parameter
+
+
+dv:Ge/RCFGroup/Displacement = 3  -10 0 10 cm
+
+
+
+
+
+
+
+s:Gr/ViewA/Type					      = "OpenGL"
+sv:Gr/ViewA/VisibleWorlds			= 1 "All"
+i:Gr/ViewA/WindowSizeX				= 1024
+i:Gr/ViewA/WindowSizeY				= 768
+d:Gr/ViewA/Theta				      = 90 deg
+d:Gr/ViewA/Phi					      = 0 deg
+#s:Gr/ViewA/Projection				= "Perspective"
+s:Gr/ViewA/Projection				  = "Orthogonal"
+#d:Gr/ViewA/PerspectiveAngle			= 30 deg
+u:Gr/ViewA/Zoom					= 3
+
+#s:Gr/ViewA/AxesComponent = "PVTscintillator"
+#s:Gr/ViewA/AxesComponent = "Absorber"
+#d:Gr/ViewA/AxesSize      = 0.1 m
+
+i:Gr/ViewA/tracking/storeTrajectories= 0
+
+i:Gr/ViewA/multithreading/maxEventQueueSize =10000
+b:Gr/ViewA/HiddenLineRemovalForTrajectories	= "True"
+b:Gr/ViewA/IncludeAxes			   	= "True"
+d:Gr/ViewA/AxesSize				      = 5 cm
+b:Ge/World/Invisible				    = "True"
+
+b:Gr/Enable			                = "True"
+#b:Ge/QuitIfOverlapDetected	= "True"
+
+b:Ts/PauseBeforeSequence 	      = "True"
+b:Ts/PauseBeforeQuit		        = "True"
+b:Ts/UseQt                      = "True"

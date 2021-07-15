@@ -1,0 +1,23 @@
+includeFile = Materials.txt
+
+
+s:Ge/Collimator2/Type   = "Group"
+s:Ge/Collimator2/Parent = "World"
+s:Ge/Collimator2/empty  = "World"
+
+
+
+### erzeuge Messingzylinder ###
+s:Ge/Collimator2/metall/Type     = "TsCylinder"
+s:Ge/Collimator2/metall/Parent   = "Collimator2"
+s:Ge/Collimator2/metall/Material = "CuZn39Pb3"
+d:Ge/Collimator2/metall/HL       = 16.5 mm
+d:Ge/Collimator2/metall/Rmax     = 9 cm
+
+### erzeuge zylinderfˆrmiges Loch im Messingzylinder ###
+s:Ge/Collimator2/hole/Type	= "TsCylinder"
+s:Ge/Collimator2/hole/Parent	= "Collimator2/metall"
+s:Ge/Collimator2/hole/Material	= Ge/Collimator2/empty
+d:Ge/Collimator2/hole/HL	= 16.5 mm
+d:Ge/Collimator2/hole/Rmax	= 10  mm
+d:Ge/Collimator2/hole/HLZ	= Ge/Collimator2/metall/HL m
