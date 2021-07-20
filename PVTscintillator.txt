@@ -1,0 +1,50 @@
+# PVTscintillator hexagonal prism
+
+includeFile = Materials.txt
+
+
+s:Ge/PVT/Type   = "Group"
+s:Ge/PVT/Parent = "World"
+
+
+
+
+### erzeuge Messingzylinder ###
+s:Ge/PVT/scintillator/Type             = "G4SPolyhedra"
+s:Ge/PVT/scintillator/Parent           = "PVT"
+s:Ge/PVT/scintillator/Material         = "G4_PLASTIC_SC_VINYLTOLUENE"
+d:Ge/PVT/scintillator/RotX             = 0 deg
+d:Ge/PVT/scintillator/RotY             = 0 deg
+d:Ge/PVT/scintillator/RotZ             = 0 deg
+d:Ge/PVT/scintillator/PhiStart         = 0 deg
+d:Ge/PVT/scintillator/PhiTotal         = 360 deg
+i:Ge/PVT/scintillator/NSides           = 6
+dv:Ge/PVT/scintillator/R               = 5 0 0 10.2 10.2 0 mm  #10.2 is the lato dell'esagono
+dv:Ge/PVT/scintillator/Z               = 5 0 0 0 11 11 mm #11 is the thickness
+s:Ge/PVT/scintillator/Color            = "green"
+#s:Ge/PVT/scintillator/DrawingStyle      = "Solid"
+
+b:Ge/PVT/scintillator/PrintInformation  = "True"
+
+
+
+#PVT scibtillator reconstructed area
+s:Ge/PVT/reconstructedarea/Type             = "TsBox"
+s:Ge/PVT/reconstructedarea/Parent           = "PVT/scintillator"
+s:Ge/PVT/reconstructedarea/Material         = "G4_PLASTIC_SC_VINYLTOLUENE"
+d:Ge/PVT/reconstructedarea/TransX           = 0 cm
+d:Ge/PVT/reconstructedarea/TransY           = 0 cm
+d:Ge/PVT/reconstructedarea/TransZ           = 5.5 mm
+d:Ge/PVT/reconstructedarea/RotX             = 0 deg
+d:Ge/PVT/reconstructedarea/RotY             = 0 deg
+d:Ge/PVT/reconstructedarea/RotZ             = 0 deg
+d:Ge/PVT/reconstructedarea/HLX =            5.1 mm
+d:Ge/PVT/reconstructedarea/HLY =            5.9 mm
+d:Ge/PVT/reconstructedarea/HLZ =            5.5 mm
+s:Ge/PVT/reconstructedarea/Color            = "red"
+s:Ge/PVT/reconstructedarea/DrawingStyle      = "Solid"
+
+b:Ge/PVT/reconstructedarea/PrintInformation  = "True"
+i:Ge/PVT/reconstructedarea/XBins = 161
+i:Ge/PVT/reconstructedarea/YBins = 1
+i:Ge/PVT/reconstructedarea/ZBins = 170

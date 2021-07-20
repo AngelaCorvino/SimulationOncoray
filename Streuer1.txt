@@ -1,0 +1,11 @@
+
+includeFile = Materials.txt
+
+
+s:Ge/Streuer1/Parent 	= "World"
+s:Ge/Streuer1/Type 		= "TsBox"
+s:Ge/Streuer1/Material 	= "Lead"
+
+d:Ge/Streuer1/HLX      	= 40.5 mm
+d:Ge/Streuer1/HLY      	= 40.5 mm
+d:Ge/Streuer1/HLZ      	= 1.55 mm

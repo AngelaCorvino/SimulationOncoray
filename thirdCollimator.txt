@@ -1,0 +1,21 @@
+includeFile = Materials.txt
+
+
+s:Ge/Collimator3/Type   = "Group"
+s:Ge/Collimator3/Parent = "World"
+s:Ge/Collimator3/empty  = "World"
+
+### erzeuge Aluminiumblock ###
+s:Ge/Collimator3/metall/Type		= "TsBox"
+s:Ge/Collimator3/metall/Parent		= "Collimator3"
+s:Ge/Collimator3/metall/Material	= "Aluminum"
+d:Ge/Collimator3/metall/HLX	= 15 cm
+d:Ge/Collimator3/metall/HLY	= 15 cm
+d:Ge/Collimator3/metall/HLZ	= 6 mm
+
+### erzeuge zylinderfˆrmiges Loch im Aluminiumblock ###
+s:Ge/Collimator3/hole/Type	= "TsCylinder"
+s:Ge/Collimator3/hole/Parent	= "Collimator3/metall"
+s:Ge/Collimator3/hole/Material	= Ge/Collimator3/empty
+d:Ge/Collimator3/hole/HL	= 6 mm
+d:Ge/Collimator3/hole/Rmax	= 3.5 mm # 1.5, 2 ,2.25, 3.5

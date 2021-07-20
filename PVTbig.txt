@@ -1,0 +1,30 @@
+# PVTscintillator hexagonal prism
+
+includeFile = Materials.txt
+
+
+s:Ge/PVT/Type   = "Group"
+s:Ge/PVT/Parent = "World"
+
+
+
+#PVT scibtillator reconstructed area
+s:Ge/PVT/big/Type             = "TsBox"
+s:Ge/PVT/big/Parent           = "PVT"
+s:Ge/PVT/big/Material         = "G4_PLASTIC_SC_VINYLTOLUENE"
+d:Ge/PVT/big/TransX           = 0 cm
+d:Ge/PVT/big/TransY           = 0 cm
+d:Ge/PVT/big/TransZ           = 0 mm
+d:Ge/PVT/big/RotX             = 0 deg
+d:Ge/PVT/big/RotY             = 0 deg
+d:Ge/PVT/big/RotZ             = 0 deg
+d:Ge/PVT/big/HLX =            5.1 mm
+d:Ge/PVT/big/HLY =            5.9 mm
+d:Ge/PVT/big/HLZ =            2 cm
+s:Ge/PVT/big/Color            = "red"
+s:Ge/PVT/big/DrawingStyle      = "Solid"
+
+b:Ge/PVT/big/PrintInformation  = "True"
+i:Ge/PVT/big/XBins = 161
+i:Ge/PVT/big/YBins = 1
+i:Ge/PVT/big/ZBins = 200
