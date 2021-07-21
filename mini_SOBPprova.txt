@@ -125,10 +125,10 @@ d:Ge/PCplates/block/HLY		= 20 cm
 ### Thickness of the 11 PC panels totals 85, 25mm # mean thickness 7.75##
 ### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7 mm  ###
 #d:Ge/PCplates/block/HLZ		= 42.625 mm
-
+d:Ge/PCplates/block/HLZ		= 31.0 mm
 ### Thickness of the 12 PC panels totals 85, 25mm # mean thickness 7.75##
 ### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7,7.75 mm  ###
-d:Ge/PCplates/block/HLZ		= 46.5 mm
+#d:Ge/PCplates/block/HLZ		= 46.5 mm
 
 
 
@@ -170,7 +170,7 @@ b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
 #i:Ge/MyScorer/PhiBins = 1
 #i:Ge/MyScorer/ZBins = 100                    #like RCF stack
 
-s:Sc/MyScorer/Outputfile = "DoseToWater_150MeVproton_prova"
+s:Sc/MyScorer/Outputfile = "DoseToWater_150MeVproton_8PCprova"
 s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/MyScorer/OutputType= "csv"
 
@@ -179,7 +179,7 @@ s:Sc/MyScorer/OutputType= "csv"
 #Scoring the PVT  along z
 s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
 s:Sc/EnergyDepPVT/Component                 = "PVT/big"
-s:Sc/EnergyDepPVT/Outputfile = "EnergyDeposit_150MeVproton_prova"
+s:Sc/EnergyDepPVT/Outputfile = "EnergyDeposit_150MeVproton_8PCprova"
 s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/EnergyDepPVT/OutputType= "csv"
 

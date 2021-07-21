@@ -120,54 +120,14 @@ d:Ge/Collimator3/TransZ		= -3 cm
 
 
 
+includeFile = PVTscintillator.txt
+### Positionierung des dritten Kollimators in der Welt ###
+dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   + 1.6 cm #changeble #(d:Ge/PCplates/block/HLZ	+ 3,35)
+##########################################################################
 
 
 
 
-
-# PVTscintillator hexagonal prism
-
-s:Ge/PVTscintillator/Type             = "G4SPolyhedra"
-s:Ge/PVTscintillator/Parent           = "World"
-s:Ge/PVTscintillator/Material         = "G4_PLASTIC_SC_VINYLTOLUENE"
-d:Ge/PVTscintillator/TransX           = 0 cm
-d:Ge/PVTscintillator/TransY           = 0 cm
-dc:Ge/PVTscintillator/TransZ           = -1.4  cm #changeble
-d:Ge/PVTscintillator/RotX             = 0 deg
-d:Ge/PVTscintillator/RotY             = 0 deg
-d:Ge/PVTscintillator/RotZ             = 0 deg
-d:Ge/PVTscintillator/PhiStart         = 0 deg
-d:Ge/PVTscintillator/PhiTotal         = 360 deg
-i:Ge/PVTscintillator/NSides           = 6
-dv:Ge/PVTscintillator/R               = 5 0 0 10.2 10.2 0 mm  #10.2 is the lato dell'esagono
-dv:Ge/PVTscintillator/Z               = 5 0 0 0 11 11 mm #11 is the thickness
-s:Ge/PVTscintillator/Color            = "green"
-s:Ge/PVTscintillator/DrawingStyle      = "Solid"
-
-b:Ge/PVTscintillator/PrintInformation  = "True"
-
-
-#PVT scibtillator reconstructed area
-s:Ge/PVTreconstructedarea/Type             = "TsBox"
-s:Ge/PVTreconstructedarea/Parent           = "PVTscintillator"
-s:Ge/PVTreconstructedarea/Material         = "G4_PLASTIC_SC_VINYLTOLUENE"
-d:Ge/PVTreconstructedarea/TransX           = 0 cm
-d:Ge/PVTreconstructedarea/TransY           = 0 cm
-d:Ge/PVTreconstructedarea/TransZ           = 5.5 mm
-d:Ge/PVTreconstructedarea/RotX             = 0 deg
-d:Ge/PVTreconstructedarea/RotY             = 0 deg
-d:Ge/PVTreconstructedarea/RotZ             = 0 deg
-d:Ge/PVTreconstructedarea/HLX =            5.1 mm
-d:Ge/PVTreconstructedarea/HLY =            5.9 mm
-d:Ge/PVTreconstructedarea/HLZ =            5.5 mm
-s:Ge/PVTreconstructedarea/Color            = "red"
-s:Ge/PVTreconstructedarea/DrawingStyle      = "Solid"
-
-b:Ge/PVTreconstructedarea/PrintInformation  = "True"
-i:Ge/PVTreconstructedarea/XBins = 161
-i:Ge/PVTreconstructedarea/YBins = 1
-i:Ge/PVTreconstructedarea/ZBins = 170
-b:Ge/QuitIfOverlapDetected = "False"
 
 
 
@@ -177,7 +137,7 @@ b:Ge/QuitIfOverlapDetected = "False"
 
 #Scoring the PVT  along z
 s:Sc/MyScorer/Quantity= "DoseToWater"
-s:Sc/MyScorer/Component= "PVTreconstructedarea"
+s:Sc/MyScorer/Component= "PVT/reconstructedarea"
 b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
 #i:Ge/MyScorer/RBins = 1
 #i:Ge/MyScorer/PhiBins = 1
@@ -191,7 +151,7 @@ s:Sc/MyScorer/OutputType= "csv"
 
 #Scoring the PVT  along z
 s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
-s:Sc/EnergyDepPVT/Component                 = "PVTreconstructedarea"
+s:Sc/EnergyDepPVT/Component                 = "PVT/reconstructedarea"
 s:Sc/EnergyDepPVT/Outputfile = "EnergyDeposit_90MeVproton_PVT_6PC_1PMMA"
 s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/EnergyDepPVT/OutputType= "csv"
