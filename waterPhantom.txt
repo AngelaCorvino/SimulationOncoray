@@ -1,0 +1,43 @@
+includeFile = Materials.txt
+
+s:Ge/WaterPhantom/Type    = "Group"
+s:Ge/WaterPhantom/Parent  = "World"
+
+
+s:Ge/WaterPhantom/water/Type     = "TsBox"
+s:Ge/WaterPhantom/water/Parent   = "WaterPhantom"
+s:Ge/WaterPhantom/water/Material = "G4_WATER"
+d:Ge/WaterPhantom/water/HLX      = 20 cm
+d:Ge/WaterPhantom/water/HLY      = 20 cm
+d:Ge/WaterPhantom/water/HLZ      = Ge/WaterPhantom/active/HL + .25 mm
+d:Ge/WaterPhantom/water/TransZ   = Ge/waterPhantom/water/HLZ m
+
+#Giraffe 12cm diameter ICs
+s:Ge/WaterPhantom/active/Type     = "TsCylinder"
+s:Ge/WaterPhantom/active/Parent   = "WaterPhantom/water"
+s:Ge/WaterPhantom/active/Material = Ge/WaterPhantom/water/Material
+d:Ge/WaterPhantom/active/RMax     =  6 cm
+d:Ge/WaterPhantom/active/HL       = 9 cm
+d:Ge/WaterPhantom/active/TransZ   = 0 mm
+
+s:Sc/WaterPhantom/dose/Quantity        = "DoseToMedium"
+s:Sc/WaterPhantom/dose/Component       = "WaterPhantom/active"
+s:Sc/WaterPhantom/dose/OutputFile      = "data/WaterPhantomdoseafteraperture"
+#b:Sc/WaterPhantom/dose/OutputToConsole = "TRUE"
+s:Sc/WaterPhantom/dose/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/WaterPhantom/dose/OutputType                = "csv"
+sv:Sc/WaterPhantom/dose/Report         = 1 "Sum"
+i:Sc/WaterPhantom/dose/XBins           = 10
+i:Sc/WaterPhantom/dose/YBins           = 10
+i:Sc/WaterPhantom/dose/ZBins           = 600
+
+
+s:Sc/WaterPhantom/surface/Quantity                  = "PhaseSpace"
+s:Sc/WaterPhantom/surface/Surface                   = "WaterPhantom/water/ZMinusSurface"
+s:Sc/WaterPhantom/surface/OutputFile                = "data/WaterPhantomsurfaceafteraperture"
+s:Sc/WaterPhantom/surface/OutputType                = "Binary"
+s:Sc/WaterPhantom/surface/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/WaterPhantom/surface/OnlyIncludeParticlesGoing = "in"
+b:Sc/WaterPhantom/surface/IncludeTOPASTime          = "False"
+b:Sc/WaterPhantom/surface/IncludeTimeOfFlight       = "True"
+b:Sc/WaterPhantom/surface/IncludeVertexInfo         = "True"

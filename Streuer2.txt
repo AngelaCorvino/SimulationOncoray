@@ -1,0 +1,30 @@
+
+includeFile = Materials.txt
+#Streuer 2
+s:Ge/Streuer2/Type   	= "Group"
+s:Ge/Streuer2/Parent 	= "World"
+
+
+# Erste groessere Bleifolie
+s:Ge/Streuer2/Pb1/Parent 	= "Streuer2"
+s:Ge/Streuer2/Pb1/Type 		= "TsCylinder"
+s:Ge/Streuer2/Pb1/Material 	= "Lead"
+d:Ge/Streuer2/Pb1/RMax     	= 85 mm
+d:Ge/Streuer2/Pb1/HL      	= 0.35 mm
+
+# Zweite kleinere Bleifolie
+s:Ge/Streuer2/Pb2/Parent 	= "Streuer2"
+s:Ge/Streuer2/Pb2/Type 		= "TsCylinder"
+s:Ge/Streuer2/Pb2/Material 	= "Lead"
+d:Ge/Streuer2/Pb2/RMax     	= 18.7 mm
+d:Ge/Streuer2/Pb2/HL      	= 1.65 mm
+d:Ge/Streuer2/Pb2/TransZ	= 2.0 mm
+
+# PMMA
+s:Ge/Streuer2/PMMA/Parent 	= "Streuer2"
+s:Ge/Streuer2/PMMA/Type 	= "TsCylinder"
+s:Ge/Streuer2/PMMA/Material = "Lucite"
+d:Ge/Streuer2/PMMA/RMax     = 80 mm
+d:Ge/Streuer2/PMMA/RMin     = 18.7 mm
+d:Ge/Streuer2/PMMA/HL      	= 8.55 mm
+d:Ge/Streuer2/PMMA/TransZ	= 8.9 mm

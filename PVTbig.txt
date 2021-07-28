@@ -20,7 +20,7 @@ d:Ge/PVT/big/RotY             = 0 deg
 d:Ge/PVT/big/RotZ             = 0 deg
 d:Ge/PVT/big/HLX =            5.1 mm
 d:Ge/PVT/big/HLY =            5.9 mm
-d:Ge/PVT/big/HLZ =            2 cm
+d:Ge/PVT/big/HLZ =            6 cm
 s:Ge/PVT/big/Color            = "red"
 s:Ge/PVT/big/DrawingStyle      = "Solid"
 
@@ -28,3 +28,13 @@ b:Ge/PVT/big/PrintInformation  = "True"
 i:Ge/PVT/big/XBins = 161
 i:Ge/PVT/big/YBins = 1
 i:Ge/PVT/big/ZBins = 200
+
+s:Sc/PVT/surface/Quantity                  = "PhaseSpace"
+s:Sc/PVT/surface/Surface                   = "PVT/big/ZMinusSurface"
+s:Sc/PVT/surface/OutputFile                = "surface"
+s:Sc/PVT/surface/OutputType                = "Binary"
+s:Sc/PVT/surface/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/PVT/surface/OnlyIncludeParticlesGoing = "in"
+b:Sc/PVT/surface/IncludeTOPASTime          = "False"
+b:Sc/PVT/surface/IncludeTimeOfFlight       = "True"
+b:Sc/PVT/surface/IncludeVertexInfo         = "True"

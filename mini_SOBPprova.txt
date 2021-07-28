@@ -94,6 +94,12 @@ d:Ge/ridgeFilter/RotZ   = 0 deg
 d:Ge/ridgeFilter/RotX   = 0 deg
 ##########################################################################
 #######################################
+
+
+
+
+
+
 ### 1. Kollimator ###
 
 # brass collimator with square hole (probably no effect in this setup)
@@ -110,25 +116,40 @@ includeFile = secondCollimator.txt
 d:Ge/Collimator2/TransZ		= -45.4 cm
 
 ##########################################################################
+
+
+
+
+##########################################################################
 ### PC-Platten ###
 
-s:Ge/PCplates/Type    = "Group"
-s:Ge/PCplates/Parent  = "World"
-s:Ge/PCplates/DrawingStyle      = "Solid"
+#s:Ge/PCplates/Type    = "Group"
+#s:Ge/PCplates/Parent  = "World"
+#s:Ge/PCplates/DrawingStyle      = "Solid"
 ### create cuboids from polycarbonate = Lexan ###
-s:Ge/PCplates/block/Type	= "TsBox"
-s:Ge/PCplates/block/Parent	= "PCplates"
-s:Ge/PCplates/block/Material	= "Lexan"
-d:Ge/PCplates/block/HLX		= 20 cm
-d:Ge/PCplates/block/HLY		= 20 cm
+#s:Ge/PCplates/block/Type	= "TsBox"
+#s:Ge/PCplates/block/Parent	= "PCplates"
+#s:Ge/PCplates/block/Material	= "Lexan"
+#d:Ge/PCplates/block/HLX		= 20 cm
+#d:Ge/PCplates/block/HLY		= 20 cm
 
 ### Thickness of the 11 PC panels totals 85, 25mm # mean thickness 7.75##
 ### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7 mm  ###
 #d:Ge/PCplates/block/HLZ		= 42.625 mm
-d:Ge/PCplates/block/HLZ		= 31.0 mm
+#d:Ge/PCplates/block/HLZ		= 31.0 mm
 ### Thickness of the 12 PC panels totals 85, 25mm # mean thickness 7.75##
 ### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7,7.75 mm  ###
 #d:Ge/PCplates/block/HLZ		= 46.5 mm
+
+### Thickness of the 8 PC panels totals 85, 25mm # mean thickness 7.75##
+### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7 mm  ###
+#d:Ge/PCplates/block/HLZ		= 31 mm
+#d:Ge/PCplates/block/HLZ		= 23.25 mm
+
+
+### Thickness of the 7 PC panels totals 54.2 mm ###
+### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7 mm  ###
+#d:Ge/PCplates/block/HLZ		= 2.71 cm
 
 
 
@@ -148,12 +169,15 @@ s:Ge/Collimator3/DrawingStyle      = "Solid"
 
 
 
-
-
-
-includeFile = PVTbig.txt
+includeFile = waterPhantom.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   + 4 cm #changeble #(d:Ge/PCplates/block/HLZ	+ 3,35)
+dc:Ge/WaterPhantom/TransZ		= Ge/Collimator3/TransZ   + 3 cm #changeble #(d:Ge/PCplates/block/HLZ	+ 3,35)
+##########################################################################
+
+
+#includeFile = PVTbig.txt
+### Positionierung des dritten Kollimators in der Welt ###
+#dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   + 7 cm #changeble #(d:Ge/PCplates/block/HLZ	+ 3,35)
 ##########################################################################
 
 
@@ -163,25 +187,22 @@ dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   + 4 cm #changeble #(d:Ge/PCplates/bl
 
 
 #Scoring the PVT  along z
-s:Sc/MyScorer/Quantity= "DoseToWater"
-s:Sc/MyScorer/Component= "PVT/big"
-b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
-#i:Ge/MyScorer/RBins = 1
-#i:Ge/MyScorer/PhiBins = 1
-#i:Ge/MyScorer/ZBins = 100                    #like RCF stack
+#s:Sc/MyScorer/Quantity= "DoseToWater"
+#s:Sc/MyScorer/Component= "PVT/big"
+#b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
 
-s:Sc/MyScorer/Outputfile = "DoseToWater_150MeVproton_8PCprova"
-s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/MyScorer/OutputType= "csv"
+#s:Sc/MyScorer/Outputfile = "data/DoseToWater_150MeVproton_prova"
+#s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
+#s:Sc/MyScorer/OutputType= "csv"
 
 
 
 #Scoring the PVT  along z
-s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
-s:Sc/EnergyDepPVT/Component                 = "PVT/big"
-s:Sc/EnergyDepPVT/Outputfile = "EnergyDeposit_150MeVproton_8PCprova"
-s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/EnergyDepPVT/OutputType= "csv"
+#s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
+#s:Sc/EnergyDepPVT/Component                 = "PVT/big"
+#s:Sc/EnergyDepPVT/Outputfile = "data/EnergyDeposit_150MeVproton_prova"
+#s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
+#s:Sc/EnergyDepPVT/OutputType= "csv"
 
 
 
@@ -221,11 +242,11 @@ b:Ge/World/Invisible				    = "True"
 #b:Ts/PauseBeforeSequence 	      = "True"
 #b:Ts/PauseBeforeQuit		        = "True"
 #b:Ts/UseQt                      = "True"
-
+#s:Gr/ViewA/setbackground    ="white"
 ### Number of simulated particles ###
+#i:So/FBTR1/NumberOfHistoriesInRun = 100000
 i:So/FBTR1/NumberOfHistoriesInRun = 1000000
-
-i:Ts/ShowHistoryCountAtInterval = 100
+i:Ts/ShowHistoryCountAtInterval = 1000
 
 #disable graphics
 b:Gr/Enable = "False"
