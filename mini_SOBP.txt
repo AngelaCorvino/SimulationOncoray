@@ -133,7 +133,8 @@ d:Ge/PCplates/block/HLY		= 20 cm
 ### Thickness of the 8 PC panels totals 85, 25mm # mean thickness 7.75##
 ### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7 mm  ###
 #d:Ge/PCplates/block/HLZ		= 31 mm
-d:Ge/PCplates/block/HLZ		= 34.875 mm
+#d:Ge/PCplates/block/HLZ		= 34.875 mm #9PC
+d:Ge/PCplates/block/HLZ		= 38.75 mm
 ### Positionierung der PC-Platten in der Welt ###
 dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/TransZ		+ 33.765 cm
 
@@ -174,7 +175,7 @@ b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
 #i:Ge/MyScorer/PhiBins = 1
 #i:Ge/MyScorer/ZBins = 100                    #like RCF stack
 
-s:Sc/MyScorer/Outputfile = "data/SOBP/DoseToWater_150MeVproton_PVT_9PC_SOBP"
+s:Sc/MyScorer/Outputfile = "data/SOBP/DoseToWater_150MeVproton_PVT_10PC_SOBP_2Dscorer"
 s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/MyScorer/OutputType= "csv"
 
@@ -183,7 +184,7 @@ s:Sc/MyScorer/OutputType= "csv"
 #Scoring the PVT  along z
 s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
 s:Sc/EnergyDepPVT/Component                 = "PVT/reconstructedarea"
-s:Sc/EnergyDepPVT/Outputfile = "data/SOBP/EnergyDeposit_150MeVproton_PVT_9PC_SOBP"
+s:Sc/EnergyDepPVT/Outputfile = "data/SOBP/EnergyDeposit_150MeVproton_PVT_10PC_SOBP_2Dscorer"
 s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/EnergyDepPVT/OutputType= "csv"
 
@@ -227,10 +228,10 @@ b:Ge/World/Invisible				    = "True"
 #b:Ts/UseQt                      = "True"
 
 ### Number of simulated particles ###
-i:So/FBTR1/NumberOfHistoriesInRun = 1000000
+i:So/FBTR1/NumberOfHistoriesInRun = 10000000
 #i:So/FBTR1/NumberOfHistoriesInRun = 500
 #i:So/FBTR1/NumberOfHistoriesInRun = 1000
-i:Ts/ShowHistoryCountAtInterval = 100
+i:Ts/ShowHistoryCountAtInterval = 1000
 
 #disable graphics
 b:Gr/Enable = "False"

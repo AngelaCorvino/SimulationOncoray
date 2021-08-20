@@ -45,8 +45,9 @@ s:Ge/PVT/reconstructedarea/Color            = "red"
 s:Ge/PVT/reconstructedarea/DrawingStyle      = "Solid"
 
 b:Ge/PVT/reconstructedarea/PrintInformation  = "True"
-i:Ge/PVT/reconstructedarea/XBins = 161
+#i:Ge/PVT/reconstructedarea/YBins = 186
 i:Ge/PVT/reconstructedarea/YBins = 1
+i:Ge/PVT/reconstructedarea/XBins = 161
 i:Ge/PVT/reconstructedarea/ZBins = 170
 
 

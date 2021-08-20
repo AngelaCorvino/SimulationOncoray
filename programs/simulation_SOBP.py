@@ -8,17 +8,17 @@ from scipy import interpolate
 
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_12PC_SOBP.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_9PC_SOBP.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/EnergyDeposit_150MeVproton_PVT_12PC_SOBP.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/EnergyDeposit_150MeVproton_PVT_9PC_SOBP.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix_energy = np.array(df)# convert dataframe df to array
-
+print(np.shape(topas_datamatrix))
 
 
 
@@ -91,7 +91,7 @@ plt.plot(np.arange(0,numberof_xbins,1)*0.0634,xprofiles[50,:] ,'.-',label='{x pr
 #plt.plot(np.arange(0,numberof_xbins,1)*0.0634,xprofiles[100,:] ,'.-',label='{x profile at z = 6,34 mm inside PVT}') # plots depth on x, dose on y, and uses default layout
 plt.plot(np.arange(0,numberof_xbins,1)*0.0634,xprofiles[150,:] ,'.-',label='{x profile at z = 9,51 mm inside PVT}') # plots depth on x, dose on y, and uses default layout
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
-plt.title('Scoring in PVT  in PVT(aperture diameter= 7mm, 12 PC)') # Title
+plt.title('Scoring in PVT  in PVT(aperture diameter= 7mm, 9 PC)') # Title
 plt.xlabel('Depth in Water x direction [mm]') # label for x-axis
 plt.ylabel(' Dose in water ') # label for y axis
 
@@ -112,7 +112,7 @@ plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile/np.max( xmeanprofile
 
 
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
-plt.title('Scoring in PVT(aperture diameter= 7mm, 12PC)') # Title
+plt.title('Scoring in PVT(aperture diameter= 7mm, 9PC)') # Title
 plt.xlabel('Depth in Water x direction [mm]') # label for x-axis
 plt.ylabel('Relative Dose in water ') # label for y axis
 
@@ -127,7 +127,7 @@ plt.figure(4) # creates a figure in which we plot
 plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile,'.-',label='{ mean value of 161 bin along x}')
 
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
-plt.title('Scoring in PVT (aperture diameter=7mm ,12 PC ) ') # Title
+plt.title('Scoring in PVT (aperture diameter=7mm ,9 PC ) ') # Title
 plt.xlabel('Depth in water z direction [mm]') # label for x-axis
 plt.ylabel(' Dose in water ') # label for y axis
 
