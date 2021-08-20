@@ -14,18 +14,18 @@ df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
 depth=np.array(topas_datamatrix[:,2])*0.4 #[mm]
 dose=np.array(topas_datamatrix[:,3])
-#dose=dose/np.max(dose) #normalization
+dose=dose/np.max(dose) #normalization
 
 
 
 
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_8PCprova.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_9PC_SOBP_3Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/EnergyDeposit_150MeVproton_8PCprova.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/EnergyDeposit_150MeVproton_9PC.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix_energy = np.array(df)# convert dataframe df to array
@@ -53,7 +53,7 @@ def get_z_energydeposition_at_x(data, x_binnumber):
 
 
 numberof_xbins = 161
-numberof_zbins = 200
+numberof_zbins = 170
 
 daten = topas_datamatrix
 
@@ -100,10 +100,11 @@ zmeanprofile_energy=np.sum(zprofiles_energy,axis=0)/numberof_xbins
 
 
 plt.figure(2) # creates a figure in which we plot
-plt.plot(depth,dose,'.-',label=' 150 MeV with ridge filter ')
-plt.title('Dose in water phantom after the third collimator ') # Title
+plt.plot(depth,dose,'.-',label=' Water phantom 120mm diametr cylinder  ')
+plt.plot(np.arange(0,numberof_zbins,1)*0.6, zmeanprofile/np.max(zmeanprofile),'.-',label='{Minisicidom }')
+plt.title('Dose  after the third collimator ') # Title
 plt.xlabel('Depth in Water z direction [mm]') # label for x-axis
-plt.ylabel('Dose in water ') # label for y axis
+plt.ylabel('Relative dose in water ') # label for y axis
 
 
 plt.legend()

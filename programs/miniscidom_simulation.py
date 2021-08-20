@@ -7,18 +7,18 @@ from scipy import interpolate
 
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/DoseToWater_90MeVproton_PVT_6PC_1PMMAPC.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_10PC_SOBP_2Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
-
+"""
 # read in the csv-file
 outputfile_topas = '/home/corvin22/SimulationOncoray/EnergyDeposit_90MeVproton_PVT_6PC_1PMMA.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix_energy = np.array(df)# convert dataframe df to array
 
-
+"""
 
 
 
@@ -33,12 +33,12 @@ def get_z_doseprofile_at_x(data, x_binnumber):
 
     z_profile_dosevalues = data[data[:,0]==x_binnumber][:,3] # get all doses in z-direction at given x
     return z_profile_dosevalues
-
+"""
 def get_z_energydeposition_at_x(data, x_binnumber):
 
     z_profile_energyvalues = data[data[:,0]==x_binnumber][:,3] # get all energies in z-direction at given x
     return z_profile_energyvalues
-
+"""
 numberof_xbins = 161
 numberof_zbins = 170
 
@@ -46,7 +46,7 @@ daten = topas_datamatrix
 
 xprofiles = np.zeros((numberof_zbins, numberof_xbins)) # create empty array to be filled
 zprofiles = np.zeros((numberof_xbins, numberof_zbins)) # create empty array to be filled
-zprofiles_energy = np.zeros((numberof_xbins, numberof_zbins)) # create empty array to be filled
+#zprofiles_energy = np.zeros((numberof_xbins, numberof_zbins)) # create empty array to be filled
 
 
 
@@ -70,7 +70,7 @@ for i in range(numberof_xbins):
 zmeanprofile=np.sum(zprofiles,axis=0)/numberof_xbins
 
 
-
+"""
 daten = topas_datamatrix_energy
 
 for i in range(numberof_xbins):
@@ -80,7 +80,7 @@ for i in range(numberof_xbins):
 
 zmeanprofile_energy=np.sum(zprofiles_energy,axis=0)/numberof_xbins
 
-
+"""
 
 
 
@@ -91,7 +91,7 @@ plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile/np.max(xmeanprofile)
 
 
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
-plt.title('Dose in PVT(aperture diameter= 7mm, 7 PC 1 PMMA)') # Title
+plt.title('Dose in PVT(aperture diameter= 7mm, 10PC )') # Title
 plt.xlabel('Depth in Water x direction [mm]') # label for x-axis
 plt.ylabel('Relative Dose in water ') # label for y axis
 
@@ -106,7 +106,7 @@ plt.figure(4) # creates a figure in which we plot
 plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile/np.max(zmeanprofile),'.-',label='{ mean value of 161 bin along x}')
 
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
-plt.title('Dose in PVT(aperture diameter=7mm ,6 PC 1 PMMA) ') # Title
+plt.title('Dose in PVT(aperture diameter=7mm ,10 PC ) ') # Title
 plt.xlabel('Depth in water z direction [mm]') # label for x-axis
 plt.ylabel(' Relative Dose in water ') # label for y axis
 
