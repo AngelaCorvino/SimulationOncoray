@@ -13,12 +13,19 @@ outputfile_topas = '/home/corvin22/SimulationOncoray/data/WaterPhantomdoseaftera
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
 depth=np.array(topas_datamatrix[:,2])*0.4 #[mm]
-dose=np.array(topas_datamatrix[:,3])
-dose=dose/np.max(dose) #normalization
+dose1=np.array(topas_datamatrix[:,3])
+dose1=dose1/np.max(dose1) #normalization
+
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/WaterPhantomdose.csv'
+df = pd.read_csv(outputfile_topas, comment='#', header=None)
+topas_datamatrix = np.array(df)# convert dataframe df to array
+depth=np.array(topas_datamatrix[:,2])*0.4 #[mm]
+dose2=np.array(topas_datamatrix[:,3])
+dose2=dose2/np.max(dose2) #normalization
 
 
 
-
+"""
 outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_9PC_SOBP_3Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -29,7 +36,6 @@ outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/EnergyDeposit_150
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix_energy = np.array(df)# convert dataframe df to array
-
 
 
 
@@ -83,7 +89,6 @@ for i in range(numberof_xbins):
 zmeanprofile=np.sum(zprofiles,axis=0)/numberof_xbins
 
 
-
 daten = topas_datamatrix_energy
 
 for i in range(numberof_xbins):
@@ -92,7 +97,7 @@ for i in range(numberof_xbins):
     i += 1
 
 zmeanprofile_energy=np.sum(zprofiles_energy,axis=0)/numberof_xbins
-
+"""
 
 
 
@@ -100,17 +105,18 @@ zmeanprofile_energy=np.sum(zprofiles_energy,axis=0)/numberof_xbins
 
 
 plt.figure(2) # creates a figure in which we plot
-plt.plot(depth,dose,'.-',label=' Water phantom 120mm diametr cylinder  ')
-plt.plot(np.arange(0,numberof_zbins,1)*0.6, zmeanprofile/np.max(zmeanprofile),'.-',label='{Minisicidom }')
-plt.title('Dose  after the third collimator ') # Title
-plt.xlabel('Depth in Water z direction [mm]') # label for x-axis
-plt.ylabel('Relative dose in water ') # label for y axis
+plt.plot(depth,dose1,'.-',label='Phantom after the aperture ')
+plt.plot(depth,dose2,'.-',label='Phantom before the aperture ')
+#plt.plot(np.arange(0,numberof_zbins,1)*0.6, zmeanprofile/np.max(zmeanprofile),'.-',label='{Minisicidom }')
+plt.title('Dose scored in  water phantom (120mm diametr cylinder) ') # Title
+plt.xlabel('Depth z direction [mm]') # label for x-axis
+plt.ylabel('Relative dose ') # label for y axis
 
 
 plt.legend()
 plt.minorticks_on()
 plt.grid()
-
+"""
 plt.figure(3) # creates a figure in which we plot
 plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile,'.-',label='{mean value of 200 bins along z}') # plots depth on x, dose on y, and uses default layout
 
@@ -143,7 +149,7 @@ plt.grid()
 
 
 
-
+"""
 
 
 
