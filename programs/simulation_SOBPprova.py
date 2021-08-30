@@ -112,12 +112,13 @@ plt.figure(2) # creates a figure in which we plot
 plt.plot(depth,dose1,'.-',label='Phantom after the aperture ')
 #plt.plot(depth,dose2,'.-',label='Phantom before the aperture ')
 #plt.plot(np.arange(0,numberof_zbins,1)*0.6, zmeanprofile/np.max(zmeanprofile),'.-',label='{Minisicidom }')
-plt.axvspan(xmin[0], xmin[0]+dx, facecolor='turquoise', alpha=0.3, label='equivalent to 10 PC')
-plt.axvspan(xmin[1], xmin[1]+dx, facecolor='turquoise', alpha=0.3, label='equivalent to 11 PC')
-plt.axvspan(xmin[2],xmin[2]+dx, facecolor='deepskyblue', alpha=0.3, label='12 PC')
-plt.title('Dose scored in  water phantom (120mm diametr cylinder) ') # Title
-plt.xlabel('Depth z direction [mm]') # label for x-axis
-plt.ylabel('Relative dose ') # label for y axis
+plt.axvspan(xmin[0], xmin[0]+dx, facecolor='green', alpha=0.3, label='  10 PC')
+plt.axvspan(xmin[1], xmin[1]+dx, facecolor='turquoise', alpha=0.3, label='  11 PC')
+#plt.axvspan(xmin[2],xmin[2]+dx, facecolor='deepskyblue', alpha=0.3, label='12 PC')
+plt.axvspan(xmin[2],xmin[2]+dx, facecolor='orange', alpha=0.3, label='12 PC')
+plt.title('Dose scored in  water phantom (120mm diametr cylinder) ',fontsize=24) # Title
+plt.xlabel('Depth z direction [mm]',fontsize=24) # label for x-axis
+plt.ylabel('Relative dose ',fontsize=24) # label for y axis
 
 plt.legend()
 plt.minorticks_on()

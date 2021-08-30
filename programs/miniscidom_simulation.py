@@ -54,32 +54,32 @@ numberof_zbins = 170
 xprofiles = np.zeros((numberof_zbins, numberof_xbins)) # create empty array to be filled
 xprofiles1 = np.zeros((numberof_zbins, numberof_xbins)) # create empty array to be filled
 zprofiles1 = np.zeros((numberof_xbins, numberof_zbins)) # create empty array to be filled
-zprofiles2 = np.zeros((numberof_xbins, numberof_zbins)) # create empty array to be filled
+#zprofiles2 = np.zeros((numberof_xbins, numberof_zbins)) # create empty array to be filled
 #zprofiles_energy = np.zeros((numberof_xbins, numberof_zbins)) # create empty array to be filled
 
-daten1 = topas_datamatrix1
-daten2 = topas_datamatrix2
+daten = topas_datamatrix1
 
 
-print(daten1)
+
+
 
 
 
 
 for i in range(numberof_zbins):
-    xprofile_at_z  = get_x_doseprofile_at_z(daten1, i)
+    xprofile_at_z  = get_x_doseprofile_at_z(daten, i)
     xprofiles[i,:] = xprofile_at_z
     i += 1
 
-xmeanprofile2=np.sum(xprofiles,axis=0)/numberof_zbins
+xmeanprofile1=np.sum(xprofiles,axis=0)/numberof_zbins
 
 
 for i in range(numberof_xbins):
-    zprofile_at_x  = get_z_doseprofile_at_x(daten1, i)
-    zprofiles2[i,:] = zprofile_at_x
+    zprofile_at_x  = get_z_doseprofile_at_x(daten, i)
+    zprofiles1[i,:] = zprofile_at_x
     i += 1
 
-zmeanprofile2=np.sum(zprofiles2,axis=0)/numberof_xbins
+zmeanprofile1=np.sum(zprofiles1,axis=0)/numberof_xbins
 
 
 
@@ -110,8 +110,8 @@ zmeanprofile_energy=np.sum(zprofiles_energy,axis=0)/numberof_xbins
 
 
 plt.figure(3) # creates a figure in which we plot
-#plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile1/np.max(xmeanprofile1),'.-',label='6 PC 1 PMMA') # plots depth on x, dose on y, and uses default layout
-plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile2/np.max(xmeanprofile2),'.-',label='7 PC') # plots depth on x, dose on y, and uses default layout
+plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile1/np.max(xmeanprofile1),'.-',label='7 PC') # plots depth on x, dose on y, and uses default layout
+#plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile2/np.max(xmeanprofile2),'.-',label='7 PC') # plots depth on x, dose on y, and uses default layout
 
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
 plt.title('Dose scored  in Miniscidom( aluminum aperture diameter= 7m)') # Title
@@ -126,10 +126,10 @@ plt.grid()
 
 
 plt.figure(4) # creates a figure in which we plot
-#plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile1/np.max(zmeanprofile1),'.-',label='{ 6 PC 1 PMMA}')
-plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile2/np.max(zmeanprofile2),'.-',label='{7PC}')
+plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile1/np.max(zmeanprofile1),'.-',label='{ 7 PC }')
+#plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile2/np.max(zmeanprofile2),'.-',label='{7PC}')
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
-plt.title('Dose Scored  in Minisicdom (aperture diameter= 7 mm ') # Title
+plt.title('Dose Scored  in Minisicdom (aperture diameter= 7 mm) ') # Title
 plt.xlabel('Depth in water z direction [mm]') # label for x-axis
 plt.ylabel(' Relative Dose in water ') # label for y axis
 

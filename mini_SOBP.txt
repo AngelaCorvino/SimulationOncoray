@@ -7,7 +7,7 @@ d:Ge/World/HLY		= 1.0 m
 
 
 # Source Position
-d:Ge/BeamPosition/TransZ = -204.3 cm
+d:Ge/BeamPosition/TransZ = 204.3 cm
 # Source Rotation
 d:Ge/BeamPosition/RotX   = 0 deg
 #Source Component
@@ -45,13 +45,13 @@ d:Ma/CuZn39Pb3/Density      = 8.47 g/cm3
 
 #Streuer 1
 includeFile = Streuer1.txt
-d:Ge/Streuer1/TransZ	= -195.4 cm
+d:Ge/Streuer1/TransZ	= 195.4 cm
 
 #Streuer 2
 s:Ge/Streuer2/Type   	= "Group"
 s:Ge/Streuer2/Parent 	= "World"
 d:Ge/Streuer2/TransX 	= 3.0 mm
-d:Ge/Streuer2/TransZ	=  -152.4 cm
+d:Ge/Streuer2/TransZ	=  152.4 cm
 
 # Erste groessere Bleifolie
 s:Ge/Streuer2/Pb1/Parent 	= "Streuer2"
@@ -88,7 +88,7 @@ d:Ge/Streuer2/PMMA/TransZ	= 8.9 mm
 # RidgeFilter Group
 ######################################
 includeFile = RidgeFilter.txt
-d:Ge/RidgeFilter/TransZ = -132.4 cm
+d:Ge/RidgeFilter/TransZ = 132.4 cm
 d:Ge/ridgeFilter/TransY = 2.5   mm
 d:Ge/ridgeFilter/RotZ   = 0 deg
 d:Ge/ridgeFilter/RotX   = 0 deg
@@ -98,7 +98,7 @@ d:Ge/ridgeFilter/RotX   = 0 deg
 
 # brass collimator with square hole (probably no effect in this setup)
 includeFile = firstCollimator.txt
-d:Ge/Collimator1/TransZ = -112.4 cm
+d:Ge/Collimator1/TransZ = 112.4 cm
 
 
 
@@ -107,7 +107,7 @@ d:Ge/Collimator1/TransZ = -112.4 cm
 
 includeFile = secondCollimator.txt
 ### Positionierung des zweiten Kollimators in der Welt ###
-d:Ge/Collimator2/TransZ		= -45.4 cm
+d:Ge/Collimator2/TransZ		= 45.4 cm
 
 ##########################################################################
 ### PC-Platten ###
@@ -128,15 +128,15 @@ d:Ge/PCplates/block/HLY		= 20 cm
 
 ### Thickness of the 12 PC panels totals 85, 25mm # mean thickness 7.75##
 ### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7,7.75 mm  ###
-#d:Ge/PCplates/block/HLZ		= 46.5 mm
+d:Ge/PCplates/block/HLZ		= 46.5 mm
 
 ### Thickness of the 8 PC panels totals 85, 25mm # mean thickness 7.75##
 ### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7 mm  ###
 #d:Ge/PCplates/block/HLZ		= 31 mm
 #d:Ge/PCplates/block/HLZ		= 34.875 mm #9PC
-d:Ge/PCplates/block/HLZ		= 38.75 mm
+#d:Ge/PCplates/block/HLZ		= 38.75 mm
 ### Positionierung der PC-Platten in der Welt ###
-dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/TransZ		+ 33.765 cm
+dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/TransZ		- 33.765 cm
 
 
 
@@ -148,7 +148,7 @@ dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/TransZ		+ 33.765 cm
 
 includeFile = thirdCollimator.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-dc:Ge/Collimator3/TransZ		=  Ge/PCplates/block/TransZ  + 7.6125 cm #(d:Ge/PCplates/block/HLZ	+ 3,35)
+dc:Ge/Collimator3/TransZ		=  Ge/PCplates/block/TransZ  - 7.6125 cm #(d:Ge/PCplates/block/HLZ	+ 3,35)
 s:Ge/Collimator3/DrawingStyle      = "Solid"
 
 
@@ -156,12 +156,12 @@ s:Ge/Collimator3/DrawingStyle      = "Solid"
 
 ##########################################################################
 
-# PVTscintillator hexagonal prism
 
 includeFile = PVTscintillator.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   + 1 cm #changeble #(d:Ge/PCplates/block/HLZ	+ 3,35)
+dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 2.7 cm #changeble #(d:Ge/PCplates/block/HLZ	+ 3,35)
 ##########################################################################
+
 
 
 
@@ -175,7 +175,7 @@ b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
 #i:Ge/MyScorer/PhiBins = 1
 #i:Ge/MyScorer/ZBins = 100                    #like RCF stack
 
-s:Sc/MyScorer/Outputfile = "data/SOBP/DoseToWater_150MeVproton_PVT_10PC_SOBP_2Dscorer"
+s:Sc/MyScorer/Outputfile = "data/SOBP/DoseToWater_150MeVproton_PVT_12PC_SOBP_2Dscorer"
 s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/MyScorer/OutputType= "csv"
 
@@ -184,7 +184,7 @@ s:Sc/MyScorer/OutputType= "csv"
 #Scoring the PVT  along z
 s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
 s:Sc/EnergyDepPVT/Component                 = "PVT/reconstructedarea"
-s:Sc/EnergyDepPVT/Outputfile = "data/SOBP/EnergyDeposit_150MeVproton_PVT_10PC_SOBP_2Dscorer"
+s:Sc/EnergyDepPVT/Outputfile = "data/SOBP/EnergyDeposit_150MeVproton_PVT_12PC_SOBP_2Dscorer"
 s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/EnergyDepPVT/OutputType= "csv"
 
@@ -228,7 +228,7 @@ b:Ge/World/Invisible				    = "True"
 #b:Ts/UseQt                      = "True"
 
 ### Number of simulated particles ###
-i:So/FBTR1/NumberOfHistoriesInRun = 10000000
+i:So/FBTR1/NumberOfHistoriesInRun = 100000000
 #i:So/FBTR1/NumberOfHistoriesInRun = 500
 #i:So/FBTR1/NumberOfHistoriesInRun = 1000
 i:Ts/ShowHistoryCountAtInterval = 1000

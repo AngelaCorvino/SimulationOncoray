@@ -8,7 +8,7 @@ d:Ge/World/HLY		= 1.0 m
 
 
 # Source Position
-d:Ge/BeamPosition/TransZ = -204.3 cm
+d:Ge/BeamPosition/TransZ = 204.3 cm
 # Source Rotation
 d:Ge/BeamPosition/RotX   = 0 deg
 #Source Component
@@ -44,7 +44,7 @@ d:Ma/CuZn39Pb3/Density      = 8.47 g/cm3
 # brass collimator with square hole (probably no effect in this setup)
 includeFile = firstCollimator.txt
 ### Positionierung des ersten Kollimators in der Welt ###
-d:Ge/Collimator1/TransZ		= -108.3 cm
+dc:Ge/Collimator1/TransZ		= 108.3 cm
 
 
 
@@ -53,7 +53,7 @@ d:Ge/Collimator1/TransZ		= -108.3 cm
 
 includeFile = secondCollimator.txt
 ### Positionierung des zweiten Kollimators in der Welt ###
-d:Ge/Collimator2/TransZ		= -42.95 cm
+dc:Ge/Collimator2/TransZ		= 42.95 cm
 
 ##########################################################################
 ### PC-Platten ###
@@ -70,13 +70,13 @@ d:Ge/PCplates/block/HLY		= 20 cm
 
 ### Thickness of the 7 PC panels totals 54.2 mm ###
 ### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7 mm  ###
-#d:Ge/PCplates/block/HLZ		= 2.71 cm
+d:Ge/PCplates/block/HLZ		= 2.71 cm
 
 
 
 ### Thickness of the 6 PC panels totals 38,72 mm ###
 ### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm,7.78 ###
-d:Ge/PCplates/block/HLZ		= 23.25 mm
+#d:Ge/PCplates/block/HLZ		= 23.25 mm
 
 
 
@@ -86,11 +86,11 @@ d:Ge/PCplates/block/HLZ		= 23.25 mm
 
 
 ### Positionierung der PC-Platten in der Welt ###
-d:Ge/PCplates/block/TransZ	= -9.185 cm
+dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/TransZ	- 33.765 cm
 ##########################################################################
 # PMMA block
-includeFile = PMMA.txt
-d:Ge/PMMA/TransZ = Ge/PCplates/block/TransZ +	Ge/PCplates/block/HLZ cm
+#includeFile = PMMA.txt
+#d:Ge/PMMA/TransZ = Ge/PCplates/block/TransZ +	Ge/PCplates/block/HLZ cm
 
 ##########################################################################
 ### 3. Kollimator ###
@@ -115,14 +115,14 @@ d:Ge/Collimator3/hole/HL	= 6 mm
 d:Ge/Collimator3/hole/Rmax	= 3.5 mm # 1.5, 2 ,2.25, 3.5
 
 ### Positionierung des dritten Kollimators in der Welt ###
-d:Ge/Collimator3/TransZ		= -3 cm
+dc:Ge/Collimator3/TransZ		= Ge/PCplates/block/TransZ - 6.185 cm
 ##########################################################################
 
 
 
 includeFile = PVTscintillator.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   + 1.6 cm #changeble #(d:Ge/PCplates/block/HLZ	+ 3,35)
+dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 2.7 cm #changeble #(d:Ge/PCplates/block/HLZ	+ 3,35)
 ##########################################################################
 
 
@@ -143,7 +143,7 @@ b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
 #i:Ge/MyScorer/PhiBins = 1
 #i:Ge/MyScorer/ZBins = 100                    #like RCF stack
 
-s:Sc/MyScorer/Outputfile = "DoseToWater_90MeVproton_PVT_6PC_1PMMA"
+s:Sc/MyScorer/Outputfile = "DoseToWater_90MeVproton_PVT_7PC"
 s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/MyScorer/OutputType= "csv"
 
@@ -152,7 +152,7 @@ s:Sc/MyScorer/OutputType= "csv"
 #Scoring the PVT  along z
 s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
 s:Sc/EnergyDepPVT/Component                 = "PVT/reconstructedarea"
-s:Sc/EnergyDepPVT/Outputfile = "EnergyDeposit_90MeVproton_PVT_6PC_1PMMA"
+s:Sc/EnergyDepPVT/Outputfile = "EnergyDeposit_90MeVproton_PVT_7PC"
 s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/EnergyDepPVT/OutputType= "csv"
 
