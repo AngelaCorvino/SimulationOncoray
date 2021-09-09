@@ -8,13 +8,13 @@ from scipy import interpolate
 
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_9PC_SOBP.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_12PC_SOBP_2Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/EnergyDeposit_150MeVproton_PVT_9PC_SOBP.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/EnergyDeposit_150MeVproton_PVT_12PC_SOBP_2Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix_energy = np.array(df)# convert dataframe df to array
@@ -112,7 +112,7 @@ plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile/np.max( xmeanprofile
 
 
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
-plt.title('Scoring in PVT(aperture diameter= 7mm, 9PC)') # Title
+plt.title('Scoring in PVT(aperture diameter= 7mm, 10PC)') # Title
 plt.xlabel('Depth in Water x direction [mm]') # label for x-axis
 plt.ylabel('Relative Dose in water ') # label for y axis
 
@@ -127,7 +127,7 @@ plt.figure(4) # creates a figure in which we plot
 plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile,'.-',label='{ mean value of 161 bin along x}')
 
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
-plt.title('Scoring in PVT (aperture diameter=7mm ,9 PC ) ') # Title
+plt.title('Scoring in PVT (aperture diameter=7mm ,10 PC ) ') # Title
 plt.xlabel('Depth in water z direction [mm]') # label for x-axis
 plt.ylabel(' Dose in water ') # label for y axis
 
@@ -139,6 +139,65 @@ plt.grid()
 
 
 
+
+
+
+
+
+
+
+
+
+directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/notnormalized/'
+
+
+filename1=directory+'notnormalizedmean_array9.npy'
+data1= np.load(filename1)
+dose=data1[0:len(data1)-3]
+
+#tof1=data1[len(data1)-3:len(data1)]
+unidose=0
+data2= np.load(directory+'notnormalizederr9.npy')
+err=data2[0:len(data2)]
+#top_projection_dose1= np.load(directory+'1Dtopprojection/'+'top1Dmean_array42.npy')
+
+
+
+
+data3= np.load(directory+'notnormalizedmean_array_notmasked9.npy')
+dosenotmasked=data3[0:len(data1)-3]
+
+plt.figure(6)
+#plt.plot( np.arange(0,len(dose),1)*0.0634,
+#                                                           top_projection_dose,
+#                                                                           '.',
+#                                                                  Markersize=11,
+#                                               label='Top projection measured ')
+#plt.plot( np.arange(0,len(dose),1)*0.074,
+#                                                                    dosenotmasked/np.max(dosenotmasked),
+#                                                                          '.',
+#                                                                  markersize=7,
+#                                                        label='{notmasked}')
+plt.errorbar(  np.arange(0,len(dose),1)*0.074,                         dose/dose.max() ,
+                                                                      yerr=err/dose.max(),
+                                                                      xerr=None,
+                                                                        fmt='.',
+                                                                   ecolor='gray',
+                                                                elinewidth=None,
+                                label=' reconstruction '.format(unidose))
+plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile/np.max(zmeanprofile),'.',label='{simulation }')
+
+
+
+
+plt.title('Dose scored  in Miniscidom( 12PC,aluminum aperture diameter= 7mm)') # Title
+plt.xlabel('Depth in Water x direction [mm]') # label for x-axis
+plt.ylabel('Relative Dose in water ') # label for y axis
+
+
+plt.legend()
+plt.minorticks_on()
+plt.grid()
 
 
 

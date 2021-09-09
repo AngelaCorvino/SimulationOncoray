@@ -40,7 +40,7 @@ df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix1 = np.array(df)# convert dataframe df to array
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/DoseToWater_90MeVproton_PVT_6PC_1PMMA.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/DoseToWater_90MeVproton_PVT_7PC.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix2 = np.array(df)# convert dataframe df to array
@@ -110,7 +110,7 @@ zmeanprofile_energy=np.sum(zprofiles_energy,axis=0)/numberof_xbins
 
 
 plt.figure(3) # creates a figure in which we plot
-plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile1/np.max(xmeanprofile1),'.-',label='7 PC') # plots depth on x, dose on y, and uses default layout
+plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile1/np.max(xmeanprofile1),'.-',label='6 PC 1 PMMA') # plots depth on x, dose on y, and uses default layout
 #plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile2/np.max(xmeanprofile2),'.-',label='7 PC') # plots depth on x, dose on y, and uses default layout
 
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
@@ -126,7 +126,7 @@ plt.grid()
 
 
 plt.figure(4) # creates a figure in which we plot
-plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile1/np.max(zmeanprofile1),'.-',label='{ 7 PC }')
+plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile1/np.max(zmeanprofile1),'.-',label='{ 6 PC 1 PMMA }')
 #plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile2/np.max(zmeanprofile2),'.-',label='{7PC}')
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
 plt.title('Dose Scored  in Minisicdom (aperture diameter= 7 mm) ') # Title
@@ -140,14 +140,51 @@ plt.grid()
 
 
 
+directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-02/notnormalized/'
+
+
+filename1=directory+'notnormalizedmean_array19.npy'
+data1= np.load(filename1)
+dose=data1[0:len(data1)-3]
+
+#tof1=data1[len(data1)-3:len(data1)]
+unidose=0
+data2= np.load(directory+'notnormalizederr19.npy')
+err=data2[0:len(data2)]
+#top_projection_dose1= np.load(directory+'1Dtopprojection/'+'top1Dmean_array42.npy')
+
+
+plt.figure(5)
+#plt.plot( np.arange(0,len(dose),1)*0.0634,
+#                                                           top_projection_dose,
+#                                                                           '.',
+#                                                                  Markersize=11,
+#                                               label='Top projection measured ')
+#plt.plot( np.arange(0,len(dose),1)*0.0634,
+#                                                                    dose[::-1],
+#                                                                           '.',
+#                                                                  markersize=7,
+#                                                        label='{}'.format(tof))
+plt.errorbar(  np.arange(0,len(dose),1)*0.074,                         dose/dose.max() ,
+                                                                      yerr=err/dose.max(),
+                                                                      xerr=None,
+                                                                        fmt='.',
+                                                                   ecolor='gray',
+                                                                elinewidth=None,
+                                label=' reconstruction '.format(unidose))
+plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile1/np.max(zmeanprofile1),'.',label='{simulation }')
 
 
 
 
+plt.title('Dose scored  in Miniscidom( 7PC,aluminum aperture diameter= 7mm)') # Title
+plt.xlabel('Depth in Water x direction [mm]') # label for x-axis
+plt.ylabel('Relative Dose in water ') # label for y axis
 
 
-
-
+plt.legend()
+plt.minorticks_on()
+plt.grid()
 
 
 
