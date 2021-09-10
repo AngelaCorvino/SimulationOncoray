@@ -44,7 +44,7 @@ d:Ma/CuZn39Pb3/Density      = 8.47 g/cm3
 # brass collimator with square hole (probably no effect in this setup)
 includeFile = firstCollimator.txt
 ### Positionierung des ersten Kollimators in der Welt ###
-dc:Ge/Collimator1/TransZ		= 108.3 cm
+dc:Ge/Collimator1/TransZ		= Ge/BeamPosition/TransZ  - 97 cm       # 108.3 cm
 
 
 
@@ -53,8 +53,8 @@ dc:Ge/Collimator1/TransZ		= 108.3 cm
 
 includeFile = secondCollimator.txt
 ### Positionierung des zweiten Kollimators in der Welt ###
-dc:Ge/Collimator2/TransZ		= 42.95 cm
-
+dc:Ge/Collimator2/TransZ		= Ge/Collimator1/TransZ - 67 cm #42.95 cm
+d:Ge/Collimator2/distance/HL =	Ge/Collimator2/TransZ	- 9 cm
 ##########################################################################
 ### PC-Platten ###
 
@@ -86,7 +86,11 @@ d:Ge/PCplates/block/HLZ		= 2.71 cm
 
 
 ### Positionierung der PC-Platten in der Welt ###
-dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/TransZ	- 33.765 cm
+dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/distance/HL - Ge/PCplates/block/HLZ cm
+
+
+d:Ge/PCplates/block/distance/HL= Ge/PCplates/block/TransZ - Ge/PCplates/block/HLZ cm
+
 ##########################################################################
 # PMMA block
 #includeFile = PMMA.txt
@@ -94,35 +98,19 @@ dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/TransZ	- 33.765 cm
 
 ##########################################################################
 ### 3. Kollimator ###
-
-s:Ge/Collimator3/Type   = "Group"
-s:Ge/Collimator3/Parent = "World"
-s:Ge/Collimator3/empty  = "World"
-
-### erzeuge Aluminiumblock ###
-s:Ge/Collimator3/metall/Type		= "TsBox"
-s:Ge/Collimator3/metall/Parent		= "Collimator3"
-s:Ge/Collimator3/metall/Material	= "Aluminum"
-d:Ge/Collimator3/metall/HLX	= 15 cm
-d:Ge/Collimator3/metall/HLY	= 15 cm
-d:Ge/Collimator3/metall/HLZ	= 6 mm
-
-### erzeuge zylinderfˆrmiges Loch im Aluminiumblock ###
-s:Ge/Collimator3/hole/Type	= "TsCylinder"
-s:Ge/Collimator3/hole/Parent	= "Collimator3/metall"
-s:Ge/Collimator3/hole/Material	= Ge/Collimator3/empty
-d:Ge/Collimator3/hole/HL	= 6 mm
-d:Ge/Collimator3/hole/Rmax	= 3.5 mm # 1.5, 2 ,2.25, 3.5
-
+includeFile = thirdCollimator.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-dc:Ge/Collimator3/TransZ		= Ge/PCplates/block/TransZ - 6.185 cm
-##########################################################################
+dc:Ge/Collimator3/TransZ		= Ge/PCplates/block/distance/HL - Ge/Collimator3/metall/HLZ cm #(d:Ge/PCplates/block/HLZ	+ 3,35)
+s:Ge/Collimator3/DrawingStyle      = "Solid"
+
+
+
 
 
 
 includeFile = PVTscintillator.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 2.7 cm #changeble #(d:Ge/PCplates/block/HLZ	+ 3,35)
+dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 4.3 cm #changeble #(distance from minisicdom face  plus miniscidom z extension )
 ##########################################################################
 
 
@@ -143,7 +131,7 @@ b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
 #i:Ge/MyScorer/PhiBins = 1
 #i:Ge/MyScorer/ZBins = 100                    #like RCF stack
 
-s:Sc/MyScorer/Outputfile = "DoseToWater_90MeVproton_PVT_7PC"
+s:Sc/MyScorer/Outputfile = "data/DoseToWater_90MeVproton_PVT_7PC"
 s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/MyScorer/OutputType= "csv"
 
@@ -152,7 +140,7 @@ s:Sc/MyScorer/OutputType= "csv"
 #Scoring the PVT  along z
 s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
 s:Sc/EnergyDepPVT/Component                 = "PVT/reconstructedarea"
-s:Sc/EnergyDepPVT/Outputfile = "EnergyDeposit_90MeVproton_PVT_7PC"
+s:Sc/EnergyDepPVT/Outputfile = "data/EnergyDeposit_90MeVproton_PVT_7PC"
 s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/EnergyDepPVT/OutputType= "csv"
 
@@ -188,30 +176,30 @@ b:Gr/ViewA/IncludeAxes			   	="False"
 d:Gr/ViewA/AxesSize				      = 5 cm
 b:Ge/World/Invisible				    = "True"
 
-#b:Gr/Enable			                = "True"
+b:Gr/Enable			                = "True"
 #b:Ge/QuitIfOverlapDetected	= "True"
 
-#b:Ts/PauseBeforeSequence 	      = "True"
-#b:Ts/PauseBeforeQuit		        = "True"
-#b:Ts/UseQt                      = "True"
+b:Ts/PauseBeforeSequence 	      = "True"
+b:Ts/PauseBeforeQuit		        = "True"
+b:Ts/UseQt                      = "True"
 
 
 
 
 
 ### Number of simulated particles ###
-i:So/FBTR1/NumberOfHistoriesInRun = 10000000
+i:So/FBTR1/NumberOfHistoriesInRun = 50000000
 #i:So/FBTR1/NumberOfHistoriesInRun = 100
 
 i:Ts/ShowHistoryCountAtInterval = 100
 
 #disable graphics
-b:Gr/Enable = "False"
+#b:Gr/Enable = "False"
 
 # don't stop anywhere
-b:Ts/PauseBeforeInit     = "False"
-b:Ts/PauseBeforeSequence = "False"
-b:Ts/PauseBeforeQuit     = "False"
+#b:Ts/PauseBeforeInit     = "False"
+#b:Ts/PauseBeforeSequence = "False"
+#b:Ts/PauseBeforeQuit     = "False"
 
 # don't get confused just because of a few interrupted histories
 i:Ts/MaxInterruptedHistories  = 1000
