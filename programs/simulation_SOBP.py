@@ -8,13 +8,13 @@ from scipy import interpolate
 
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_12PC_SOBP_2Dscorer.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_10PC_SOBP_2Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/EnergyDeposit_150MeVproton_PVT_12PC_SOBP_2Dscorer.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/EnergyDeposit_150MeVproton_PVT_10PC_SOBP_2Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix_energy = np.array(df)# convert dataframe df to array
@@ -151,28 +151,31 @@ plt.grid()
 directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/notnormalized/'
 
 
-filename1=directory+'notnormalizedmean_array9.npy'
+filename1=directory+'notnormalizedmean_array34.npy'
 data1= np.load(filename1)
 dose=data1[0:len(data1)-3]
 
 #tof1=data1[len(data1)-3:len(data1)]
 unidose=0
-data2= np.load(directory+'notnormalizederr9.npy')
+data2= np.load(directory+'notnormalizederr34.npy')
 err=data2[0:len(data2)]
 #top_projection_dose1= np.load(directory+'1Dtopprojection/'+'top1Dmean_array42.npy')
 
 
+filename2=directory+'notnormalizedmean_array29.npy'
+data3= np.load(filename2)
+dose2=data3[0:len(data3)-3]
 
 
-data3= np.load(directory+'notnormalizedmean_array_notmasked9.npy')
+data3= np.load(directory+'notnormalizedmean_array_notmasked28.npy')
 dosenotmasked=data3[0:len(data1)-3]
 
 plt.figure(6)
-#plt.plot( np.arange(0,len(dose),1)*0.0634,
-#                                                           top_projection_dose,
+#plt.plot( np.arange(0,len(dose2),1)*0.074,
+#                                                           dose2/np.max(dose2),
 #                                                                           '.',
 #                                                                  Markersize=11,
-#                                               label='Top projection measured ')
+#                                               label='recobnstruction (different filters settings) ')
 #plt.plot( np.arange(0,len(dose),1)*0.074,
 #                                                                    dosenotmasked/np.max(dosenotmasked),
 #                                                                          '.',
@@ -184,13 +187,13 @@ plt.errorbar(  np.arange(0,len(dose),1)*0.074,                         dose/dose
                                                                         fmt='.',
                                                                    ecolor='gray',
                                                                 elinewidth=None,
-                                label=' reconstruction '.format(unidose))
+                                            label=' reconstruction '.format(unidose))
 plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile/np.max(zmeanprofile),'.',label='{simulation }')
 
 
 
 
-plt.title('Dose scored  in Miniscidom( 12PC,aluminum aperture diameter= 7mm)') # Title
+plt.title('Dose scored  in Miniscidom( 10PC,aluminum aperture diameter= 7mm)') # Title
 plt.xlabel('Depth in Water x direction [mm]') # label for x-axis
 plt.ylabel('Relative Dose in water ') # label for y axis
 
