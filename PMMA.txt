@@ -16,6 +16,6 @@ s:Ge/PMMA/block/Material = "PMMA_Dresden"
 d:Ge/PMMA/block/HLX      = 90 mm
 d:Ge/PMMA/block/HLY      = 45 mm
 d:Ge/PMMA/block/HLZ      = 0.5 * Ge/PMMA/block/L m
-d:Ge/PMMA/block/L        = 5.8 mm
+d:Ge/PMMA/block/L        = 5.2 mm
 d:Ge/PMMA/block/TransZ   = Ge/PMMA/block/HLZ m
 s:Ge/PMMA/block/Color            = "red"

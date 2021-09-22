@@ -1,0 +1,6 @@
+includeFile = mini_settings.txt
+Ts/Seed = 3 # Set this differently for each of Job1, Job2, Job3, .
+
+
+s:Sc/MyScorer/OutputFile = "multi/Job3Output_Dose7PC" # Set this differently for each of Job1, Job2, Job3
+s:Sc/EnergyDepPVT/Outputfile = "multi/Job3Output_Energy7PC"
