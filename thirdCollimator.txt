@@ -19,3 +19,17 @@ s:Ge/Collimator3/hole/Parent	= "Collimator3/metall"
 s:Ge/Collimator3/hole/Material	= Ge/Collimator3/empty
 d:Ge/Collimator3/hole/HL	= 6 mm
 d:Ge/Collimator3/hole/Rmax	= 3.5 mm # 1.5, 2 ,2.25, 3.5
+
+
+
+
+
+s:Sc/Collimator3/metall/surface/Quantity                  = "PhaseSpace"
+s:Sc/Collimator3/metall/surface/Surface                   = "Collimator3/metall/ZMinusSurface"
+s:Sc/Collimator3/metall/surface/OutputFile                = "data/thirdcollimatorsurface"
+s:Sc/Collimator3/metall/surface/OutputType                = "Binary"
+s:Sc/Collimator3/metall/surface/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/Collimator3/metall/surface/OnlyIncludeParticlesGoing = "in"
+b:Sc/Collimator3/metall/surface/IncludeTOPASTime          = "False"
+b:Sc/Collimator3/metall/surface/IncludeTimeOfFlight       = "True"
+b:Sc/Collimator3/metall/surface/IncludeVertexInfo         = "True"

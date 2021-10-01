@@ -228,7 +228,7 @@ u:Gr/ViewA/Zoom					= 3.
 #s:Gr/ViewA/AxesComponent = "Absorber"
 #d:Gr/ViewA/AxesSize      = 0.1 m
 
-i:Gr/ViewA/tracking/storeTrajectories= 0
+i:Gr/ViewA/tracking/storeTrajectories= 100
 
 i:Gr/ViewA/multithreading/maxEventQueueSize =1000
 b:Gr/ViewA/HiddenLineRemovalForTrajectories	= "True"
@@ -236,25 +236,25 @@ b:Gr/ViewA/IncludeAxes			   	= "True"
 d:Gr/ViewA/AxesSize				      = 5 cm
 b:Ge/World/Invisible				    = "True"
 
-#b:Gr/Enable			                = "True"
+b:Gr/Enable			                = "True"
 #b:Ge/QuitIfOverlapDetected	= "True"
 
-#b:Ts/PauseBeforeSequence 	      = "True"
-#b:Ts/PauseBeforeQuit		        = "True"
-#b:Ts/UseQt                      = "True"
-#s:Gr/ViewA/setbackground    ="white"
+b:Ts/PauseBeforeSequence 	      = "True"
+b:Ts/PauseBeforeQuit		        = "True"
+b:Ts/UseQt                      = "True"
+s:Gr/ViewA/setbackground    = "white"
 ### Number of simulated particles ###
 #i:So/FBTR1/NumberOfHistoriesInRun = 100000
-i:So/FBTR1/NumberOfHistoriesInRun = 1000000
+i:So/FBTR1/NumberOfHistoriesInRun = 1000
 i:Ts/ShowHistoryCountAtInterval = 1000
 
 #disable graphics
-b:Gr/Enable = "False"
+#b:Gr/Enable = "False"
 
 # don't stop anywhere
-b:Ts/PauseBeforeInit     = "False"
-b:Ts/PauseBeforeSequence = "False"
-b:Ts/PauseBeforeQuit     = "False"
+#b:Ts/PauseBeforeInit     = "False"
+#b:Ts/PauseBeforeSequence = "False"
+#b:Ts/PauseBeforeQuit     = "False"
 
 # don't get confused just because of a few interrupted histories
 i:Ts/MaxInterruptedHistories  = 1000

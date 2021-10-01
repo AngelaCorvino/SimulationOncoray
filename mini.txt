@@ -10,7 +10,7 @@ d:Ge/World/HLY		= 1.0 m
 # Source Position
 d:Ge/BeamPosition/TransZ = 204.3 cm
 # Source Rotation
-d:Ge/BeamPosition/RotX   = 0 deg
+d:Ge/BeamPosition/RotX   = 180 deg
 #Source Component
 # Protonen der Energie 90.40 MeV mit einem Energiespread von 0.77
 s:So/FBTR1/Type             = "Beam"

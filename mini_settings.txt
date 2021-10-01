@@ -9,7 +9,8 @@ d:Ge/World/HLY		= 1.0 m
 # Source Position
 d:Ge/BeamPosition/TransZ = 204.3 cm
 # Source Rotation
-d:Ge/BeamPosition/RotX   = 0 deg
+d:Ge/BeamPosition/RotX   = 180 deg
+
 #Source Component
 # Protonen der Energie 90.40 MeV mit einem Energiespread von 0.77
 s:So/FBTR1/Type             = "Beam"
@@ -40,10 +41,13 @@ d:Ma/CuZn39Pb3/Density      = 8.47 g/cm3
 ##########################################################################
 
 
+
+
+
 # brass collimator with square hole (probably no effect in this setup)
 includeFile = firstCollimator.txt
 ### Positionierung des ersten Kollimators in der Welt ###
-dc:Ge/Collimator1/TransZ		= Ge/BeamPosition/TransZ  - 97 cm       # 108.3 cm
+d:Ge/Collimator1/TransZ		= Ge/BeamPosition/TransZ  - 97 cm       # 108.3 cm
 
 
 
@@ -86,6 +90,21 @@ dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/distance/HL - Ge/PCplates/block/HLZ
 
 
 d:Ge/PCplates/block/distance/HL= Ge/PCplates/block/TransZ - Ge/PCplates/block/HLZ cm
+
+
+
+
+s:Sc/PCplates/block/surface/Quantity                  = "PhaseSpace"
+s:Sc/PCplates/block/surface/Surface                   = "PCplates/block/ZMinusSurface"
+s:Sc/PCplates/block/surface/OutputFile                = "data/PCplatessurface"
+s:Sc/PCplates/block/surface/OutputType                = "Binary"
+s:Sc/PCplates/block/surface/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/PCplates/block/surface/OnlyIncludeParticlesGoing = "in"
+b:Sc/PCplates/block/surface/IncludeTOPASTime          = "False"
+b:Sc/PCplates/block/surface/IncludeTimeOfFlight       = "True"
+b:Sc/PCplates/block/surface/IncludeVertexInfo         = "True"
+
+
 
 ##########################################################################
 # PMMA block
@@ -168,17 +187,14 @@ b:Ge/World/Invisible				    = "True"
 
 #b:Gr/Enable			                = "True"
 #b:Ge/QuitIfOverlapDetected	= "True"
-
 #b:Ts/PauseBeforeSequence 	      = "True"
 #b:Ts/PauseBeforeQuit		        = "True"
 #b:Ts/UseQt                      = "True"
 
 
 
-
-
 ### Number of simulated particles ###
-i:So/FBTR1/NumberOfHistoriesInRun = 10000000
+i:So/FBTR1/NumberOfHistoriesInRun = 100000
 
 
 i:Ts/ShowHistoryCountAtInterval = 100
@@ -187,9 +203,9 @@ i:Ts/ShowHistoryCountAtInterval = 100
 b:Gr/Enable = "False"
 
 # don't stop anywhere
-b:Ts/PauseBeforeInit     = "False"
-b:Ts/PauseBeforeSequence = "False"
-b:Ts/PauseBeforeQuit     = "False"
+#b:Ts/PauseBeforeInit     = "False"
+#b:Ts/PauseBeforeSequence = "False"
+#b:Ts/PauseBeforeQuit     = "False"
 
 # don't get confused just because of a few interrupted histories
 i:Ts/MaxInterruptedHistories  = 1000
