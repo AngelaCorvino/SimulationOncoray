@@ -4,17 +4,19 @@ import pandas as pd # to work with structured, tabulated data (.csv, .xlsx,..)
 import numpy as np # to work fast with matrices, arrays and much more
 from matplotlib import pyplot as plt # to visualize/plot your data
 from scipy import interpolate
-
+import csv
+from getprofile import  Get_profile
+from readcsv import read_datarcf
 
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_10PC_SOBP_2Dscorer.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_11PC_SOBP_2Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/EnergyDeposit_150MeVproton_PVT_10PC_SOBP_2Dscorer.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/EnergyDeposit_150MeVproton_PVT_11PC_SOBP_2Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix_energy = np.array(df)# convert dataframe df to array
@@ -22,64 +24,18 @@ print(np.shape(topas_datamatrix))
 
 
 
-
-def get_x_doseprofile_at_z(data, z_binnumber):
-    #z_binnumber = depth. The x-first value with e.g.
-    #z=0 will be at x=0, the next with z=0 will be at x=1 etc. So increasing z-should be enough
-    x_profile_dosevalues = data[data[:,2]==z_binnumber][:,3] # get all doses in x-direction at given z
-    return x_profile_dosevalues
-
-
-def get_z_doseprofile_at_x(data, x_binnumber):
-
-    z_profile_dosevalues = data[data[:,0]==x_binnumber][:,3] # get all doses in z-direction at given x
-    return z_profile_dosevalues
-
-def get_z_energydeposition_at_x(data, x_binnumber):
-
-    z_profile_energyvalues = data[data[:,0]==x_binnumber][:,3] # get all energies in z-direction at given x
-    return z_profile_energyvalues
-
 numberof_xbins = 161
 numberof_zbins = 170
-
-daten = topas_datamatrix
-
-xprofiles = np.zeros((numberof_zbins, numberof_xbins)) # create empty array to be filled
-zprofiles = np.zeros((numberof_xbins, numberof_zbins)) # create empty array to be filled
-zprofiles_energy = np.zeros((numberof_xbins, numberof_zbins)) # create empty array to be filled
+doseprofile=Get_profile(topas_datamatrix, 170,161)
+xmeanprofile=doseprofile.xmeanprofile
+zmeanprofile=doseprofile.zmeanprofile
 
 
 
+energyprofile=Get_profile(topas_datamatrix_energy, 170,161)
+xmeanenergyprofile=energyprofile.xmeanprofile
+zmeanenergyprofile=energyprofile.zmeanprofile
 
-# write each x- profile at depth z in row i in the array outside the loop
-
-for i in range(numberof_zbins):
-    xprofile_at_z  = get_x_doseprofile_at_z(daten, i)
-    xprofiles[i,:] = xprofile_at_z
-    i += 1
-
-xmeanprofile=np.sum(xprofiles,axis=0)/numberof_zbins
-
-
-
-for i in range(numberof_xbins):
-    zprofile_at_x  = get_z_doseprofile_at_x(daten, i)
-    zprofiles[i,:] = zprofile_at_x
-    i += 1
-
-zmeanprofile=np.sum(zprofiles,axis=0)/numberof_xbins
-
-
-
-daten = topas_datamatrix_energy
-
-for i in range(numberof_xbins):
-    zprofile_energy_at_x  = get_z_energydeposition_at_x(daten, i)
-    zprofiles_energy[i,:] = zprofile_energy_at_x
-    i += 1
-
-zmeanprofile_energy=np.sum(zprofiles_energy,axis=0)/numberof_xbins
 
 
 
@@ -170,6 +126,14 @@ dose2=data3[0:len(data3)-3]
 data3= np.load(directory+'notnormalizedmean_array_notmasked28.npy')
 dosenotmasked=data3[0:len(data1)-3]
 
+directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/'
+filename=directory+'RCF21CQ.csv'
+depth,rcfdose=read_datarcf(filename)
+rcferr=rcfdose*(56/1000)
+filename1=directory+'RCF21CP.csv'
+depth1,rcfdose1=read_datarcf(filename)
+rcferr1=rcfdose1*(56/1000)
+
 plt.figure(6)
 #plt.plot( np.arange(0,len(dose2),1)*0.074,
 #                                                           dose2/np.max(dose2),
@@ -191,6 +155,34 @@ plt.errorbar(  np.arange(0,len(dose),1)*0.074,                         dose/dose
 plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile/np.max(zmeanprofile),'.',label='{simulation }')
 
 
+
+plt.errorbar( depth,                      rcfdose/rcfdose.max() ,
+                                                                  yerr=rcferr/rcfdose.max(),
+                                                                      xerr=None,
+                                                                        fmt='.',
+                                                                        markersize=9,
+                                                                   ecolor='gray',
+                                                                elinewidth=None,
+                                                                label=' RCF 21CQ measured dose')
+
+plt.fill_between(depth,
+                                                                rcfdose/rcfdose.max()-rcferr/rcfdose.max(),
+                                                                rcfdose/rcfdose.max()+rcferr/rcfdose.max(),
+                                                        color='gray', alpha=0.5)
+
+plt.errorbar( depth,                      rcfdose1/rcfdose1.max() ,
+                                                                  yerr=rcferr1/rcfdose1.max(),
+                                                                      xerr=None,
+                                                                        fmt='.',
+                                                                        markersize=9,
+                                                                   ecolor='gray',
+                                                                elinewidth=None,
+                                                                label=' RCF 21CQ measured dose')
+
+plt.fill_between(depth,
+                                                                rcfdose1/rcfdose1.max()-rcferr1/rcfdose1.max(),
+                                                                rcfdose1/rcfdose1.max()+rcferr1/rcfdose1.max(),
+                                                        color='gray', alpha=0.5)
 
 
 plt.title('Dose scored  in Miniscidom( 10PC,aluminum aperture diameter= 7mm)') # Title
