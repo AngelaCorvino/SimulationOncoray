@@ -29,7 +29,7 @@ b:Ge/PVT/scintillator/PrintInformation  = "True"
 
 
 #PVT scibtillator reconstructed area
-s:Ge/PVT/reconstructedarea/Type             = "TsBox"
+s:Ge/PVT/reconstructedarea/Type             = "TsCylinder"
 s:Ge/PVT/reconstructedarea/Parent           = "PVT/scintillator"
 s:Ge/PVT/reconstructedarea/Material         = "G4_PLASTIC_SC_VINYLTOLUENE"
 d:Ge/PVT/reconstructedarea/TransX           = 0 cm
@@ -38,17 +38,21 @@ d:Ge/PVT/reconstructedarea/TransZ           = 5.5 mm
 d:Ge/PVT/reconstructedarea/RotX             = 0 deg
 d:Ge/PVT/reconstructedarea/RotY             = 0 deg
 d:Ge/PVT/reconstructedarea/RotZ             = 0 deg
-d:Ge/PVT/reconstructedarea/HLX =            5.1 mm
-d:Ge/PVT/reconstructedarea/HLY =            5.9 mm
-d:Ge/PVT/reconstructedarea/HLZ =            5.5 mm
+#d:Ge/PVT/reconstructedarea/HLX =            5.1 mm
+#d:Ge/PVT/reconstructedarea/HLY =            5.9 mm
+d:Ge/PVT/reconstructedarea/HL               = 5.5 mm
+d:Ge/PVT/reconstructedarea/Rmax             = 2.5 mm
 s:Ge/PVT/reconstructedarea/Color            = "red"
 s:Ge/PVT/reconstructedarea/DrawingStyle      = "Solid"
 
 b:Ge/PVT/reconstructedarea/PrintInformation  = "True"
-#i:Ge/PVT/reconstructedarea/YBins = 186
 i:Ge/PVT/reconstructedarea/YBins = 1
-i:Ge/PVT/reconstructedarea/XBins = 161
-i:Ge/PVT/reconstructedarea/ZBins = 170
+i:Ge/PVT/reconstructedarea/XBins = 68
+i:Ge/PVT/reconstructedarea/ZBins = 149
+#i:Ge/PVT/reconstructedarea/YBins = 186
+#i:Ge/PVT/reconstructedarea/YBins = 1
+#i:Ge/PVT/reconstructedarea/XBins = 161
+#i:Ge/PVT/reconstructedarea/ZBins = 170
 
 
 
