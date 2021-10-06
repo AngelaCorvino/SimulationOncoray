@@ -114,35 +114,56 @@ dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 4.3 cm  #(distance from minisicdom
 
 
 
+#Scoring the PVT  surface
 
-
-
+s:Sc/PVT/reconstructedarea/surface/Quantity                  = "PhaseSpace"
+s:Sc/PVT/reconstructedarea/surface/Surface                   = "PVT/reconstructedarea/ZMinusSurface"
+s:Sc/PVT/reconstructedarea/surface/OutputFile                = "data/PVTsurface_7PC"
+s:Sc/PVT/reconstructedarea/surface/OutputType                = "Binary"
+s:Sc/PVT/reconstructedarea/surface/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/PVT/reconstructedarea/surface/OnlyIncludeParticlesGoing = "in"
+b:Sc/PVT/reconstructedarea/surface/IncludeTOPASTime          = "False"
+b:Sc/PVT/reconstructedarea/surface/IncludeTimeOfFlight       = "True"
+b:Sc/PVT/reconstructedarea/surface/IncludeVertexInfo         = "True"
 
 
 #Scoring the PVT  along z
-s:Sc/MyScorer/Quantity= "DoseToWater"
-s:Sc/MyScorer/Component= "PVT/reconstructedarea"
+s:Sc/MyScorer/Quantity                        = "DoseToWater"
+s:Sc/MyScorer/Component                       = "PVT/reconstructedarea"
 b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
 #i:Ge/MyScorer/RBins = 1
 #i:Ge/MyScorer/PhiBins = 1
 #i:Ge/MyScorer/ZBins = 100                    #like RCF stack
 
-s:Sc/MyScorer/Outputfile = "data/DoseToWater_90MeVproton_PVT_7PC_cancellainseguito"
+s:Sc/MyScorer/Outputfile                = "data/DoseToWater_90MeVproton_PVT_7PC_1Dscorer_cancellainseguito"
 s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/MyScorer/OutputType= "csv"
+s:Sc/MyScorer/OutputType                = "csv"
 
 
 
 #Scoring the PVT  along z
 s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
 s:Sc/EnergyDepPVT/Component                 = "PVT/reconstructedarea"
-s:Sc/EnergyDepPVT/Outputfile = "data/EnergyDeposit_90MeVproton_PVT_7PC_cancellainseguito"
+s:Sc/EnergyDepPVT/Outputfile                = "data/EnergyDeposit_90MeVproton_PVT_7PC_cancellainseguito"
 s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/EnergyDepPVT/OutputType= "csv"
+s:Sc/EnergyDepPVT/OutputType                = "csv"
+
+#Scoring LET the PVT  along z
+s:Sc/LET_PVT_dose/Quantity                  = "ProtonLET"
+s:Sc/LET_PVT_dose/Component                 = "PVT/reconstructedarea"
+s:Sc/LET_PVT_dose/Outputfile                = "data/LET_doseweighted_90MeVproton_PVT_7PC_cancellainseguito"
+s:Sc/LET_PVT_dose/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/LET_PVT_dose/OutputType                = "csv"
 
 
-
-
+#Scoring LET the PVT  along z
+s:Sc/LET_PVT_fluence/Quantity                   = "ProtonLET"
+s:Sc/LET_PVT_fluence/WeightBy                   = "Track" # defaults to "Dose"
+d:Sc/LET_PVT_fluence/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 100 MeV/mm/(g/cm3)
+s:Sc/LET_PVT_fluence/Component                  = "PVT/reconstructedarea"
+s:Sc/LET_PVT_fluence/Outputfile                 = "data/LET_fluenceweighted_90MeVproton_PVT_7PC_cancellainseguito"
+s:Sc/LET_PVT_fluence/IfOutputFileAlreadyExists  = "Overwrite"
+s:Sc/LET_PVT_fluence/OutputType                 = "csv"
 ##########################################################################
 ### Grafik und sonstige Einstellungen ###
 

@@ -86,15 +86,3 @@ i:Ge/PVT/reconstructedarea/ZBins = 149
 #i:Ge/PVT/reconstructedarea/YBins = 1
 #i:Ge/PVT/reconstructedarea/XBins = 161
 #i:Ge/PVT/reconstructedarea/ZBins = 170
-
-
-
-s:Sc/PVT/reconstructedarea/surface/Quantity                  = "PhaseSpace"
-s:Sc/PVT/reconstructedarea/surface/Surface                   = "PVT/reconstructedarea/ZMinusSurface"
-s:Sc/PVT/reconstructedarea/surface/OutputFile                = "data/PVTsurface"
-s:Sc/PVT/reconstructedarea/surface/OutputType                = "Binary"
-s:Sc/PVT/reconstructedarea/surface/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/PVT/reconstructedarea/surface/OnlyIncludeParticlesGoing = "in"
-b:Sc/PVT/reconstructedarea/surface/IncludeTOPASTime          = "False"
-b:Sc/PVT/reconstructedarea/surface/IncludeTimeOfFlight       = "True"
-b:Sc/PVT/reconstructedarea/surface/IncludeVertexInfo         = "True"
