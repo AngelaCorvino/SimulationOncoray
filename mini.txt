@@ -135,7 +135,7 @@ b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
 #i:Ge/MyScorer/PhiBins = 1
 #i:Ge/MyScorer/ZBins = 100                    #like RCF stack
 
-s:Sc/MyScorer/Outputfile                = "data/DoseToWater_90MeVproton_PVT_7PC_1Dscorer_cancellainseguito"
+s:Sc/MyScorer/Outputfile                = "data/DoseToWater_90MeVproton_PVT_7PC_1Dscorer"
 s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/MyScorer/OutputType                = "csv"
 
@@ -154,12 +154,11 @@ s:Sc/LET_PVT_dose/Component                 = "PVT/reconstructedarea"
 s:Sc/LET_PVT_dose/Outputfile                = "data/LET_doseweighted_90MeVproton_PVT_7PC_cancellainseguito"
 s:Sc/LET_PVT_dose/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/LET_PVT_dose/OutputType                = "csv"
-
+d:Sc/LET_PVT_dose/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 100 MeV/mm/(g/cm3)
 
 #Scoring LET the PVT  along z
 s:Sc/LET_PVT_fluence/Quantity                   = "ProtonLET"
 s:Sc/LET_PVT_fluence/WeightBy                   = "Track" # defaults to "Dose"
-d:Sc/LET_PVT_fluence/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 100 MeV/mm/(g/cm3)
 s:Sc/LET_PVT_fluence/Component                  = "PVT/reconstructedarea"
 s:Sc/LET_PVT_fluence/Outputfile                 = "data/LET_fluenceweighted_90MeVproton_PVT_7PC_cancellainseguito"
 s:Sc/LET_PVT_fluence/IfOutputFileAlreadyExists  = "Overwrite"

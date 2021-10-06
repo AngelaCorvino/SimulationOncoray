@@ -9,7 +9,7 @@ from readcsv import read_datarcf
 from getprofile import  Get_profile
 
 directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-02/'
-filename=directory+'RCF21CY.csv'
+filename=directory+'RCF21CX.csv'
 depth,rcfdose=read_datarcf(filename)
 rcferr=rcfdose*(546/10000)
 
@@ -27,12 +27,12 @@ rcferr=rcfdose*(546/10000)
 
 directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-02/notnormalized/'
 
-data= np.load(directory+'notnormalizedmean_array19.npy')
+data= np.load(directory+'notnormalizedmean_array17.npy')
 dose=data[0:len(data)-3]
 
 #tof1=data1[len(data1)-3:len(data1)]
 unidose=0
-data0= np.load(directory+'notnormalizederr19.npy')
+data0= np.load(directory+'notnormalizederr17.npy')
 err=data0[0:len(data0)]
 #top_projection_dose= np.load(directory+'1Dtopprojection/'+'top1Dmean_array1.npy')
 
@@ -58,31 +58,31 @@ err2=data2[0:len(data2)]
 
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/DoseToWater_90MeVproton_PVT_7PC.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/Single/DoseToWater_90MeVproton_PVT_6PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/EnergyDeposit_90MeVproton_PVT_7PC.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/Single/EnergyDeposit_90MeVproton_PVT_6PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix_energy = np.array(df)# convert dataframe df to array
 print(np.shape(topas_datamatrix))
 
-numberof_xbins = 161
-numberof_zbins = 170
-profile=Get_profile(topas_datamatrix, 170,161)
+numberof_xbins = 1
+numberof_zbins = 149
+profile=Get_profile(topas_datamatrix, 149,1)
 xmeanprofile=profile.xmeanprofile
 zmeanprofile=profile.zmeanprofile
-#zmeanprofile=zmeanprofile[::-1]
+zmeanprofile=zmeanprofile[::-1]
 
 
 
 
 plt.figure(1) # creates a figure in which we plot
 #plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile/np.max(xmeanprofile),'.-',label='{mean value of 170 bins along z}') # plots depth on x, dose on y, and uses default layout
-plt.plot(np.arange(0,numberof_zbins,1)*0.0634,
+plt.plot(np.arange(0,numberof_zbins,1)*0.0738255,
                                             zmeanprofile/np.max(zmeanprofile),
                                                                             '.',
                                                                             markersize=8,
@@ -136,7 +136,7 @@ plt.errorbar( depth,                      rcfdose/rcfdose.max() ,
                                                                         markersize=8,
                                                                    ecolor='red',
                                                                 elinewidth=None,
-                                                                label=' RCF 21CY measured dose')
+                                                                label=' RCF 21CX measured dose')
 
 plt.fill_between(depth,
                                                                 rcfdose/rcfdose.max()-rcferr/rcfdose.max(),
@@ -155,7 +155,7 @@ plt.fill_between(depth,
 
 
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
-plt.title('Depht dose distribution(aperture diameter= 7mm, 7PC)') # Title
+plt.title('Depht dose distribution(aperture diameter= 7mm, 6PC)') # Title
 plt.xlabel('Depth in Water x direction [mm]') # label for x-axis
 plt.ylabel('Relative Dose in water ') # label for y axis
 
