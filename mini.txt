@@ -16,7 +16,11 @@ d:Ge/BeamPosition/RotX   = 180 deg
 s:So/FBTR1/Type             = "Beam"
 s:So/FBTR1/Component        = "BeamPosition"
 s:So/FBTR1/BeamParticle     = "proton"
+<<<<<<< HEAD
 d:So/FBTR1/BeamEnergy       = 92.20 MeV
+=======
+d:So/FBTR1/BeamEnergy       = 92.10 MeV
+>>>>>>> 3442f811442f99555fbeb207b8c057c918febe81
 u:So/FBTR1/BeamEnergySpread = 0.77
 # Beam profile is gaussian in x- und y
 s:So/FBTR1/BeamPositionDistribution = "Gaussian"
@@ -118,7 +122,11 @@ dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 4.3 cm  #(distance from minisicdom
 
 s:Sc/PVT/reconstructedarea/surface/Quantity                  = "PhaseSpace"
 s:Sc/PVT/reconstructedarea/surface/Surface                   = "PVT/reconstructedarea/ZMinusSurface"
+<<<<<<< HEAD
 s:Sc/PVT/reconstructedarea/surface/OutputFile                = "data/Single/PVTsurface_9240keV_6PC1PMMA"
+=======
+s:Sc/PVT/reconstructedarea/surface/OutputFile                = "data/Single/PVTsurface9210_7PC"
+>>>>>>> 3442f811442f99555fbeb207b8c057c918febe81
 s:Sc/PVT/reconstructedarea/surface/OutputType                = "Binary"
 s:Sc/PVT/reconstructedarea/surface/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/PVT/reconstructedarea/surface/OnlyIncludeParticlesGoing = "in"
@@ -135,7 +143,11 @@ b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
 #i:Ge/MyScorer/PhiBins = 1
 #i:Ge/MyScorer/ZBins = 100                    #like RCF stack
 
+<<<<<<< HEAD
 s:Sc/MyScorer/Outputfile                = "data/Single/DoseToWater_9240KeVproton_PVT_6PC1PMMA_1Dscorer"
+=======
+s:Sc/MyScorer/Outputfile                = "data/Single/DoseToWater_92M10eVproton_PVT_7PC_1Dscorer"
+>>>>>>> 3442f811442f99555fbeb207b8c057c918febe81
 s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/MyScorer/OutputType                = "csv"
 
@@ -144,14 +156,22 @@ s:Sc/MyScorer/OutputType                = "csv"
 #Scoring the PVT  along z
 s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
 s:Sc/EnergyDepPVT/Component                 = "PVT/reconstructedarea"
+<<<<<<< HEAD
 s:Sc/EnergyDepPVT/Outputfile                = "data/Single/EnergyDeposit_9240KeVproton_PVT_6PC1PMMA_1Dscorer"
+=======
+s:Sc/EnergyDepPVT/Outputfile                = "data/Single/EnergyDeposit_9210MeVproton_PVT_7PC_1Dscorer"
+>>>>>>> 3442f811442f99555fbeb207b8c057c918febe81
 s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/EnergyDepPVT/OutputType                = "csv"
 
 #Scoring LET the PVT  along z
 s:Sc/LET_PVT_dose/Quantity                  = "ProtonLET"
 s:Sc/LET_PVT_dose/Component                 = "PVT/reconstructedarea"
+<<<<<<< HEAD
 s:Sc/LET_PVT_dose/Outputfile                = "data/Single/LET_doseweighted_9240KeVproton_PVT_6PC1PMMA_1Dscorer"
+=======
+s:Sc/LET_PVT_dose/Outputfile                = "data/Single/LET_doseweighted_9210MeVproton_PVT_7PC_1Dscorer"
+>>>>>>> 3442f811442f99555fbeb207b8c057c918febe81
 s:Sc/LET_PVT_dose/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/LET_PVT_dose/OutputType                = "csv"
 d:Sc/LET_PVT_dose/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 100 MeV/mm/(g/cm3)
@@ -160,7 +180,11 @@ d:Sc/LET_PVT_dose/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 100 
 s:Sc/LET_PVT_fluence/Quantity                   = "ProtonLET"
 s:Sc/LET_PVT_fluence/WeightBy                   = "Track" # defaults to "Dose"
 s:Sc/LET_PVT_fluence/Component                  = "PVT/reconstructedarea"
+<<<<<<< HEAD
 s:Sc/LET_PVT_fluence/Outputfile                 = "data/Single/LET_fluenceweighted_9240KeVproton_PVT_6PC1PMMA_1Dscorer"
+=======
+s:Sc/LET_PVT_fluence/Outputfile                 = "data/Single/LET_fluenceweighted_9210MeVproton_PVT_7PC_1Dscorer"
+>>>>>>> 3442f811442f99555fbeb207b8c057c918febe81
 s:Sc/LET_PVT_fluence/IfOutputFileAlreadyExists  = "Overwrite"
 s:Sc/LET_PVT_fluence/OutputType                 = "csv"
 ##########################################################################
@@ -203,7 +227,11 @@ b:Ge/World/Invisible				    = "True"
 
 
 ### Number of simulated particles ###
+<<<<<<< HEAD
 i:So/FBTR1/NumberOfHistoriesInRun = 100000000
+=======
+i:So/FBTR1/NumberOfHistoriesInRun = 1000000
+>>>>>>> 3442f811442f99555fbeb207b8c057c918febe81
 #i:So/FBTR1/NumberOfHistoriesInRun = 100
 
 i:Ts/ShowHistoryCountAtInterval = 100
