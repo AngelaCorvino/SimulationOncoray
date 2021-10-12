@@ -156,7 +156,7 @@ s:Ge/Collimator3/DrawingStyle      = "Solid"
 
 includeFile = PVTscintillator.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 4.3 cm  #(distance from minisicdom face  plus miniscidom z extension )
+dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 4.9 cm  #(distance from minisicdom face  plus miniscidom z extension )
 ##########################################################################
 
 

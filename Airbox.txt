@@ -1,0 +1,31 @@
+
+includeFile = Materials.txt
+
+s:Ge/Airbox/Parent = "World"
+s:Ge/Airbox/Type   = "TsBox"
+
+s:Ge/Airbox/Material         = "Air"
+d:Ge/Airbox/TransX           = 0 cm
+d:Ge/Airbox/TransY           = 0 cm
+d:Ge/Airbox/RotX             = 0 deg
+d:Ge/Airbox/RotY             = 0 deg
+d:Ge/Airbox/RotZ             = 0 deg
+d:Ge/Airbox/HLX =            10 mm
+d:Ge/Airbox/HLY =            10 mm
+d:Ge/Airbox/HLZ               = 16 mm
+
+
+s:Ge/Airbox/Color            = "purple"
+s:Ge/Airbox/DrawingStyle      = "Solid"
+
+
+
+
+b:Ge/Airbox/PrintInformation  = "True"
+
+
+
+i:Ge/Airbox/YBins = 200
+
+i:Ge/Airbox/XBins = 200
+i:Ge/Airbox/ZBins = 200
