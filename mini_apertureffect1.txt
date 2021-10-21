@@ -1,4 +1,3 @@
-
 ### TOPAS-Simulation for mouseirradiation  ###
 ### horizontalen Beamline der UPTD ###
 
@@ -16,7 +15,7 @@ d:Ge/BeamPosition/RotX   = 180 deg
 s:So/FBTR1/Type             = "Beam"
 s:So/FBTR1/Component        = "BeamPosition"
 s:So/FBTR1/BeamParticle     = "proton"
-d:So/FBTR1/BeamEnergy       = 91.60 MeV
+d:So/FBTR1/BeamEnergy       = 92.10 MeV
 u:So/FBTR1/BeamEnergySpread = 0.77
 # Beam profile is gaussian in x- und y
 s:So/FBTR1/BeamPositionDistribution = "Gaussian"
@@ -102,69 +101,46 @@ s:Ge/Collimator3/DrawingStyle      = "Solid"
 
 
 
-
+includeFile= Airbox.txt
+d:Ge/Airbox/TransZ		= Ge/Collimator3/TransZ - 2.2 cm
 
 includeFile = PVTscintillator.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 4.9 cm  #(distance from minisicdom face  plus miniscidom z extension )
+d:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 4.9 cm  #(distance from minisicdom face  plus half miniscidom z extension plus half collimator z extension )
 ##########################################################################
 
 
+#Scoring air box
 
+s:Sc/AirboxScorer/Quantity                        = "DoseToWater"
+s:Sc/AirboxScorer/Component                       = "Airbox"
+b:Sc/AirboxScorer/PreCalculateStoppingPowerRatios = "True"
+s:Sc/AirboxScorer/Outputfile                      = "data/Single/Aperture/DoseToWater_9210KeVproton_Airbox_6PC1PMMA_3Dscorer"
+s:Sc/AirboxScorer/IfOutputFileAlreadyExists       = "Overwrite"
+s:Sc/AirboxScorer/OutputType                      = "csv"
 
-
-
-#Scoring the PVT  surface
-
-s:Sc/PVT/reconstructedarea/surface/Quantity                  = "PhaseSpace"
-s:Sc/PVT/reconstructedarea/surface/Surface                   = "PVT/reconstructedarea/ZMinusSurface"
-s:Sc/PVT/reconstructedarea/surface/OutputFile                = "data/Single/PVTsurface_9160keV_6PC1PMMA"
-s:Sc/PVT/reconstructedarea/surface/OutputType                = "Binary"
-s:Sc/PVT/reconstructedarea/surface/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/PVT/reconstructedarea/surface/OnlyIncludeParticlesGoing = "in"
-b:Sc/PVT/reconstructedarea/surface/IncludeTOPASTime          = "False"
-b:Sc/PVT/reconstructedarea/surface/IncludeTimeOfFlight       = "True"
-b:Sc/PVT/reconstructedarea/surface/IncludeVertexInfo         = "True"
-
-
-#Scoring the PVT  along z
-s:Sc/MyScorer/Quantity                        = "DoseToWater"
-s:Sc/MyScorer/Component                       = "PVT/reconstructedarea"
-b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
-#i:Ge/MyScorer/RBins = 1
-#i:Ge/MyScorer/PhiBins = 1
-#i:Ge/MyScorer/ZBins = 100                    #like RCF stack
-
-s:Sc/MyScorer/Outputfile                = "data/Single/DoseToWater_9160KeVproton_PVT_6PC1PMMA_1Dscorer"
-s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/MyScorer/OutputType                = "csv"
-
-
-
-#Scoring the PVT  along z
-s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
-s:Sc/EnergyDepPVT/Component                 = "PVT/reconstructedarea"
-s:Sc/EnergyDepPVT/Outputfile                = "data/Single/EnergyDeposit_9160KeVproton_PVT_6PC1PMMA_1Dscorer"
-s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/EnergyDepPVT/OutputType                = "csv"
 
 #Scoring LET the PVT  along z
-s:Sc/LET_PVT_dose/Quantity                  = "ProtonLET"
-s:Sc/LET_PVT_dose/Component                 = "PVT/reconstructedarea"
-s:Sc/LET_PVT_dose/Outputfile                = "data/Single/LET_doseweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer"
-s:Sc/LET_PVT_dose/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/LET_PVT_dose/OutputType                = "csv"
-d:Sc/LET_PVT_dose/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 100 MeV/mm/(g/cm3)
+s:Sc/LET_Airbox_dose/Quantity                  = "ProtonLET"
+s:Sc/LET_Airbox_dose/Component                 = "Airbox"
+s:Sc/LET_Airbox_dose/Outputfile                = "data/Single/Aperture/LET_doseweighted_9210KeVproton_Airbox_6PC1PMMA_3Dscorer"
+s:Sc/LET_Airbox_dose/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/LET_Airbox_dose/OutputType                = "csv"
+d:Sc/LET_Airbox_dose/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 100 MeV/mm/(g/cm3)
 
 #Scoring LET the PVT  along z
-s:Sc/LET_PVT_fluence/Quantity                   = "ProtonLET"
-s:Sc/LET_PVT_fluence/WeightBy                   = "Track" # defaults to "Dose"
-s:Sc/LET_PVT_fluence/Component                  = "PVT/reconstructedarea"
-s:Sc/LET_PVT_fluence/Outputfile                 = "data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer"
-s:Sc/LET_PVT_fluence/IfOutputFileAlreadyExists  = "Overwrite"
-s:Sc/LET_PVT_fluence/OutputType                 = "csv"
-##########################################################################
-### Grafik und sonstige Einstellungen ###
+s:Sc/LET_Airbox_fluence/Quantity                   = "ProtonLET"
+s:Sc/LET_Airbox_fluence/WeightBy                   = "Track" # defaults to "Dose"
+s:Sc/LET_Airbox_fluence/Component                  = "Airbox"
+s:Sc/LET_Airbox_fluence/Outputfile                 = "data/Single/Aperture/LET_fluenceweighted_9210KeVproton_Airbox_6PC1PMMA_3Dscorer"
+s:Sc/LET_Airbox_fluence/IfOutputFileAlreadyExists  = "Overwrite"
+s:Sc/LET_Airbox_fluence/OutputType                 = "csv"
+
+
+
+
+
+
 
 
 #b:Ts/ShowHistoryCountOnSingleLine		= "True"
@@ -203,14 +179,14 @@ b:Ge/World/Invisible				    = "True"
 
 
 ### Number of simulated particles ###
-i:So/FBTR1/NumberOfHistoriesInRun = 10000000
+i:So/FBTR1/NumberOfHistoriesInRun = 1000000
 #i:So/FBTR1/NumberOfHistoriesInRun = 100
 
 i:Ts/ShowHistoryCountAtInterval = 100
 
 #disable graphics
 b:Gr/Enable = "False"
-
+b:Ge/QuitIfOverlapDetected	= "False"
 # don't stop anywhere
 b:Ts/PauseBeforeInit     = "False"
 b:Ts/PauseBeforeSequence = "False"

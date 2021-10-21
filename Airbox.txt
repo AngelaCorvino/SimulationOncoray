@@ -1,6 +1,4 @@
 
-includeFile = Materials.txt
-
 s:Ge/Airbox/Parent = "World"
 s:Ge/Airbox/Type   = "TsBox"
 

@@ -103,7 +103,7 @@ s:Ge/Collimator3/DrawingStyle      = "Solid"
 
 
 includeFile= Airbox.txt
-dc:Ge/Airbox/TransZ		= Ge/Collimator3/TransZ - 2.2 cm
+d:Ge/Airbox/TransZ		= Ge/Collimator3/TransZ - 2.2 cm
 
 includeFile = PVTscintillator.txt
 ### Positionierung des dritten Kollimators in der Welt ###
@@ -244,7 +244,7 @@ i:Ts/ShowHistoryCountAtInterval = 100
 
 #disable graphics
 b:Gr/Enable = "False"
-
+b:Ge/QuitIfOverlapDetected	= "False"
 # don't stop anywhere
 b:Ts/PauseBeforeInit     = "False"
 b:Ts/PauseBeforeSequence = "False"

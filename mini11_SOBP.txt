@@ -1,4 +1,3 @@
-
 ### TOPAS-Simulation for mouseirradiation  ###
 ### horizontalen Beamline der UPTD ###
 
@@ -10,13 +9,13 @@ d:Ge/World/HLY		= 1.0 m
 # Source Position
 d:Ge/BeamPosition/TransZ = 204.3 cm
 # Source Rotation
-d:Ge/BeamPosition/RotX   = 180 deg
+d:Ge/BeamPosition/RotX   = 0 deg
 #Source Component
 # Protonen der Energie 90.40 MeV mit einem Energiespread von 0.77
 s:So/FBTR1/Type             = "Beam"
 s:So/FBTR1/Component        = "BeamPosition"
 s:So/FBTR1/BeamParticle     = "proton"
-d:So/FBTR1/BeamEnergy       = 91.60 MeV
+d:So/FBTR1/BeamEnergy       = 150 MeV
 u:So/FBTR1/BeamEnergySpread = 0.77
 # Beam profile is gaussian in x- und y
 s:So/FBTR1/BeamPositionDistribution = "Gaussian"
@@ -33,6 +32,9 @@ d:So/FBTR1/BeamAngularSpreadY		= 0.0055 rad
 d:So/FBTR1/BeamAngularCutoffX		= 90 deg
 d:So/FBTR1/BeamAngularCutoffY		= 90 deg
 
+
+
+
 # Material der Messing-Apperturen mit 3% Bleianteil
 sv:Ma/CuZn39Pb3/Components  = 3  "Copper" "Zinc" "Lead"
 uv:Ma/CuZn39Pb3/Fractions   = 3  0.58     0.39   0.03
@@ -41,10 +43,62 @@ d:Ma/CuZn39Pb3/Density      = 8.47 g/cm3
 ##########################################################################
 
 
+#Streuer 1
+includeFile = Streuer1.txt
+d:Ge/Streuer1/TransZ	= 195.4 cm
+
+#Streuer 2
+s:Ge/Streuer2/Type   	= "Group"
+s:Ge/Streuer2/Parent 	= "World"
+d:Ge/Streuer2/TransX 	= 3.0 mm
+d:Ge/Streuer2/TransZ	=  152.4 cm
+
+# Erste groessere Bleifolie
+s:Ge/Streuer2/Pb1/Parent 	= "Streuer2"
+s:Ge/Streuer2/Pb1/Type 		= "TsCylinder"
+s:Ge/Streuer2/Pb1/Material 	= "Lead"
+d:Ge/Streuer2/Pb1/RMax     	= 85 mm
+d:Ge/Streuer2/Pb1/HL      	= 0.35 mm
+
+# Zweite kleinere Bleifolie
+s:Ge/Streuer2/Pb2/Parent 	= "Streuer2"
+s:Ge/Streuer2/Pb2/Type 		= "TsCylinder"
+s:Ge/Streuer2/Pb2/Material 	= "Lead"
+d:Ge/Streuer2/Pb2/RMax     	= 18.7 mm
+d:Ge/Streuer2/Pb2/HL      	= 1.65 mm
+d:Ge/Streuer2/Pb2/TransZ	= 2.0 mm
+
+# PMMA
+s:Ge/Streuer2/PMMA/Parent 	= "Streuer2"
+s:Ge/Streuer2/PMMA/Type 	= "TsCylinder"
+s:Ge/Streuer2/PMMA/Material = "Lucite"
+d:Ge/Streuer2/PMMA/RMax     = 80 mm
+d:Ge/Streuer2/PMMA/RMin     = 18.7 mm
+d:Ge/Streuer2/PMMA/HL      	= 8.55 mm
+d:Ge/Streuer2/PMMA/TransZ	= 8.9 mm
+
+
+
+
+
+
+
+##########################################################################
+#######################################
+# RidgeFilter Group
+######################################
+includeFile = RidgeFilter.txt
+d:Ge/RidgeFilter/TransZ = 132.4 cm
+d:Ge/ridgeFilter/TransY = 2.5   mm
+d:Ge/ridgeFilter/RotZ   = 0 deg
+d:Ge/ridgeFilter/RotX   = 0 deg
+##########################################################################
+#######################################
+### 1. Kollimator ###
+
 # brass collimator with square hole (probably no effect in this setup)
 includeFile = firstCollimator.txt
-### Positionierung des ersten Kollimators in der Welt ###
-dc:Ge/Collimator1/TransZ		= Ge/BeamPosition/TransZ  - 97 cm       # 108.3 cm
+d:Ge/Collimator1/TransZ = 112.4 cm
 
 
 
@@ -53,14 +107,14 @@ dc:Ge/Collimator1/TransZ		= Ge/BeamPosition/TransZ  - 97 cm       # 108.3 cm
 
 includeFile = secondCollimator.txt
 ### Positionierung des zweiten Kollimators in der Welt ###
-dc:Ge/Collimator2/TransZ		= Ge/Collimator1/TransZ - 67 cm #42.95 cm
-d:Ge/Collimator2/distance/HL =	Ge/Collimator2/TransZ	- 9 cm
+d:Ge/Collimator2/TransZ		= 45.4 cm
+
 ##########################################################################
 ### PC-Platten ###
 
 s:Ge/PCplates/Type    = "Group"
 s:Ge/PCplates/Parent  = "World"
-
+s:Ge/PCplates/DrawingStyle      = "Solid"
 ### create cuboids from polycarbonate = Lexan ###
 s:Ge/PCplates/block/Type	= "TsBox"
 s:Ge/PCplates/block/Parent	= "PCplates"
@@ -68,45 +122,44 @@ s:Ge/PCplates/block/Material	= "Lexan"
 d:Ge/PCplates/block/HLX		= 20 cm
 d:Ge/PCplates/block/HLY		= 20 cm
 
-### Thickness of the 7 PC panels totals 54.2 mm ###
-### Individual thicknesses: 7.79 mm, 7.74 mm, 7.78 mm, 7.70 mm, 7.75 mm, 7.78,7.74 mm  ###
-#d:Ge/PCplates/block/HLZ		= 2.714 cm
+### Thickness of the 11 PC panels totals 85, 25mm # mean thickness 7.75##
+### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7 mm  ###
+d:Ge/PCplates/block/HLZ		= 42.625 mm
 
+### Thickness of the 12 PC panels totals 85, 25mm # mean thickness 7.75##
+### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7,7.75 mm  ###
+#d:Ge/PCplates/block/HLZ		= 46.5 mm
 
-
-### Thickness of the 6 PC panels totals 38,72 mm ###
-### Individual thicknesses: 7.79 mm, 7.74 mm, 7.78 mm, 7.70 mm, 7.75 mm, 7.78###
-d:Ge/PCplates/block/HLZ		= 23.27 mm
-
-
-
-
+### Thickness of the 8 PC panels totals 85, 25mm # mean thickness 7.75##
+### Individual thicknesses: 7.7 mm, 7.78 mm, 7.73 mm, 7.74 mm, 7.77 mm, 7.78,7.7 mm  ###
+#d:Ge/PCplates/block/HLZ		= 31 mm
+#d:Ge/PCplates/block/HLZ		= 34.875 mm #9PC
+#d:Ge/PCplates/block/HLZ		= 38.75 mm
 ### Positionierung der PC-Platten in der Welt ###
-dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/distance/HL - Ge/PCplates/block/HLZ cm
+dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/TransZ		- 33.765 cm
 
 
-d:Ge/PCplates/block/distance/HL= Ge/PCplates/block/TransZ - Ge/PCplates/block/HLZ cm
 
-##########################################################################
-# PMMA block
-includeFile = PMMA.txt
-d:Ge/PMMA/TransZ = Ge/PCplates/block/TransZ +	Ge/PCplates/block/HLZ cm
+
+
 
 ##########################################################################
 ### 3. Kollimator ###
+
 includeFile = thirdCollimator.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-dc:Ge/Collimator3/TransZ		= Ge/PCplates/block/distance/HL - Ge/Collimator3/metall/HLZ cm #(d:Ge/PCplates/block/HLZ	+ 3,35)
+dc:Ge/Collimator3/TransZ		=  Ge/PCplates/block/TransZ  - 7.6125 cm #(d:Ge/PCplates/block/HLZ	+ 3,35)
 s:Ge/Collimator3/DrawingStyle      = "Solid"
 
 
 
 
+##########################################################################
 
 
 includeFile = PVTscintillator.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 4.9 cm  #(distance from minisicdom face  plus miniscidom z extension )
+dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 2.7 cm #changeble #(d:Ge/PCplates/block/HLZ	+ 3,35)
 ##########################################################################
 
 
@@ -114,55 +167,30 @@ dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 4.9 cm  #(distance from minisicdom
 
 
 
-#Scoring the PVT  surface
-
-s:Sc/PVT/reconstructedarea/surface/Quantity                  = "PhaseSpace"
-s:Sc/PVT/reconstructedarea/surface/Surface                   = "PVT/reconstructedarea/ZMinusSurface"
-s:Sc/PVT/reconstructedarea/surface/OutputFile                = "data/Single/PVTsurface_9160keV_6PC1PMMA"
-s:Sc/PVT/reconstructedarea/surface/OutputType                = "Binary"
-s:Sc/PVT/reconstructedarea/surface/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/PVT/reconstructedarea/surface/OnlyIncludeParticlesGoing = "in"
-b:Sc/PVT/reconstructedarea/surface/IncludeTOPASTime          = "False"
-b:Sc/PVT/reconstructedarea/surface/IncludeTimeOfFlight       = "True"
-b:Sc/PVT/reconstructedarea/surface/IncludeVertexInfo         = "True"
-
-
 #Scoring the PVT  along z
-s:Sc/MyScorer/Quantity                        = "DoseToWater"
-s:Sc/MyScorer/Component                       = "PVT/reconstructedarea"
+s:Sc/MyScorer/Quantity= "DoseToWater"
+s:Sc/MyScorer/Component= "PVT/reconstructedarea"
 b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
 #i:Ge/MyScorer/RBins = 1
 #i:Ge/MyScorer/PhiBins = 1
 #i:Ge/MyScorer/ZBins = 100                    #like RCF stack
 
-s:Sc/MyScorer/Outputfile                = "data/Single/DoseToWater_9160KeVproton_PVT_6PC1PMMA_1Dscorer"
+s:Sc/MyScorer/Outputfile = "data/SOBP/DoseToWater_150MeVproton_PVT_11PC_SOBP_2Dscorer"
 s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/MyScorer/OutputType                = "csv"
+s:Sc/MyScorer/OutputType= "csv"
 
 
 
 #Scoring the PVT  along z
 s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
 s:Sc/EnergyDepPVT/Component                 = "PVT/reconstructedarea"
-s:Sc/EnergyDepPVT/Outputfile                = "data/Single/EnergyDeposit_9160KeVproton_PVT_6PC1PMMA_1Dscorer"
+s:Sc/EnergyDepPVT/Outputfile = "data/SOBP/EnergyDeposit_150MeVproton_PVT_11PC_SOBP_2Dscorer"
 s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/EnergyDepPVT/OutputType                = "csv"
+s:Sc/EnergyDepPVT/OutputType= "csv"
 
-#Scoring LET the PVT  along z
-s:Sc/LET_PVT_dose/Quantity                  = "ProtonLET"
-s:Sc/LET_PVT_dose/Component                 = "PVT/reconstructedarea"
-s:Sc/LET_PVT_dose/Outputfile                = "data/Single/LET_doseweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer"
-s:Sc/LET_PVT_dose/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/LET_PVT_dose/OutputType                = "csv"
-d:Sc/LET_PVT_dose/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 100 MeV/mm/(g/cm3)
 
-#Scoring LET the PVT  along z
-s:Sc/LET_PVT_fluence/Quantity                   = "ProtonLET"
-s:Sc/LET_PVT_fluence/WeightBy                   = "Track" # defaults to "Dose"
-s:Sc/LET_PVT_fluence/Component                  = "PVT/reconstructedarea"
-s:Sc/LET_PVT_fluence/Outputfile                 = "data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer"
-s:Sc/LET_PVT_fluence/IfOutputFileAlreadyExists  = "Overwrite"
-s:Sc/LET_PVT_fluence/OutputType                 = "csv"
+
+
 ##########################################################################
 ### Grafik und sonstige Einstellungen ###
 
@@ -188,7 +216,7 @@ i:Gr/ViewA/tracking/storeTrajectories= 0
 
 i:Gr/ViewA/multithreading/maxEventQueueSize =10000
 b:Gr/ViewA/HiddenLineRemovalForTrajectories	= "True"
-b:Gr/ViewA/IncludeAxes			   	="False"
+b:Gr/ViewA/IncludeAxes			   	= "False"
 d:Gr/ViewA/AxesSize				      = 5 cm
 b:Ge/World/Invisible				    = "True"
 
@@ -199,14 +227,11 @@ b:Ge/World/Invisible				    = "True"
 #b:Ts/PauseBeforeQuit		        = "True"
 #b:Ts/UseQt                      = "True"
 
-
-
-
 ### Number of simulated particles ###
-i:So/FBTR1/NumberOfHistoriesInRun = 10000000
-#i:So/FBTR1/NumberOfHistoriesInRun = 100
-
-i:Ts/ShowHistoryCountAtInterval = 100
+i:So/FBTR1/NumberOfHistoriesInRun = 100000000
+#i:So/FBTR1/NumberOfHistoriesInRun = 500
+#i:So/FBTR1/NumberOfHistoriesInRun = 1000
+i:Ts/ShowHistoryCountAtInterval = 1000
 
 #disable graphics
 b:Gr/Enable = "False"

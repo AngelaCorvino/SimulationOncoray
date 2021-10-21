@@ -7,15 +7,15 @@ d:Ge/World/HLY		= 1.0 m
 
 
 # Source Position
-d:Ge/BeamPosition/TransZ = -204.3 cm
+d:Ge/BeamPosition/TransZ = 204.3 cm
 # Source Rotation
-d:Ge/BeamPosition/RotX   = 0 deg
+d:Ge/BeamPosition/RotX   = 180 deg
 #Source Component
 # Protonen der Energie 90.40 MeV mit einem Energiespread von 0.77
 s:So/FBTR1/Type             = "Beam"
 s:So/FBTR1/Component        = "BeamPosition"
 s:So/FBTR1/BeamParticle     = "proton"
-d:So/FBTR1/BeamEnergy       = 150 MeV
+d:So/FBTR1/BeamEnergy       = 149.6 MeV
 u:So/FBTR1/BeamEnergySpread = 0.77
 # Beam profile is gaussian in x- und y
 s:So/FBTR1/BeamPositionDistribution = "Gaussian"
@@ -42,44 +42,16 @@ d:Ma/CuZn39Pb3/Density      = 8.47 g/cm3
 
 ##########################################################################
 
-
 #Streuer 1
 includeFile = Streuer1.txt
-d:Ge/Streuer1/TransZ	= -195.4 cm
+d:Ge/Streuer1/TransZ	= Ge/BeamPosition/TransZ - 14 cm #195.4 cm
 
-#Streuer 2
-s:Ge/Streuer2/Type   	= "Group"
-s:Ge/Streuer2/Parent 	= "World"
+
+
+#Streuer 1
+includeFile = Streuer2.txt
+d:Ge/Streuer2/TransZ	= Ge/Streuer1/TransZ - 43 cm # 152.4 cm
 d:Ge/Streuer2/TransX 	= 3.0 mm
-d:Ge/Streuer2/TransZ	=  -152.4 cm
-
-# Erste groessere Bleifolie
-s:Ge/Streuer2/Pb1/Parent 	= "Streuer2"
-s:Ge/Streuer2/Pb1/Type 		= "TsCylinder"
-s:Ge/Streuer2/Pb1/Material 	= "Lead"
-d:Ge/Streuer2/Pb1/RMax     	= 85 mm
-d:Ge/Streuer2/Pb1/HL      	= 0.35 mm
-
-# Zweite kleinere Bleifolie
-s:Ge/Streuer2/Pb2/Parent 	= "Streuer2"
-s:Ge/Streuer2/Pb2/Type 		= "TsCylinder"
-s:Ge/Streuer2/Pb2/Material 	= "Lead"
-d:Ge/Streuer2/Pb2/RMax     	= 18.7 mm
-d:Ge/Streuer2/Pb2/HL      	= 1.65 mm
-d:Ge/Streuer2/Pb2/TransZ	= 2.0 mm
-
-# PMMA
-s:Ge/Streuer2/PMMA/Parent 	= "Streuer2"
-s:Ge/Streuer2/PMMA/Type 	= "TsCylinder"
-s:Ge/Streuer2/PMMA/Material = "Lucite"
-d:Ge/Streuer2/PMMA/RMax     = 80 mm
-d:Ge/Streuer2/PMMA/RMin     = 18.7 mm
-d:Ge/Streuer2/PMMA/HL      	= 8.55 mm
-d:Ge/Streuer2/PMMA/TransZ	= 8.9 mm
-
-
-
-
 
 
 
@@ -88,23 +60,17 @@ d:Ge/Streuer2/PMMA/TransZ	= 8.9 mm
 # RidgeFilter Group
 ######################################
 includeFile = RidgeFilter.txt
-d:Ge/RidgeFilter/TransZ = -132.4 cm
+d:Ge/RidgeFilter/TransZ = Ge/Streuer2/TransZ - 20 cm #132.4 cm
 d:Ge/ridgeFilter/TransY = 2.5   mm
 d:Ge/ridgeFilter/RotZ   = 0 deg
 d:Ge/ridgeFilter/RotX   = 0 deg
 ##########################################################################
 #######################################
-
-
-
-
-
-
 ### 1. Kollimator ###
 
 # brass collimator with square hole (probably no effect in this setup)
 includeFile = firstCollimator.txt
-d:Ge/Collimator1/TransZ = -112.4 cm
+d:Ge/Collimator1/TransZ = Ge/RidgeFilter/TransZ - 20 cm#112.4 cm
 
 
 
@@ -113,8 +79,9 @@ d:Ge/Collimator1/TransZ = -112.4 cm
 
 includeFile = secondCollimator.txt
 ### Positionierung des zweiten Kollimators in der Welt ###
-d:Ge/Collimator2/TransZ		= -45.4 cm
-
+d:Ge/Collimator2/TransZ		= Ge/Collimator1/TransZ - 67 cm #45.4 cm
+dc:Ge/Collimator2/distance/HL =	Ge/Collimator2/TransZ	- 100.35 mm
+##########################################################################
 ##########################################################################
 
 
@@ -129,7 +96,7 @@ d:Ge/Collimator2/TransZ		= -45.4 cm
 ### create cuboids from polycarbonate = Lexan ###
 #s:Ge/PCplates/block/Type	= "TsBox"
 #s:Ge/PCplates/block/Parent	= "PCplates"
-#s:Ge/PCplates/block/Material	= "Lexan"
+#s:Ge/PCplates/block/Material	= "Air"
 #d:Ge/PCplates/block/HLX		= 20 cm
 #d:Ge/PCplates/block/HLY		= 20 cm
 
@@ -154,30 +121,27 @@ d:Ge/Collimator2/TransZ		= -45.4 cm
 
 
 ### Positionierung der PC-Platten in der Welt ###
-dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/TransZ		+ 33.765 cm
+#d:Ge/PCplates/block/TransZ	= Ge/Collimator2/distance/HL - Ge/PCplates/block/HLZ cm
+
+
+#d:Ge/PCplates/block/distance/HL= Ge/PCplates/block/TransZ - Ge/PCplates/block/HLZ cm
 
 
 
 ##########################################################################
 ### 3. Kollimator ###
-
 includeFile = thirdCollimator.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-dc:Ge/Collimator3/TransZ		=  Ge/PCplates/block/TransZ  + 7.6125 cm #(d:Ge/PCplates/block/HLZ	+ 3,35)
-##########################################################################
+#dc:Ge/Collimator3/TransZ		= Ge/PCplates/block/distance/HL - Ge/Collimator3/metall/HLZ cm #(d:Ge/PCplates/block/HLZ	+ 3,35)
+
+d:Ge/Collimator3/TransZ	=Ge/Collimator2/distance/HL - Ge/Collimator3/metall/HLZ cm
+
 s:Ge/Collimator3/DrawingStyle      = "Solid"
-
-
+d:Ge/Collimator3/distance/HL= Ge/Collimator3/TransZ	-  Ge/Collimator3/metall/HLZ cm
 
 includeFile = waterPhantom.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-dc:Ge/WaterPhantom/TransZ		= Ge/Collimator3/TransZ   + 3 cm #changeble #(d:Ge/PCplates/block/HLZ	+ 3,35)
-##########################################################################
-
-
-#includeFile = PVTbig.txt
-### Positionierung des dritten Kollimators in der Welt ###
-#dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   + 7 cm #changeble #(d:Ge/PCplates/block/HLZ	+ 3,35)
+dc:Ge/WaterPhantom/TransZ		= Ge/Collimator3/distance/HL - Ge/WaterPhantom/water/HLZ cm     #(Ge/WaterPhantom/water/HLZ plus third collimator HLZ)
 ##########################################################################
 
 
@@ -186,26 +150,49 @@ dc:Ge/WaterPhantom/TransZ		= Ge/Collimator3/TransZ   + 3 cm #changeble #(d:Ge/PC
 
 
 
-#Scoring the PVT  along z
-#s:Sc/MyScorer/Quantity= "DoseToWater"
-#s:Sc/MyScorer/Component= "PVT/big"
-#b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
-
-#s:Sc/MyScorer/Outputfile = "data/DoseToWater_150MeVproton_prova"
-#s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
-#s:Sc/MyScorer/OutputType= "csv"
-
-
-
-#Scoring the PVT  along z
-#s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
-#s:Sc/EnergyDepPVT/Component                 = "PVT/big"
-#s:Sc/EnergyDepPVT/Outputfile = "data/EnergyDeposit_150MeVproton_prova"
-#s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
-#s:Sc/EnergyDepPVT/OutputType= "csv"
+s:Sc/DoseScorer/Quantity        = "DoseToWater"
+s:Sc/DoseScorer/Component       = "WaterPhantom/active"
+s:Sc/DoseScorer/OutputFile      = "data/SOBP/DoseToWater_1500KeVproton_phantomafteraperture_1Dscorer"
+#b:Sc/DoseScorer/OutputToConsole = "TRUE"
+s:Sc/DoseScorer/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/DoseScorer/OutputType                = "csv"
+sv:Sc/DoseScorer/Report         = 1 "Sum"
 
 
 
+s:Sc/WaterPhantom/surface/Quantity                  = "PhaseSpace"
+s:Sc/WaterPhantom/surface/Surface                   = "WaterPhantom/water/ZMinusSurface"
+s:Sc/WaterPhantom/surface/OutputFile                = "data/H2Ophantom/WaterPhantomsurfaceafteraperture"
+s:Sc/WaterPhantom/surface/OutputType                = "Binary"
+s:Sc/WaterPhantom/surface/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/WaterPhantom/surface/OnlyIncludeParticlesGoing = "in"
+b:Sc/WaterPhantom/surface/IncludeTOPASTime          = "False"
+b:Sc/WaterPhantom/surface/IncludeTimeOfFlight       = "True"
+b:Sc/WaterPhantom/surface/IncludeVertexInfo         = "True"
+
+
+
+
+
+
+
+
+
+#Scoring LET the PVT  along z
+s:Sc/LET_phantom_dose/Quantity                  = "ProtonLET"
+s:Sc/LET_phantom_dose/Component                 = "WaterPhantom/active"
+s:Sc/LET_phantom_dose/Outputfile                = "data/SOBP/LET_doseweighted_1500KeVproton_phantomafteraperture_1Dscorer"
+s:Sc/LET_phantom_dose/IfOutputFileAlreadyExists = "Overwrite"
+s:Sc/LET_phantom_dose/OutputType                = "csv"
+d:Sc/LET_phantom_dose/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 100 MeV/mm/(g/cm3)
+
+#Scoring LET the PVT  along z
+s:Sc/LET_phantom_fluence/Quantity                   = "ProtonLET"
+s:Sc/LET_phantom_fluence/WeightBy                   = "Track" # defaults to "Dose"
+s:Sc/LET_phantom_fluence/Component                  = "WaterPhantom/active"
+s:Sc/LET_phantom_fluence/Outputfile                 = "data/SOBP/LET_fluenceweighted_1500KeVproton_phantomafteraperture_1Dscorer"
+s:Sc/LET_phantom_fluence/IfOutputFileAlreadyExists  = "Overwrite"
+s:Sc/LET_phantom_fluence/OutputType                 = "csv"
 
 ##########################################################################
 ### Grafik und sonstige Einstellungen ###
@@ -242,7 +229,7 @@ b:Gr/Enable			                = "True"
 b:Ts/PauseBeforeSequence 	      = "True"
 b:Ts/PauseBeforeQuit		        = "True"
 b:Ts/UseQt                      = "True"
-s:Gr/ViewA/setbackground    = "white"
+
 ### Number of simulated particles ###
 #i:So/FBTR1/NumberOfHistoriesInRun = 100000
 i:So/FBTR1/NumberOfHistoriesInRun = 1000
