@@ -10,8 +10,7 @@ from getprofile import  Get_profile
 
 directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-02/'
 filename=directory+'RCF21CY.csv'
-depth,rcfdose=read_datarcf(filename)
-rcferr=rcfdose*(546/10000)
+depth,rcfdose,rcferr=read_datarcf(filename)
 
 #filename1=directory+'RCF21CQ.csv'
 #depth1,rcfdose1=read_datarcf(filename1)
@@ -23,7 +22,7 @@ rcferr=rcfdose*(546/10000)
 #rcferr1=rcferr1/rcfdose1.max()
 
 
-
+"""
 
 directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-02/notnormalized/'
 
@@ -37,7 +36,7 @@ err=data0[0:len(data0)]
 #top_projection_dose= np.load(directory+'1Dtopprojection/'+'top1Dmean_array1.npy')
 
 
-"""
+
 directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/notnormalized/'
 
 data1= np.load(directory+'notnormalizedmean_array35.npy')
@@ -48,7 +47,7 @@ unidose=0
 data2= np.load(directory+'notnormalizederr35.npy')
 err2=data2[0:len(data2)]
 #top_projection_dose= np.load(directory+'1Dtopprojection/'+'top1Dmean_array1.npy')
-
+"""
 
 
 # read in the csv-file
@@ -199,8 +198,8 @@ zmeanprofile10=zmeanprofile10[::-1]
 
 
 zmeanprofiletot=zmeanprofile1+zmeanprofile2+zmeanprofile3+zmeanprofile4+zmeanprofile5+zmeanprofile6+zmeanprofile7+zmeanprofile8+zmeanprofile9+zmeanprofile10
-"""
 
+zmeanprofiletot=zmeanprofiletot/10
 
 # read in the csv-file
 outputfile_topas = '/home/corvin22/Desktop/Simulationhemera/data/Single/DoseToWater_90MeVproton_PVT_7PC_1Dscorer.csv'
@@ -219,36 +218,15 @@ plt.plot(np.arange(0,149,1)*0.0738255,
                                                                             '.',
                                                                             markersize=8,
                                         label='TOPAS Simulation')
-"""
+
 plt.plot(np.arange(0,170,1)*0.0634,
                                             zmeanprofileold/np.max(zmeanprofileold),
                                                                             '.',
                                                                             markersize=8,
                                         label='{ TOPAS Simulation}')
-"""
 
 
 
-plt.errorbar(  np.arange(0,len(dose),1)*0.074,                         dose/dose.max() ,
-                                                                      yerr=err/dose.max(),
-                                                                      xerr=None,
-                                                                        fmt='.',
-                                                                        color='green',
-                                                                        markersize=8,
-                                                                   ecolor='green',
-                                                                elinewidth=None,
-                                            label=' reconstruction '.format(unidose))
-"""
-
-plt.errorbar(  np.arange(0,len(dose1),1)*0.074,                         dose1/dose1.max() ,
-                                                                      yerr=err2/dose1.max(),
-                                                                      xerr=None,
-                                                                        fmt='.',
-                                                                        color='purple',
-                                                                        markersize=8,
-                                                                   ecolor='purple',
-                                                                elinewidth=None,
-                                            label=' reconstruction '.format(unidose))
 
 
 
@@ -266,7 +244,7 @@ plt.fill_between(depth,
                                                                 rcfdose1-rcferr1,
                                                                 rcfdose1+rcferr1,
                                                                 color='orange', alpha=0.1)
-"""
+
 plt.errorbar( depth,                      rcfdose/rcfdose.max() ,
                                                                   yerr=rcferr/rcfdose.max(),
                                                                       xerr=None,

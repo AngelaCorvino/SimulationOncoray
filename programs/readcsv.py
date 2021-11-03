@@ -4,14 +4,17 @@ import pandas as pd
 
 
 
-def read_datarcf(path):
+def read_datarcf(directory,filename):
  #data = pd.read_excel (path)
     ''' read measured rcf  data from execel document'''
+    path=directory+filename
     data=pd.read_csv(path,header=None,skiprows=1,delimiter=',')
     depth=(data[0])*1.28 # pixel
     rcfdose=(data[1])
-
-    return depth,rcfdose
+    rcferr=rcfdose*(546/10000)
+    area_rcf=np.trapz(rcfdose[0:len(rcfdose)], depth[0:len(depth)])
+    (rcfname,extension)= filename.split('.csv')
+    return depth,rcfdose,rcferr,area_rcf,rcfname
 
 
 

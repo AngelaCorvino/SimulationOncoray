@@ -15,7 +15,7 @@ d:Ge/BeamPosition/RotX   = 180 deg
 s:So/FBTR1/Type             = "Beam"
 s:So/FBTR1/Component        = "BeamPosition"
 s:So/FBTR1/BeamParticle     = "proton"
-d:So/FBTR1/BeamEnergy       = 92.10 MeV
+d:So/FBTR1/BeamEnergy       = 91.60 MeV
 u:So/FBTR1/BeamEnergySpread = 0.77
 # Beam profile is gaussian in x- und y
 s:So/FBTR1/BeamPositionDistribution = "Gaussian"
@@ -81,9 +81,7 @@ d:Ge/PCplates/block/HLZ		= 23.27 mm
 
 
 ### Positionierung der PC-Platten in der Welt ###
-dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/distance/HL - Ge/PCplates/block/HLZ cm
-
-
+d:Ge/PCplates/block/TransZ	= Ge/Collimator2/distance/HL - Ge/PCplates/block/HLZ cm
 d:Ge/PCplates/block/distance/HL= Ge/PCplates/block/TransZ - Ge/PCplates/block/HLZ cm
 
 ##########################################################################
@@ -115,7 +113,7 @@ d:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 4.9 cm  #(distance from minisicdom 
 s:Sc/AirboxScorer/Quantity                        = "DoseToWater"
 s:Sc/AirboxScorer/Component                       = "Airbox"
 b:Sc/AirboxScorer/PreCalculateStoppingPowerRatios = "True"
-s:Sc/AirboxScorer/Outputfile                      = "data/Single/Aperture/DoseToWater_9210KeVproton_Airbox_6PC1PMMA_3Dscorer"
+s:Sc/AirboxScorer/Outputfile                      = "data/Single/Aperture/DoseToWater_91600KeVproton_Airbox_6PC1PMMA_3Dscorer"
 s:Sc/AirboxScorer/IfOutputFileAlreadyExists       = "Overwrite"
 s:Sc/AirboxScorer/OutputType                      = "csv"
 
@@ -123,7 +121,7 @@ s:Sc/AirboxScorer/OutputType                      = "csv"
 #Scoring LET the PVT  along z
 s:Sc/LET_Airbox_dose/Quantity                  = "ProtonLET"
 s:Sc/LET_Airbox_dose/Component                 = "Airbox"
-s:Sc/LET_Airbox_dose/Outputfile                = "data/Single/Aperture/LET_doseweighted_9210KeVproton_Airbox_6PC1PMMA_3Dscorer"
+s:Sc/LET_Airbox_dose/Outputfile                = "data/Single/Aperture/LET_doseweighted_91600KeVproton_Airbox_6PC1PMMA_3Dscorer"
 s:Sc/LET_Airbox_dose/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/LET_Airbox_dose/OutputType                = "csv"
 d:Sc/LET_Airbox_dose/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 100 MeV/mm/(g/cm3)
@@ -132,11 +130,18 @@ d:Sc/LET_Airbox_dose/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 1
 s:Sc/LET_Airbox_fluence/Quantity                   = "ProtonLET"
 s:Sc/LET_Airbox_fluence/WeightBy                   = "Track" # defaults to "Dose"
 s:Sc/LET_Airbox_fluence/Component                  = "Airbox"
-s:Sc/LET_Airbox_fluence/Outputfile                 = "data/Single/Aperture/LET_fluenceweighted_9210KeVproton_Airbox_6PC1PMMA_3Dscorer"
+s:Sc/LET_Airbox_fluence/Outputfile                 = "data/Single/Aperture/LET_fluenceweighted_91600KeVproton_Airbox_6PC1PMMA_3Dscorer"
 s:Sc/LET_Airbox_fluence/IfOutputFileAlreadyExists  = "Overwrite"
 s:Sc/LET_Airbox_fluence/OutputType                 = "csv"
 
 
+#Scoring the PVT  along z
+s:Sc/MyScorer/Quantity                        = "DoseToWater"
+s:Sc/MyScorer/Component                       = "PVT/reconstructedarea"
+b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
+s:Sc/MyScorer/Outputfile                      = "data/Single/Aperture/DoseToWater_91600KeVproton_PVT_6PC1PMMA_1Dscorer"
+s:Sc/MyScorer/IfOutputFileAlreadyExists       = "Overwrite"
+s:Sc/MyScorer/OutputType                      = "csv"
 
 
 
@@ -168,31 +173,31 @@ b:Gr/ViewA/IncludeAxes			   	="False"
 d:Gr/ViewA/AxesSize				      = 5 cm
 b:Ge/World/Invisible				    = "True"
 
-#b:Gr/Enable			                = "True"
-#b:Ge/QuitIfOverlapDetected	= "True"
+b:Gr/Enable			                = "True"
+b:Ge/QuitIfOverlapDetected	= "True"
 
-#b:Ts/PauseBeforeSequence 	      = "True"
-#b:Ts/PauseBeforeQuit		        = "True"
-#b:Ts/UseQt                      = "True"
+b:Ts/PauseBeforeSequence 	      = "True"
+b:Ts/PauseBeforeQuit		        = "True"
+b:Ts/UseQt                      = "True"
 
 
 
 
 ### Number of simulated particles ###
-i:So/FBTR1/NumberOfHistoriesInRun = 1000000
+i:So/FBTR1/NumberOfHistoriesInRun = 100
 #i:So/FBTR1/NumberOfHistoriesInRun = 100
 
 i:Ts/ShowHistoryCountAtInterval = 100
 
 #disable graphics
-b:Gr/Enable = "False"
-b:Ge/QuitIfOverlapDetected	= "False"
+#b:Gr/Enable = "False"
+#b:Ge/QuitIfOverlapDetected	= "False"
 # don't stop anywhere
-b:Ts/PauseBeforeInit     = "False"
-b:Ts/PauseBeforeSequence = "False"
-b:Ts/PauseBeforeQuit     = "False"
+#b:Ts/PauseBeforeInit     = "False"
+#b:Ts/PauseBeforeSequence = "False"
+#b:Ts/PauseBeforeQuit     = "False"
 
 # don't get confused just because of a few interrupted histories
 i:Ts/MaxInterruptedHistories  = 1000
 
-i:Ts/NumberOfThreads				        = 60
+i:Ts/NumberOfThreads				        = 0

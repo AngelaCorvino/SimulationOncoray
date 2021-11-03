@@ -16,7 +16,7 @@ d:Ge/BeamPosition/RotX   = 180 deg
 s:So/FBTR1/Type             = "Beam"
 s:So/FBTR1/Component        = "BeamPosition"
 s:So/FBTR1/BeamParticle     = "proton"
-d:So/FBTR1/BeamEnergy       = 92.10 MeV
+d:So/FBTR1/BeamEnergy       = 91.60 MeV
 u:So/FBTR1/BeamEnergySpread = 0.77
 # Beam profile is gaussian in x- und y
 s:So/FBTR1/BeamPositionDistribution = "Gaussian"
@@ -81,10 +81,8 @@ d:Ge/PCplates/block/HLZ		= 23.27 mm
 
 
 
-### Positionierung der PC-Platten in der Welt ###
-dc:Ge/PCplates/block/TransZ	= Ge/Collimator2/distance/HL - Ge/PCplates/block/HLZ cm
-
-
+### Positioning of PC plates ###
+d:Ge/PCplates/block/TransZ	= Ge/Collimator2/distance/HL - Ge/PCplates/block/HLZ cm
 d:Ge/PCplates/block/distance/HL= Ge/PCplates/block/TransZ - Ge/PCplates/block/HLZ cm
 
 ##########################################################################

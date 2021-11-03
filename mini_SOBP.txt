@@ -15,7 +15,7 @@ d:Ge/BeamPosition/RotX   = 180 deg
 s:So/FBTR1/Type             = "Beam"
 s:So/FBTR1/Component        = "BeamPosition"
 s:So/FBTR1/BeamParticle     = "proton"
-d:So/FBTR1/BeamEnergy       = 149.6 MeV
+d:So/FBTR1/BeamEnergy       = 150.5 MeV
 u:So/FBTR1/BeamEnergySpread = 0.77
 # Beam profile is gaussian in x- und y
 s:So/FBTR1/BeamPositionDistribution = "Gaussian"
@@ -147,7 +147,7 @@ dc:Ge/PVT/TransZ		= Ge/Collimator3/TransZ   - 4.9 cm  #(distance from minisicdom
 
 s:Sc/PVT/reconstructedarea/surface/Quantity                  = "PhaseSpace"
 s:Sc/PVT/reconstructedarea/surface/Surface                   = "PVT/reconstructedarea/ZMinusSurface"
-s:Sc/PVT/reconstructedarea/surface/OutputFile                = "data/SOBP/PVTsurface_14960KeVproton_11PC"
+s:Sc/PVT/reconstructedarea/surface/OutputFile                = "data/SOBP/PVTsurface_150500KeVproton_11PC"
 s:Sc/PVT/reconstructedarea/surface/OutputType                = "Binary"
 s:Sc/PVT/reconstructedarea/surface/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/PVT/reconstructedarea/surface/OnlyIncludeParticlesGoing = "in"
@@ -160,7 +160,7 @@ b:Sc/PVT/reconstructedarea/surface/IncludeVertexInfo         = "True"
 s:Sc/MyScorer/Quantity                        = "DoseToWater"
 s:Sc/MyScorer/Component                       = "PVT/reconstructedarea"
 b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
-s:Sc/MyScorer/Outputfile                = "data/SOBP/DoseToWater_14960KeVproton_PVT_11PC_1Dscorer"
+s:Sc/MyScorer/Outputfile                = "data/SOBP/DoseToWater_150500KeVproton_PVT_11PC_1Dscorer"
 s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/MyScorer/OutputType                = "csv"
 
@@ -169,14 +169,14 @@ s:Sc/MyScorer/OutputType                = "csv"
 #Scoring the PVT  along z
 s:Sc/EnergyDepPVT/Quantity                  = "EnergyDeposit"
 s:Sc/EnergyDepPVT/Component                 = "PVT/reconstructedarea"
-s:Sc/EnergyDepPVT/Outputfile                = "data/SOBP/EnergyDeposit_14960KeVproton_PVT_11PC_1Dscorer"
+s:Sc/EnergyDepPVT/Outputfile                = "data/SOBP/EnergyDeposit_150500KeVproton_PVT_11PC_1Dscorer"
 s:Sc/EnergyDepPVT/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/EnergyDepPVT/OutputType                = "csv"
 
 #Scoring LET the PVT  along z
 s:Sc/LET_PVT_dose/Quantity                  = "ProtonLET"
 s:Sc/LET_PVT_dose/Component                 = "PVT/reconstructedarea"
-s:Sc/LET_PVT_dose/Outputfile                = "data/SOBP/LET_doseweighted_14960KeVproton_PVT_11PC_1Dscorer"
+s:Sc/LET_PVT_dose/Outputfile                = "data/SOBP/LET_doseweighted_150500KeVproton_PVT_11PC_1Dscorer"
 s:Sc/LET_PVT_dose/IfOutputFileAlreadyExists = "Overwrite"
 s:Sc/LET_PVT_dose/OutputType                = "csv"
 d:Sc/LET_PVT_dose/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 100 MeV/mm/(g/cm3)
@@ -185,7 +185,7 @@ d:Sc/LET_PVT_dose/MaxScoredLET               = 100 MeV/mm/(g/cm3) # default 100 
 s:Sc/LET_PVT_fluence/Quantity                   = "ProtonLET"
 s:Sc/LET_PVT_fluence/WeightBy                   = "Track" # defaults to "Dose"
 s:Sc/LET_PVT_fluence/Component                  = "PVT/reconstructedarea"
-s:Sc/LET_PVT_fluence/Outputfile                 = "data/SOBP/LET_fluenceweighted_14960KeVproton_PVT_11PC_1Dscorer"
+s:Sc/LET_PVT_fluence/Outputfile                 = "data/SOBP/LET_fluenceweighted_1500KeVproton_PVT_11PC_1Dscorer"
 s:Sc/LET_PVT_fluence/IfOutputFileAlreadyExists  = "Overwrite"
 s:Sc/LET_PVT_fluence/OutputType                 = "csv"
 ##########################################################################
@@ -242,6 +242,6 @@ b:Ts/PauseBeforeSequence = "False"
 b:Ts/PauseBeforeQuit     = "False"
 
 # don't get confused just because of a few interrupted histories
-i:Ts/MaxInterruptedHistories  = 1000
+i:Ts/MaxInterruptedHistories  = 2000
 
-i:Ts/NumberOfThreads				        = 60
+i:Ts/NumberOfThreads				        = 0

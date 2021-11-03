@@ -7,132 +7,186 @@ from scipy import interpolate
 import csv
 from getprofile import  Get_profile
 from readcsv import read_datarcf
+from readnpy import read_dose
+from readnpy import read_doserr
+
+
+
+
+
+m=0.073825 #[mm/pixel ]
+directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/notnormalized/'
+dose,depth,tof,shotnumber=read_dose(directory,'notnormalizedmean_array9.npy',m)
+
+#dose= dose- dose.min()/100 #background subtaction
+
+err=read_doserr(directory,'notnormalizederr9.npy') #standard deviation divided by radical n
+area=np.trapz(dose[3:len(dose)-1], depth[3:len(depth)-1])
+
+
+
 
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_11PC_SOBP_2Dscorer.csv'
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_14960KeVproton_PVT_12PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
 
-# read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/EnergyDeposit_150MeVproton_PVT_11PC_SOBP_2Dscorer.csv'
-header = pd.read_csv(outputfile_topas, nrows = 7)
-df = pd.read_csv(outputfile_topas, comment='#', header=None)
-topas_datamatrix_energy = np.array(df)# convert dataframe df to array
-print(np.shape(topas_datamatrix))
+
+(directory,energy,scoringvolume,PC,dimension)= outputfile_topas.split('_')
+(energy,particle)=energy.split('KeV')
 
 
 
-numberof_xbins = 161
-numberof_zbins = 170
-doseprofile=Get_profile(topas_datamatrix, 170,161)
+
+numberof_xbins = 1
+numberof_zbins = 149
+doseprofile=Get_profile(topas_datamatrix, 149,1)
 xmeanprofile=doseprofile.xmeanprofile
 zmeanprofile=doseprofile.zmeanprofile
+zmeanprofile=zmeanprofile[::-1]
 
 
 
-energyprofile=Get_profile(topas_datamatrix_energy, 170,161)
-xmeanenergyprofile=energyprofile.xmeanprofile
-zmeanenergyprofile=energyprofile.zmeanprofile
+#m1=0.0634
+m1=m
+# read in the csv-file
+outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_12PC_SOBP_1Dscorer.csv'
+header = pd.read_csv(outputfile_topas, nrows = 7)
+df = pd.read_csv(outputfile_topas, comment='#', header=None)
+topas_datamatrix = np.array(df)# convert dataframe df to array
+
+
+(directory,energy1,scoringvolume,PC,SOBP,dimension)= outputfile_topas.split('_')
+(energy1,particle)=energy1.split('MeV')
+
+
+
+numberof_xbins1 = 1
+numberof_zbins1 = 149
+doseprofile=Get_profile(topas_datamatrix, 149,1)
+xprofiles=doseprofile.xprofiles
+xmeanprofile=doseprofile.xmeanprofile
+zmeanprofile1=doseprofile.zmeanprofile
+zmeanprofile1=zmeanprofile1[::-1]
 
 
 
 
+
+
+"""
 
 
 plt.figure(1) # creates a figure in which we plot
-plt.plot(np.arange(0,numberof_xbins,1)*0.0634,xprofiles[10,:] ,'.-',label='{x profile at z = 0,634 mm inside PVT}') # plots depth on x, dose on y, and uses default layout
-plt.plot(np.arange(0,numberof_xbins,1)*0.0634,xprofiles[50,:] ,'.-',label='{x profile at z = 3,17 mm inside PVT}') # plots depth on x, dose on y, and uses default layout
-#plt.plot(np.arange(0,numberof_xbins,1)*0.0634,xprofiles[100,:] ,'.-',label='{x profile at z = 6,34 mm inside PVT}') # plots depth on x, dose on y, and uses default layout
-plt.plot(np.arange(0,numberof_xbins,1)*0.0634,xprofiles[150,:] ,'.-',label='{x profile at z = 9,51 mm inside PVT}') # plots depth on x, dose on y, and uses default layout
-#plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
-plt.title('Scoring in PVT  in PVT(aperture diameter= 7mm, 9 PC)') # Title
-plt.xlabel('Depth in Water x direction [mm]') # label for x-axis
-plt.ylabel(' Dose in water ') # label for y axis
+plt.plot(np.arange(0,numberof_xbins1,1)*m,xprofiles[10,:]/np.nanmax(xprofiles[10,:]) ,'.-',
+                                    label='{x profile at z = 0,634 mm inside PVT}')
+plt.plot(np.arange(0,numberof_xbins1,1)*m,
+                                    xprofiles[50,:]/np.nanmax(xprofiles[50,:]) ,
+                                                                            '.-',
+                                    label='{x profile at z = 3,17 mm inside PVT}')
+
+plt.plot(np.arange(0,numberof_xbins1,1)*m,
+                                    xprofiles[120,:]/np.nanmax(xprofiles[120,:]),
+                                                                            '.-',
+                                    label='{x profile at z = 9,51 mm inside PVT}')
 
 
-plt.legend()
+plt.title('Scoring in Miniscidom {} '.format(PC),
+                                                                  fontdict=None,
+                                                                  fontsize=24,
+                                                                  loc='center',
+                                                                       pad=None)
+
+plt.tick_params(axis='x', which='major', labelsize=16)
+plt.tick_params(axis='y', which='major', labelsize=16)
+
+plt.xlabel('Depth x direction [mm]',fontsize=24) # label for x-axis
+plt.ylabel('Relative dose ',fontsize=24) # label for y axis
+plt.legend( title='',fontsize=22,loc=1)
 plt.minorticks_on()
 plt.grid()
-
-
-
 
 
 
 
 
 plt.figure(3) # creates a figure in which we plot
-plt.plot(np.arange(0,numberof_xbins,1)*0.0634, xmeanprofile/np.max( xmeanprofile),'.-',label='{mean value of 170 bins along z}') # plots depth on x, dose on y, and uses default layout
+plt.plot(np.arange(0,numberof_xbins,1)*m,
+                                                xmeanprofile/np.max( xmeanprofile),
+                                                                            '.-',
+                                                                            markersize=12,
+                                        label='Simulated Dose Eo={} KeV '.format(energy)) # plots depth on x, dose on y, and uses default layout
 
 
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
-plt.title('Scoring in PVT(aperture diameter= 7mm, 10PC)') # Title
-plt.xlabel('Depth in Water x direction [mm]') # label for x-axis
-plt.ylabel('Relative Dose in water ') # label for y axis
+plt.title('Scoring in Miniscidom {} '.format(PC),
+                                                                  fontdict=None,
+                                                                  fontsize=24,
+                                                                  loc='center',
+                                                                       pad=None)
 
+plt.tick_params(axis='x', which='major', labelsize=16)
+plt.tick_params(axis='y', which='major', labelsize=16)
 
-plt.legend()
+plt.xlabel('Depth x direction [mm]',fontsize=24) # label for x-axis
+plt.ylabel('Relative dose ',fontsize=24) # label for y axis
+plt.legend( title='',fontsize=22,loc=1)
 plt.minorticks_on()
 plt.grid()
 
-
+"""
 
 plt.figure(4) # creates a figure in which we plot
-plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile,'.-',label='{ mean value of 161 bin along x}')
+"""
+plt.plot(np.arange(0,numberof_zbins,1)*m, zmeanprofile/np.nanmax(zmeanprofile),
+                                                                            '.-',
+                                                                markersize=12,
+                                            label='Simulated Dose Eo=149.6 MeV ')
+#                               label='Simulated Dose Eo={} KeV '.format(energy))
 
-#plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
-plt.title('Scoring in PVT (aperture diameter=7mm ,10 PC ) ') # Title
-plt.xlabel('Depth in water z direction [mm]') # label for x-axis
-plt.ylabel(' Dose in water ') # label for y axis
+
+"""
+
+plt.plot(np.arange(0,numberof_zbins1,1)*m1, zmeanprofile1/np.nanmax(zmeanprofile1),
+                                                                            '.-',
+                                                                    markersize=12,
+                                             label='Simulated Dose Eo=150 MeV ')
+#                                                    label='Simulated Dose Eo={} KeV '.format(energy1))
 
 
-plt.legend()
+
+plt.title('Scoring in Miniscidom {} '.format(PC),
+                                                                  fontdict=None,
+                                                                    fontsize=24,
+                                                                   loc='center',
+                                                                       pad=None)
+
+plt.tick_params(axis='x', which='major', labelsize=16)
+plt.tick_params(axis='y', which='major', labelsize=16)
+
+plt.xlabel('Depth z direction [mm]',fontsize=24) # label for x-axis
+plt.ylabel('Relative dose ',fontsize=24) # label for y axis
+plt.legend( title='',fontsize=22,loc=1)
 plt.minorticks_on()
 plt.grid()
 
 
 
 
+"""
 
 
 
-
-
-
-
-
-
-directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/notnormalized/'
-
-
-filename1=directory+'notnormalizedmean_array34.npy'
-data1= np.load(filename1)
-dose=data1[0:len(data1)-3]
-
-#tof1=data1[len(data1)-3:len(data1)]
-unidose=0
-data2= np.load(directory+'notnormalizederr34.npy')
-err=data2[0:len(data2)]
-#top_projection_dose1= np.load(directory+'1Dtopprojection/'+'top1Dmean_array42.npy')
-
-
-filename2=directory+'notnormalizedmean_array29.npy'
-data3= np.load(filename2)
-dose2=data3[0:len(data3)-3]
-
-
-data3= np.load(directory+'notnormalizedmean_array_notmasked28.npy')
-dosenotmasked=data3[0:len(data1)-3]
 
 directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/'
-filename=directory+'RCF21CQ.csv'
-depth,rcfdose=read_datarcf(filename)
-rcferr=rcfdose*(56/1000)
-filename1=directory+'RCF21CP.csv'
-depth1,rcfdose1=read_datarcf(filename)
-rcferr1=rcfdose1*(56/1000)
+filename='RCF21CQ.csv'
+rcfdepth,rcfdose,rcferr,area_rcf,rcfname=read_datarcf(directory,filename)
+
+
+filename1='RCF21CP.csv'
+rcfdepth1,rcfdose1,rcferr1,area_rcf1,rcfname1=read_datarcf(directory,filename1)
 
 plt.figure(6)
 #plt.plot( np.arange(0,len(dose2),1)*0.074,
@@ -145,7 +199,7 @@ plt.figure(6)
 #                                                                          '.',
 #                                                                  markersize=7,
 #                                                        label='{notmasked}')
-plt.errorbar(  np.arange(0,len(dose),1)*0.074,                         dose/dose.max() ,
+plt.errorbar(  np.arange(0,len(dose),1)*m,                         dose/dose.max() ,
                                                                       yerr=err/dose.max(),
                                                                       xerr=None,
                                                                         fmt='.',
@@ -156,30 +210,30 @@ plt.plot(np.arange(0,numberof_zbins,1)*0.0634, zmeanprofile/np.max(zmeanprofile)
 
 
 
-plt.errorbar( depth,                      rcfdose/rcfdose.max() ,
+plt.errorbar( rcfdepth,                      rcfdose/rcfdose.max() ,
                                                                   yerr=rcferr/rcfdose.max(),
                                                                       xerr=None,
                                                                         fmt='.',
                                                                         markersize=9,
                                                                    ecolor='gray',
                                                                 elinewidth=None,
-                                                                label=' RCF 21CQ measured dose')
+                                                                label='{} measured dose'.format(rcfname))
 
-plt.fill_between(depth,
+plt.fill_between(rcfdepth,
                                                                 rcfdose/rcfdose.max()-rcferr/rcfdose.max(),
                                                                 rcfdose/rcfdose.max()+rcferr/rcfdose.max(),
                                                         color='gray', alpha=0.5)
 
-plt.errorbar( depth,                      rcfdose1/rcfdose1.max() ,
+plt.errorbar( rcfdepth,                      rcfdose1/rcfdose1.max() ,
                                                                   yerr=rcferr1/rcfdose1.max(),
                                                                       xerr=None,
                                                                         fmt='.',
                                                                         markersize=9,
                                                                    ecolor='gray',
                                                                 elinewidth=None,
-                                                                label=' RCF 21CQ measured dose')
+                                                                label='{} measured dose'.format(rcfname1))
 
-plt.fill_between(depth,
+plt.fill_between(rcfdepth,
                                                                 rcfdose1/rcfdose1.max()-rcferr1/rcfdose1.max(),
                                                                 rcfdose1/rcfdose1.max()+rcferr1/rcfdose1.max(),
                                                         color='gray', alpha=0.5)
@@ -198,17 +252,7 @@ plt.grid()
 
 
 
-
-
-
-
-
-
-
-
-
-
-
+"""
 
 
 
