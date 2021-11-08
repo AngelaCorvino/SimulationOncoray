@@ -83,8 +83,10 @@ class Read_Scorer_Cube():
 if __name__ == "__main__":
 
 
-    directory ='/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/'
-    file_name='EnergyDeposit_90MeVproton_PVT_6PC_2Dscorer.csv'
+    #directory ='/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/'
+    directory ='/home/corvin22/SimulationOncoray/data/Single/Aperture/'
+    file_name='DoseToWater_91600KeVproton_Airbox_6PC1PMMA_3Dscorer.csv'
+    #='EnergyDeposit_90MeVproton_PVT_6PC_2Dscorer.csv'
     path=directory+file_name
 
 
@@ -97,7 +99,7 @@ if __name__ == "__main__":
     z_axis_vals = Scored_values.z_axis_vals
 
     #2D Cutplane
-    y_idx = 0
+    y_idx = 100
     cutplane = matrix_3D[:,y_idx,:]
 
     plt.title('y = {} cm'.format(y_axis_vals[y_idx]))
