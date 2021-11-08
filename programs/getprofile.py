@@ -1,9 +1,9 @@
 import scipy
-import pandas as pd # to work with structured, tabulated data (.csv, .xlsx,..)
-import numpy as np # to work fast with matrices, arrays and much more
-from matplotlib import pyplot as plt # to visualize/plot your data
+import pandas as pd
+import numpy as np
+from matplotlib import pyplot as plt 
 from scipy import interpolate
-#the program is written thinking about dose values but it can be used for energy, let , whatever valöue we want to score
+#the program is written thinking about dose values but it can be used for energy, let , whatever value we want to score
 
 def get_x_profile_at_z(data, z_binnumber):
     #z_binnumber = depth. The x-first value with e.g.
