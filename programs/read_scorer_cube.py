@@ -83,9 +83,10 @@ class Read_Scorer_Cube():
 if __name__ == "__main__":
 
 
-    #directory ='/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/'
-    directory ='/home/corvin22/SimulationOncoray/data/Single/Aperture/'
+    directory ='/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/Aperture/'
+    #directory ='/home/corvin22/SimulationOncoray/data/Single/Aperture/'
     file_name='DoseToWater_91600KeVproton_Airbox_6PC1PMMA_3Dscorer.csv'
+    #file_name='LET_fluenceweighted_91600KeVproton_Airbox_6PC1PMMA_3Dscorer.csv'
     #='EnergyDeposit_90MeVproton_PVT_6PC_2Dscorer.csv'
     path=directory+file_name
 
@@ -99,38 +100,159 @@ if __name__ == "__main__":
     z_axis_vals = Scored_values.z_axis_vals
 
     #2D Cutplane
+    plt.figure(1)
     y_idx = 100
     cutplane = matrix_3D[:,y_idx,:]
 
     plt.title('y = {} cm'.format(y_axis_vals[y_idx]))
-    plt.imshow(cutplane,extent=(z_axis_vals[0],z_axis_vals[-1],x_axis_vals[0],x_axis_vals[-1]))
+    plt.imshow(cutplane/cutplane.max(),extent=(z_axis_vals[0],z_axis_vals[-1],x_axis_vals[0],x_axis_vals[-1]),
+                                                            vmin=0,vmax=0.5)
     plt.ylabel('x in cm')
     plt.xlabel('z in cm')
+
+
+
+    #2D Cutplane
+    plt.figure(2)
+    y_idx = 50
+    cutplane = matrix_3D[:,y_idx,:]
+
+    plt.title('y = {} cm'.format(y_axis_vals[y_idx]))
+    plt.imshow(cutplane/cutplane.max(),
+            extent=(z_axis_vals[0],z_axis_vals[-1],x_axis_vals[0],x_axis_vals[-1]),
+                                                                    vmin=0,vmax=0.5)
+    plt.ylabel('x in cm')
+    plt.xlabel('z in cm')
+
+
+
+    #2D Cutplane
+    plt.figure(3)
+    x_idx = 50
+    cutplane = matrix_3D[x_idx,:,:]
+
+    plt.title('x = {} cm'.format(x_axis_vals[x_idx]))
+    plt.imshow(cutplane/cutplane.max(),extent=(z_axis_vals[0],z_axis_vals[-1],y_axis_vals[0],y_axis_vals[-1]),vmin=0,vmax=0.5)
+    plt.ylabel('y in cm')
+    plt.xlabel('z in cm')
+    plt.show()
+
+
+    #2D Cutplane
+    plt.figure(1)
+    z_idx = 10
+    cutplane = matrix_3D[:,:,z_idx ]
+
+    plt.title('z = {} cm'.format(z_axis_vals[z_idx]))
+    plt.imshow(cutplane/cutplane.max(),extent=(x_axis_vals[0],x_axis_vals[-1],y_axis_vals[0],y_axis_vals[-1]),vmin=0,vmax=0.5)
+    plt.ylabel('y in cm')
+    plt.xlabel('x in cm')
+
+
+
+
+    #2D Cutplane
+    plt.figure(2)
+    z_idx = 50
+    cutplane = matrix_3D[:,:,z_idx ]
+
+    plt.title('z = {} cm'.format(z_axis_vals[z_idx]))
+    im=plt.imshow(cutplane/cutplane.max(),extent=(x_axis_vals[0],x_axis_vals[-1],y_axis_vals[0],y_axis_vals[-1]),vmin=0,vmax=0.5)
+    plt.colorbar(im,label='Relative Intensity')
+    plt.ylabel('y in cm')
+    plt.xlabel('x in cm')
+
+
+
+
+    #2D Cutplane
+    plt.figure(3)
+    z_idx = 70
+    cutplane = matrix_3D[:,:,z_idx ]
+
+    plt.title('z = {} cm'.format(z_axis_vals[z_idx]))
+    im=plt.imshow(cutplane/cutplane.max(),extent=(x_axis_vals[0],x_axis_vals[-1],y_axis_vals[0],y_axis_vals[-1]),vmin=0,
+                                                                        vmax=0.5)
+    plt.colorbar(im,label='Relative Intensity')
+    plt.ylabel('y in cm')
+    plt.xlabel('x in cm')
+
+    #2D Cutplane
+    plt.figure(4)
+    z_idx = 80
+    cutplane = matrix_3D[:,:,z_idx ]
+
+    plt.title('z = {} cm'.format(z_axis_vals[z_idx]))
+
+    im=plt.imshow(cutplane/cutplane.max(),extent=(x_axis_vals[0],x_axis_vals[-1],y_axis_vals[0],y_axis_vals[-1]),vmin=0,vmax=0.5)
+    plt.colorbar(im,label='Relative Intensity')
+    plt.ylabel('y in cm')
+    plt.xlabel('x in cm')
+
+
+
+    #2D Cutplane
+    plt.figure(5)
+    z_idx = 90
+    cutplane = matrix_3D[:,:,z_idx ]
+
+    plt.title('z = {} cm'.format(z_axis_vals[z_idx]))
+    plt.imshow(cutplane/cutplane.max(),extent=(x_axis_vals[0],x_axis_vals[-1],y_axis_vals[0],y_axis_vals[-1]),vmin=0,vmax=0.5)
+    plt.ylabel('y in cm')
+    plt.xlabel('x in cm')
+
+    #2D Cutplane
+    plt.figure(6)
+    z_idx = 110
+    cutplane = matrix_3D[:,:,z_idx ]
+
+    plt.title('z = {} cm'.format(z_axis_vals[z_idx]))
+    plt.imshow(cutplane/cutplane.max(),extent=(x_axis_vals[0],x_axis_vals[-1],y_axis_vals[0],y_axis_vals[-1]),vmin=0,vmax=0.5)
+    plt.ylabel('y in cm')
+    plt.xlabel('x in cm')
+
+
+
 
     plt.show()
 
 
     #1D Cutplane in x
-    x_idx = 80
-    y_idx = 0
-    cutplane = matrix_3D[x_idx,y_idx,:]
+    x1_idx = 50
+    x2_idx = 100
+    x3_idx = 150
+    y_idx = 100
+    cutplane1 = matrix_3D[x1_idx,y_idx,:]
+    cutplane2 = matrix_3D[x2_idx,y_idx,:]
+    cutplane3 = matrix_3D[x3_idx,y_idx,:]
 
-    plt.title('y = {} cm ; x = {} cm'.format(y_axis_vals[y_idx],x_axis_vals[x_idx]))
-    plt.plot(z_axis_vals,cutplane)
-    plt.ylabel('Energy in MeV')
+    plt.title('y = {} cm '.format(y_axis_vals[y_idx]))
+    plt.plot(z_axis_vals,cutplane1,'.',label='x = {}'.format(x_axis_vals[x1_idx]))
+    plt.plot(z_axis_vals,cutplane2,'.',label='x = {}'.format(x_axis_vals[x2_idx]))
+    plt.plot(z_axis_vals,cutplane3,'.',label='x = {}'.format(x_axis_vals[x3_idx]))
+    #plt.ylabel('Dose to Water')
+    #plt.ylabel('LET fluece weighted')
     plt.xlabel('z in cm')
-
+    plt.legend()
     plt.show()
 
 
     #1D Cutplane in z
-    z_idx = 80
-    y_idx = 0
-    cutplane = matrix_3D[:,y_idx,z_idx]
+    z1_idx = 50
+    z2_idx = 100
+    z3_idx = 150
+    y_idx = 100
+    cutplane1 = matrix_3D[:,y_idx,z1_idx]
+    cutplane2 = matrix_3D[:,y_idx,z2_idx]
+    cutplane3 = matrix_3D[:,y_idx,z3_idx]
 
-    plt.title('y = {} cm ; z = {}'.format(y_axis_vals[y_idx],z_axis_vals[z_idx]))
-    plt.plot(x_axis_vals,cutplane)
-    plt.ylabel('Energy in MeV')
-    plt.xlabel('z in cm')
+    plt.title('y = {} cm '.format(y_axis_vals[y_idx]))
+    plt.plot(x_axis_vals,cutplane1,'.',label='z = {}'.format(z_axis_vals[z1_idx]))
+    plt.plot(x_axis_vals,cutplane2,'.',label='z = {}'.format(z_axis_vals[z2_idx]))
+    plt.plot(x_axis_vals,cutplane3,'.',label='z = {}'.format(z_axis_vals[z3_idx]))
+    plt.ylabel('Dose to Water')
+    #plt.ylabel('LET fluece weighted')
+    plt.xlabel('x in cm')
+    plt.legend()
 
     plt.show()

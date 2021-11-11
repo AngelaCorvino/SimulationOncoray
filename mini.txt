@@ -33,6 +33,12 @@ d:So/FBTR1/BeamAngularSpreadY		= 0.0055 rad
 d:So/FBTR1/BeamAngularCutoffX		= 90 deg
 d:So/FBTR1/BeamAngularCutoffY		= 90 deg
 
+###Particle CUt
+s:Ge/World/AssignToRegionNamed = "World"
+s:Vr/RangeRej/Type              = "RangeRejection"
+sv:Vr/RangeRej/ParticlesNamed   = "n"
+sv:Vr/RangeRej/Regions          = 1 "World"
+##########################################################################
 # Material der Messing-Apperturen mit 3% Bleianteil
 sv:Ma/CuZn39Pb3/Components  = 3  "Copper" "Zinc" "Lead"
 uv:Ma/CuZn39Pb3/Fractions   = 3  0.58     0.39   0.03
@@ -131,6 +137,7 @@ b:Sc/PVT/reconstructedarea/surface/IncludeVertexInfo         = "True"
 s:Sc/MyScorer/Quantity                        = "DoseToWater"
 s:Sc/MyScorer/Component                       = "PVT/reconstructedarea"
 b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
+sv:Sc/MyScorer/Report                         = 2 "mean " "Standard_Deviation"#
 #i:Ge/MyScorer/RBins = 1
 #i:Ge/MyScorer/PhiBins = 1
 #i:Ge/MyScorer/ZBins = 100                    #like RCF stack
@@ -203,7 +210,7 @@ b:Ge/World/Invisible				    = "True"
 
 
 ### Number of simulated particles ###
-i:So/FBTR1/NumberOfHistoriesInRun = 10000000
+i:So/FBTR1/NumberOfHistoriesInRun = 1000
 #i:So/FBTR1/NumberOfHistoriesInRun = 100
 
 i:Ts/ShowHistoryCountAtInterval = 100

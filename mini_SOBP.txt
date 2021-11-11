@@ -160,9 +160,10 @@ b:Sc/PVT/reconstructedarea/surface/IncludeVertexInfo         = "True"
 s:Sc/MyScorer/Quantity                        = "DoseToWater"
 s:Sc/MyScorer/Component                       = "PVT/reconstructedarea"
 b:Sc/MyScorer/PreCalculateStoppingPowerRatios = "True"
-s:Sc/MyScorer/Outputfile                = "data/SOBP/DoseToWater_150500KeVproton_PVT_11PC_1Dscorer"
-s:Sc/MyScorer/IfOutputFileAlreadyExists = "Overwrite"
-s:Sc/MyScorer/OutputType                = "csv"
+sv:Sc/MyScorer/Report                         = 2 "mean " "Standard_Deviation"#
+s:Sc/MyScorer/Outputfile                      = "data/SOBP/DoseToWater_150500KeVproton_PVT_11PC_1Dscorer"
+s:Sc/MyScorer/IfOutputFileAlreadyExists       = "Overwrite"
+s:Sc/MyScorer/OutputType                      = "csv"
 
 
 
