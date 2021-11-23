@@ -30,8 +30,9 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 
 #RCF data
 
-directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-02/'
-filename='RCF21CY.csv'
+#directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-02/'
+directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-02/'
+filename='RCF21CX.csv'
 rcfdepth,rcfdose,rcferr,area_rcf,rcfname=read_datarcf(directory,filename)
 
 
@@ -40,12 +41,13 @@ rcfdepth,rcfdose,rcferr,area_rcf,rcfname=read_datarcf(directory,filename)
 
 #September 2021
 m=0.073825 #[mm/pixel ]
-directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-02/notnormalized/'
-dose,depth,tof,shotnumber=read_dose(directory,'notnormalizedmean_array19.npy',m)
+directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-02/notnormalized/'
+#directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-02/notnormalized/'
+dose,depth,tof,shotnumber=read_dose(directory,'notnormalizedmean_array17.npy',m)
 
 
 
-err=read_doserr(directory,'notnormalizederr19.npy') #standard deviation divided by radical n
+err=read_doserr(directory,'notnormalizederr17.npy') #standard deviation divided by radical n
 area=np.trapz(dose[3:len(dose)-7], depth[3:len(depth)-7])
 
 
@@ -55,8 +57,9 @@ area=np.trapz(dose[3:len(dose)-7], depth[3:len(depth)-7])
 
 #Simulation
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/DoseToWater_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
-outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/DoseToWater_9210KeVproton_PVT_7PC_1Dscorer.csv'
+#outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/DoseToWater_9210KeVproton_PVT_7PC_1Dscorer.csv'
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/DoseToWater_9210KeVproton_PVT_6PC_1Dscorer.csv'
+outputfile_topas = '/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/Single/DoseToWater_9210KeVproton_PVT_6PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -69,7 +72,8 @@ dose_sci=zdoseprofile
 (energy,particle)=energy.split('KeV')
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
-outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_doseweighted_9210KeVproton_PVT_7PC_1Dscorer.csv'
+#outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_doseweighted_9210KeVproton_PVT_7PC_1Dscorer.csv'
+outputfile_topas = '/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/Single/LET_doseweighted_9210KeVproton_PVT_6PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix= np.array(df)# convert dataframe df to array
@@ -78,8 +82,9 @@ LET_zdoseprofile=LET_doseprofile.zmeanprofile
 LET_zdoseprofile=LET_zdoseprofile[::-1]
 LET_zdoseprofile[0]=LET_zdoseprofile[1]
 
-outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9210KeVproton_PVT_7PC_1Dscorer.csv'
+#outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9210KeVproton_PVT_7PC_1Dscorer.csv'
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
+outputfile_topas = '/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/Single/LET_fluenceweighted_9210KeVproton_PVT_6PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix= np.array(df)# convert dataframe df to array
@@ -390,7 +395,7 @@ ax.fill_between(rcfdepth,
 
 
 
-sub_axes = plt.axes([.6, .6, .25, .25])
+#sub_axes = plt.axes([.6, .6, .25, .25])
 
 # plot the zoomed portion
 
@@ -415,7 +420,7 @@ sub_axes.grid(b=True,color='k',linestyle='-',alpha=0.2)
 
 
 """
-
+"""
 sub_axes.errorbar( rcfdepth[0:5],                      (rcfdose/area_rcf)[0:5],
                                                         yerr=(rcferr/area_rcf)[0:5],
                                                                       xerr=None,
@@ -448,7 +453,7 @@ sub_axes.grid(b=True,color='k',linestyle='-',alpha=0.2)
 
 
 
-""""
+
 ax.plot( np.arange(0,149,1)*m,zdoseprofileprova1/zdoseprofileprova1.max(),
                                                                             '.',
                                         color=sns.color_palette(  "Paired")[8],
@@ -466,7 +471,7 @@ ax.plot(depth_sci,zdoseprofile/area_sim,
 
 
 
-ax2.plot(depth_sci[0:120],LET_zdoseprofile[0:120],
+ax2.plot(depth_sci[0:150],LET_zdoseprofile[0:150],
                                                                             '.',
                                          color=sns.color_palette(  "Paired")[2],
                                                                   Markersize=10,
@@ -490,7 +495,7 @@ ax.tick_params(axis='y', which='major',colors='blue', labelsize=16)
 
 #plt.title('Shape comparison {} '.format(rcfname),fontsize=22)
 
-mark_inset(ax, sub_axes, loc1=2, loc2=3, fc="none", ec="0.5")
+#mark_inset(ax, sub_axes, loc1=2, loc2=3, fc="none", ec="0.5")
 
 
 

@@ -30,8 +30,9 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 
 #RCF data
 
-directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/'
-filename='RCF21CP.csv'
+#directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/'
+directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/'
+filename='RCF21CT.csv'
 rcfdepth,rcfdose,rcferr,area_rcf,rcfname=read_datarcf(directory,filename)
 
 
@@ -40,13 +41,14 @@ rcfdepth,rcfdose,rcferr,area_rcf,rcfname=read_datarcf(directory,filename)
 
 #September 2021
 m=0.073825 #[mm/pixel ]
-directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/notnormalized/'
-dose,depth,tof,shotnumber=read_dose(directory,'notnormalizedmean_array34.npy',m)
+#directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/notnormalized/'
+directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/notnormalized/'
+dose,depth,tof,shotnumber=read_dose(directory,'notnormalizedmean_array29.npy',m)
 
 #dose= dose- dose.min()/100 #background subtaction
 
-err=read_doserr(directory,'notnormalizederr34.npy') #standard deviation divided by radical n
-area=np.trapz(dose[3:len(dose)-1], depth[3:len(depth)-1])
+err=read_doserr(directory,'notnormalizederr29.npy') #standard deviation divided by radical n
+area=np.trapz(dose[1:len(dose)-1], depth[1:len(depth)-1])
 
 
 
@@ -56,21 +58,24 @@ area=np.trapz(dose[3:len(dose)-1], depth[3:len(depth)-1])
 #Simulation
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/DoseToWater_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/DoseToWater_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/home/corvin22/Simulationhemera/data/SOBP/10PC/DoseToWater_151500KeVproton_PVT_10PC_1Dscorer.csv'
+#outputfile_topas='/home/corvin22/Simulationhemera/data/SOBP/10PC/DoseToWater_151500KeVproton_PVT_10PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/DoseToWater_153MeVproton_PVT_12PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
 doseprofile=Get_profile(topas_datamatrix, 149,1)
 zdoseprofile=doseprofile.zmeanprofile
 zdoseprofile=zdoseprofile[::-1]
+#zdoseprofile[0]=zdoseprofile[1]
 dose_sci=zdoseprofile
 
 (directory,energy,scoringvolume,PC,dimension)= outputfile_topas.split('_')
-(energy,particle)=energy.split('KeV')
+(energy,particle)=energy.split('MeV')
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_doseweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/home/corvin22/Simulationhemera/data/SOBP/10PC/LET_doseweighted_151500KeVproton_PVT_10PC_1Dscorer.csv'
+#outputfile_topas='/home/corvin22/Simulationhemera/data/SOBP/10PC/LET_doseweighted_151500KeVproton_PVT_10PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/LET_doseweighted_153MeVproton_PVT_12PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix= np.array(df)# convert dataframe df to array
@@ -80,8 +85,9 @@ LET_zdoseprofile=LET_zdoseprofile[::-1]
 LET_zdoseprofile[0]=LET_zdoseprofile[1]
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_fluenceweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/home/corvin22/Simulationhemera/data/SOBP/10PC/LET_fluenceweighted_151500KeVproton_PVT_10PC_1Dscorer.csv'
+#outputfile_topas='/home/corvin22/Simulationhemera/data/SOBP/10PC/LET_fluenceweighted_151500KeVproton_PVT_10PC_1Dscorer.csv'
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/LET_fluenceweighted_153MeVproton_PVT_12PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix= np.array(df)# convert dataframe df to array
@@ -257,7 +263,7 @@ ax.plot( np.arange(0,149,1)*m,zdoseprofile*norm_sim,
                                                                             '.',
                                          color=sns.color_palette(  "Paired")[6],
                                                                   Markersize=11,
-                label='Simulated Dose in scintillator Eo={} KeV '.format(energy))
+                label='Simulated Dose in scintillator Eo={} MeV '.format(energy))
 
 
 
@@ -475,7 +481,7 @@ ax2.plot(depth_sci,LET_zdoseprofile,
                                                                    label='LET  dose-weighted')
 
 
-ax.set_ylim([0,0.2])
+ax.set_ylim([0.02,0.15])
 ax.set_xlabel(" Depth [mm] ",color="black",fontsize=16)
 ax2.set_ylabel("LET [KeV/um]",color=sns.color_palette(  "Paired")[2],fontsize=16)
 ax.set_ylabel(" Relative Dose ",color="blue",fontsize=16)

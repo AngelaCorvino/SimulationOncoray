@@ -15,7 +15,8 @@ from readnpy import read_doserr
 
 
 m=0.073825 #[mm/pixel ]
-directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/notnormalized/'
+directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/notnormalized/'
+#directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/notnormalized/'
 dose,depth,tof,shotnumber=read_dose(directory,'notnormalizedmean_array9.npy',m)
 
 #dose= dose- dose.min()/100 #background subtaction
@@ -28,14 +29,15 @@ area=np.trapz(dose[3:len(dose)-1], depth[3:len(depth)-1])
 
 
 # read in the csv-file
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_14960KeVproton_PVT_12PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/DoseToWater_152MeVproton_PVT_10PC_1Dscorer.csv'
+#outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_14960KeVproton_PVT_12PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
 
 
 (directory,energy,scoringvolume,PC,dimension)= outputfile_topas.split('_')
-(energy,particle)=energy.split('KeV')
+(energy,particle)=energy.split('MeV')
 
 
 
@@ -48,7 +50,7 @@ zmeanprofile=doseprofile.zmeanprofile
 zmeanprofile=zmeanprofile[::-1]
 
 
-
+"""
 #m1=0.0634
 m1=m
 # read in the csv-file
@@ -71,7 +73,7 @@ xmeanprofile=doseprofile.xmeanprofile
 zmeanprofile1=doseprofile.zmeanprofile
 zmeanprofile1=zmeanprofile1[::-1]
 
-
+"""
 
 
 
@@ -139,12 +141,11 @@ plt.grid()
 """
 
 plt.figure(4) # creates a figure in which we plot
-"""
+
 plt.plot(np.arange(0,numberof_zbins,1)*m, zmeanprofile/np.nanmax(zmeanprofile),
-                                                                            '.-',
+                                                                            '.',
                                                                 markersize=12,
-                                            label='Simulated Dose Eo=149.6 MeV ')
-#                               label='Simulated Dose Eo={} KeV '.format(energy))
+                               label='Simulated Dose Eo={} MeV '.format(energy))
 
 
 """
@@ -155,14 +156,14 @@ plt.plot(np.arange(0,numberof_zbins1,1)*m1, zmeanprofile1/np.nanmax(zmeanprofile
                                              label='Simulated Dose Eo=150 MeV ')
 #                                                    label='Simulated Dose Eo={} KeV '.format(energy1))
 
-
+"""
 
 plt.title('Scoring in Miniscidom {} '.format(PC),
                                                                   fontdict=None,
                                                                     fontsize=24,
                                                                    loc='center',
                                                                        pad=None)
-
+plt.ylim([0,1.1])
 plt.tick_params(axis='x', which='major', labelsize=16)
 plt.tick_params(axis='y', which='major', labelsize=16)
 
