@@ -30,11 +30,13 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 
 #RCF data
 
-#directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/'
-directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/'
+directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/'
+#directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/'
 filename2='RCF21CT.csv'
+filename1='RCF21CR.csv'
 filename='RCF21CP.csv'
 rcfdepth,rcfdose,rcferr,area_rcf,rcfname=read_datarcf(directory,filename)
+rcfdepth1,rcfdose1,rcferr1,area_rcf1,rcfname1=read_datarcf(directory,filename1)
 rcfdepth2,rcfdose2,rcferr2,area_rcf2,rcfname2=read_datarcf(directory,filename2)
 
 
@@ -43,23 +45,27 @@ rcfdepth2,rcfdose2,rcferr2,area_rcf2,rcfname2=read_datarcf(directory,filename2)
 
 #September 2021
 s=0.073825 #[mm/pixel ]
-#directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/notnormalized/'
-directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/notnormalized/'
+directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/notnormalized/'
+#directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/notnormalized/'
 dose2,depth2,tof,shotnumber2=read_dose(directory,'notnormalizedmean_array29.npy',s)
+#dose2=dose2-dose2.min()
 dose,depth,tof,shotnumber=read_dose(directory,'notnormalizedmean_array34.npy',s)
+dose1,depth1,tof,shotnumber1=read_dose(directory,'notnormalizedmean_array9.npy',s)
 #dose= dose- dose.min()/100 #background subtaction
 
 err=read_doserr(directory,'notnormalizederr34.npy')
+err1=read_doserr(directory,'notnormalizederr9.npy')
 err2=read_doserr(directory,'notnormalizederr29.npy') #standard deviation divided by radical n
 area=np.trapz(dose[5:len(dose)-12], depth[5:len(depth)-12])
+area1=np.trapz(dose1[1:len(dose1)-1], depth1[1:len(depth1)-1])
 area2=np.trapz(dose2[1:len(dose2)-1], depth2[1:len(depth2)-1])
 
 
 
 
 
-
-outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/DoseToWater_153MeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/11PC/151.5MeV/DoseToWater_151500KeVproton_PVT_11PC_1Dscorer.csv'
+#outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/DoseToWater_153MeVproton_PVT_11PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -68,12 +74,52 @@ zdoseprofile1=doseprofile1.zmeanprofile
 zdoseprofile1=zdoseprofile1[::-1]
 dose_sci1=zdoseprofile1
 (directory,energy1,scoringvolume1,PC1,dimension)= outputfile_topas.split('_')
-(energy1,particle)=energy1.split('MeV')
+(energy1,particle)=energy1.split('KeV')
 
 
 
-outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/DoseToWater_152500KeVproton_PVT_12PC_1Dscorer.csv'
-#outputfile_topas='/home/corvin22/Simulationhemera/data/SOBP/12PC/DoseToWater_152500KeVproton_PVT_12PC_1Dscorer.csv'
+
+#outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_doseweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/11PC/151.5MeV/LET_doseweighted_151500KeVproton_PVT_11PC_1Dscorer.csv'
+#outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/LET_doseweighted_153MeVproton_PVT_11PC_1Dscorer.csv'
+header = pd.read_csv(outputfile_topas, nrows = 7)
+df = pd.read_csv(outputfile_topas, comment='#', header=None)
+topas_datamatrix= np.array(df)# convert dataframe df to array
+LET_doseprofile=Get_profile(topas_datamatrix, 149,1)
+LET_zdoseprofile1=LET_doseprofile.zmeanprofile
+LET_zdoseprofile1=LET_zdoseprofile1[::-1]
+LET_zdoseprofile1[0]=LET_zdoseprofile1[1]
+
+#outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_fluenceweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/11PC/151.5MeV/LET_fluenceweighted_151500KeVproton_PVT_11PC_1Dscorer.csv'
+#outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/LET_fluenceweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
+header = pd.read_csv(outputfile_topas, nrows = 7)
+df = pd.read_csv(outputfile_topas, comment='#', header=None)
+topas_datamatrix= np.array(df)# convert dataframe df to array
+LET_fluenceprofile=Get_profile(topas_datamatrix, 149,1)
+LET_zfluenceprofile1=LET_fluenceprofile.zmeanprofile
+LET_zfluenceprofile1=LET_zfluenceprofile1[::-1]
+LET_zfluenceprofile1[0]=LET_zfluenceprofile1[1]
+
+depth_sci1= np.arange(0,len(zdoseprofile1),1)*s
+area_sim1=np.trapz(zdoseprofile1[0:len(zdoseprofile1)-8],depth_sci1[0:len(depth_sci1)-8]) #eliminate last 3 points
+area_f_LET1=np.trapz(LET_zfluenceprofile1,depth_sci1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+########################################################################################################################################
+#outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/DoseToWater_152500KeVproton_PVT_12PC_1Dscorer.csv'
+outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/12PC/152.5MeV/DoseToWater_152500KeVproton_PVT_12PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -85,9 +131,52 @@ dose_sci2=zdoseprofile2
 (energy2,particle)=energy2.split('KeV')
 
 
+#outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_doseweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/12PC/152.5MeV/LET_doseweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
+#outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/LET_doseweighted_153MeVproton_PVT_12PC_1Dscorer.csv'
+header = pd.read_csv(outputfile_topas, nrows = 7)
+df = pd.read_csv(outputfile_topas, comment='#', header=None)
+topas_datamatrix= np.array(df)# convert dataframe df to array
+LET_doseprofile=Get_profile(topas_datamatrix, 149,1)
+LET_zdoseprofile2=LET_doseprofile.zmeanprofile
+LET_zdoseprofile2=LET_zdoseprofile2[::-1]
+LET_zdoseprofile2[0]=LET_zdoseprofile2[1]
 
-#outputfile_topas='/home/corvin22/Simulationhemera/data/SOBP/10PC/DoseToWater_152500KeVproton_PVT_10PC_1Dscorer.csv'
-outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/DoseToWater_152500KeVproton_PVT_10PC_1Dscorer.csv'
+#outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_fluenceweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/12PC/152.5MeV/LET_fluenceweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
+#outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/LET_fluenceweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
+header = pd.read_csv(outputfile_topas, nrows = 7)
+df = pd.read_csv(outputfile_topas, comment='#', header=None)
+topas_datamatrix= np.array(df)# convert dataframe df to array
+LET_fluenceprofile=Get_profile(topas_datamatrix, 149,1)
+LET_zfluenceprofile2=LET_fluenceprofile.zmeanprofile
+LET_zfluenceprofile2=LET_zfluenceprofile2[::-1]
+LET_zfluenceprofile2[0]=LET_zfluenceprofile2[1]
+
+depth_sci2= np.arange(0,len(zdoseprofile2),1)*s
+area_sim2=np.trapz(zdoseprofile2[0:len(zdoseprofile2)-8],depth_sci2[0:len(depth_sci2)-8]) #eliminate last 3 points
+area_f_LET2=np.trapz(LET_zfluenceprofile2,depth_sci2)
+
+
+
+
+
+
+
+
+
+#######################################################################################################################################
+
+
+
+
+
+
+
+
+
+outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/10PC/152.5MeV/DoseToWater_152500KeVproton_PVT_10PC_1Dscorer.csv'
+#outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/DoseToWater_152500KeVproton_PVT_10PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -102,12 +191,8 @@ area_sim=np.trapz(zdoseprofile[3:len(zdoseprofile)-8],depth_sci[3:len(depth_sci)
 
 
 
-
-
-#outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_fluenceweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-#outputfile_topas='/home/corvin22/Simulationhemera/data/SOBP/10PC/LET_fluenceweighted_151500KeVproton_PVT_10PC_1Dscorer.csv'
-#outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
-outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/LET_fluenceweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
+outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/10PC/152.5MeV/LET_fluenceweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
+#outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/LET_fluenceweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix= np.array(df)# convert dataframe df to array
@@ -116,16 +201,13 @@ LET_zfluenceprofile=LET_fluenceprofile.zmeanprofile
 LET_zfluenceprofile=LET_zfluenceprofile[::-1]
 LET_zfluenceprofile[0]=LET_zfluenceprofile[1]
 
-depth_sci= np.arange(0,len(zdoseprofile),1)*s
-area_sim=np.trapz(zdoseprofile[0:len(zdoseprofile)-8],depth_sci[0:len(depth_sci)-8]) #eliminate last 3 points
-#area_LET2=np.trapz(LET_zdoseprofile,depth_sci2)
+
 area_f_LET=np.trapz(LET_zfluenceprofile,depth_sci)
 
 
 
-
-#outputfile_topas='/home/corvin22/Simulationhemera/data/SOBP/10PC/LET_doseweighted_151500KeVproton_PVT_10PC_1Dscorer.csv'
-outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/LET_doseweighted_153MeVproton_PVT_10PC_1Dscorer.csv'
+outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/10PC/152.5MeV/LET_doseweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
+#outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/LET_doseweighted_153MeVproton_PVT_10PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix= np.array(df)# convert dataframe df to array
@@ -142,43 +224,16 @@ LET_zdoseprofile[0]=LET_zdoseprofile[1]
 
 
 
-#outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_doseweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-#outputfile_topas='/home/corvin22/Simulationhemera/data/SOBP/10PC/LET_doseweighted_151500KeVproton_PVT_10PC_1Dscorer.csv'
-outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/LET_doseweighted_153MeVproton_PVT_12PC_1Dscorer.csv'
-header = pd.read_csv(outputfile_topas, nrows = 7)
-df = pd.read_csv(outputfile_topas, comment='#', header=None)
-topas_datamatrix= np.array(df)# convert dataframe df to array
-LET_doseprofile=Get_profile(topas_datamatrix, 149,1)
-LET_zdoseprofile2=LET_doseprofile.zmeanprofile
-LET_zdoseprofile2=LET_zdoseprofile2[::-1]
-LET_zdoseprofile2[0]=LET_zdoseprofile2[1]
-
-#outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_fluenceweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-#outputfile_topas='/home/corvin22/Simulationhemera/data/SOBP/10PC/LET_fluenceweighted_151500KeVproton_PVT_10PC_1Dscorer.csv'
-#outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
-outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/LET_fluenceweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
-header = pd.read_csv(outputfile_topas, nrows = 7)
-df = pd.read_csv(outputfile_topas, comment='#', header=None)
-topas_datamatrix= np.array(df)# convert dataframe df to array
-LET_fluenceprofile=Get_profile(topas_datamatrix, 149,1)
-LET_zfluenceprofile2=LET_fluenceprofile.zmeanprofile
-LET_zfluenceprofile2=LET_zfluenceprofile2[::-1]
-LET_zfluenceprofile2[0]=LET_zfluenceprofile2[1]
-
-depth_sci2= np.arange(0,len(zdoseprofile2),1)*s
-area_sim2=np.trapz(zdoseprofile2[0:len(zdoseprofile2)-8],depth_sci2[0:len(depth_sci2)-8]) #eliminate last 3 points
-#area_LET2=np.trapz(LET_zdoseprofile,depth_sci2)
-area_f_LET2=np.trapz(LET_zfluenceprofile,depth_sci2)
 
 ################################################################################
 norm_rcf=1/rcfdose.max()
-#norm_rcf1=1/rcfdose1.max()    #area_rcf
+norm_rcf1=1/rcfdose1.max()    #area_rcf
 norm_rcf2=1/rcfdose2.max()
 norm=1/dose.max()#area
-#norm1=1/dose1.max()#area
+norm1=1/dose1.max()#area
 norm2=1/dose2.max()#area
 norm_sim=1/zdoseprofile.max() #area_sim
-#norm_sim1=1/zdoseprofile1.max() #area_sim
+norm_sim1=1/zdoseprofile1.max() #area_sim
 norm_sim2=1/zdoseprofile2.max() #area_sim
 
 #norm_rcf=1/area_rcf
@@ -189,6 +244,7 @@ norm_sim2=1/zdoseprofile2.max() #area_sim
 #norm2=1/area2
 #norm_sim2=1/area_sim2
 #norm_sim=1/area_sim
+#norm_sim1=1/area_sim1
 ##############################################################################
 
 
@@ -205,10 +261,9 @@ def function1(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b):
     return D_rcf,Derr_rcf,area_rcfcorrected
 
 D_rcf,Derr_rcf,area_rcfcorrected=function1(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b)
+D_rcf1,Derr_rcf1,area_rcfcorrected1=function1(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b)
 D_rcf2,Derr_rcf2,area_rcfcorrected2=function1(rcfdepth2,rcfdose2,rcferr2,depth_sci2,LET_zdoseprofile2,a,b)
 ####################################################################################
-normrcf=1
-normrcfcorrecrted=1
 
 
 
@@ -263,7 +318,7 @@ def function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_r
     return D_a_mini,D_fluence_mini
 
 D_a_mini2,D_fluence_mini2=function2(dose2,depth2,depth_sci2,LET_zdoseprofile2,LET_zfluenceprofile2,s,area_rcfcorrected2)
-
+D_a_mini1,D_fluence_mini1=function2(dose1,depth1,depth_sci1,LET_zdoseprofile1,LET_zfluenceprofile1,s,area_rcfcorrected1)
 D_a_mini,D_fluence_mini=function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_rcfcorrected)
 
 
@@ -271,31 +326,32 @@ D_a_mini,D_fluence_mini=function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zflu
 
 ###############################################################################
 
-"""
 
 plt.figure(1) # creates a figure in which we plot
 plt.plot( np.arange(0,149,1)*s,zdoseprofile*norm_sim,
 
                                                                     '.',
                                                                   markersize=12,
-                                          color=sns.color_palette(  "Paired")[2],
+                                          color=sns.color_palette(  "Paired")[3],
                                                        label=' {}'.format(PC))
 
 plt.errorbar( rcfdepth,                                          rcfdose*norm_rcf,
                                                             yerr=rcferr*norm_rcf,
                                                                       xerr=None,
                                                                         fmt='.',
-                                          color=sns.color_palette(  "Paired")[1],
+                                          color=sns.color_palette(  "Paired")[2],
                                                                     markersize=12,
-                                         ecolor=sns.color_palette(  "Paired")[1],
+                                         ecolor=sns.color_palette(  "Paired")[2],
                                                                  elinewidth=None,
-                                                 label='{} measured dose'.format(rcfname))
+                                                 label='{} measured dose'.format(rcfname),
+                                                 zorder=2)
 
 plt.fill_between(rcfdepth,
                                                 rcfdose*norm_rcf-rcferr*norm_rcf,
                                                 rcfdose*norm_rcf+rcferr*norm_rcf,
-                                          color=sns.color_palette(  "Paired")[1],
-                                                                       alpha=0.1)
+                                          color=sns.color_palette(  "Paired")[2],
+                                                                       alpha=0.1,
+                                                                       zorder=2)
 
 
 
@@ -303,26 +359,28 @@ plt.fill_between(rcfdepth,
 plt.plot( np.arange(0,149,1)*s,zdoseprofile1*norm_sim1,
                                                                         '.',
                                                                   markersize=12,
-                                          color=sns.color_palette(  "Paired")[2],
-                                                       label=' {}'.format(PC1))
+                                          color=sns.color_palette(  "Paired")[5],
+                                                       label=' {}'.format(PC1),
+                                                       zorder=1)
 
 
-plt.errorbar( rcfdepth1,                                          rcfdose1*norm_rcf1,
+plt.errorbar( rcfdepth1,                                      rcfdose1*norm_rcf1,
                                                             yerr=rcferr1*norm_rcf1,
                                                                       xerr=None,
                                                                         fmt='.',
-                                          color=sns.color_palette(  "Paired")[1],
+                                          color=sns.color_palette(  "Paired")[4],
                                                                     markersize=12,
-                                         ecolor=sns.color_palette(  "Paired")[1],
+                                         ecolor=sns.color_palette(  "Paired")[4],
                                                                  elinewidth=None,
-                                                 label='{} measured dose'.format(rcfname1))
-print(len(rcfdepth1))
-print(len(rcfdepth))
+                                                 label='{} measured dose'.format(rcfname1),
+                                                 zorder=2)
+
 plt.fill_between(rcfdepth1,
                                                 rcfdose1*norm_rcf1-rcferr1*norm_rcf1,
                                                 rcfdose1*norm_rcf1+rcferr1*norm_rcf1,
-                                          color=sns.color_palette(  "Paired")[1],
-                                                                       alpha=0.1)
+                                          color=sns.color_palette(  "Paired")[4],
+                                                                       alpha=0.1,
+                                                                       zorder=2)
 
 
 
@@ -332,8 +390,9 @@ plt.fill_between(rcfdepth1,
 plt.plot( np.arange(0,149,1)*s,zdoseprofile2*norm_sim2,
                                                                         '.',
                                                                   markersize=12,
-                                          color=sns.color_palette(  "Paired")[2],
-                                                       label=' {}'.format(PC2))
+                                          color=sns.color_palette(  "Paired")[7],
+                                                       label=' {}'.format(PC2),
+                                                       zorder=1)
 
 
 
@@ -341,39 +400,34 @@ plt.errorbar( rcfdepth2,                                          rcfdose2*norm_
                                                             yerr=rcferr2*norm_rcf2,
                                                                       xerr=None,
                                                                         fmt='.',
-                                          color=sns.color_palette(  "Paired")[1],
+                                          color=sns.color_palette(  "Paired")[6],
                                                                     markersize=12,
-                                         ecolor=sns.color_palette(  "Paired")[1],
+                                         ecolor=sns.color_palette(  "Paired")[6],
                                                                  elinewidth=None,
-                                                 label='{} measured dose'.format(rcfname1))
+                                                 label='{} measured dose'.format(rcfname2),
+                                                 zorder=2)
 
 plt.fill_between(rcfdepth,
                                                 rcfdose2*norm_rcf2-rcferr2*norm_rcf2,
                                                 rcfdose2*norm_rcf2+rcferr2*norm_rcf2,
-                                          color=sns.color_palette(  "Paired")[1],
-                                                                       alpha=0.1)
-
-
-
-
-
+                                          color=sns.color_palette(  "Paired")[6],
+                                                                       alpha=0.1,
+                                                                       zorder=2)
 
 
 
 plt.title('Depth-dose distribution shape comparison',fontsize=26)
 plt.xlabel(" Depth[mm] ",fontsize=24)
 plt.ylabel('Relative Dose in water ',fontsize=24)
-plt.legend(title='E_{primary}=92.20 MeV',fontsize=24,loc=4,markerscale=2,title_fontsize=24)
+plt.legend(title='E_{primary}=152.5 MeV',fontsize=24,loc=3,markerscale=2,title_fontsize=24)
 plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
 plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
 plt.minorticks_on()
 plt.tick_params(axis='x', which='major', labelsize=22)
 plt.tick_params(axis='y', which='major', labelsize=22)
 
-
 plt.show()
 
-"""
 
 
 
@@ -514,6 +568,7 @@ ax.plot(depth,
 
 
 function4(rcfdepth2,rcfdose2,norm_rcf2,rcferr2,rcfname2,dose2,depth2,err2,norm2,depth_sci2,zdoseprofile2,LET_zfluenceprofile2,norm_sim2,D_fluence_mini2,shotnumber2,PC2)
+function4(rcfdepth1,rcfdose1,norm_rcf1,rcferr1,rcfname1,dose1,depth1,err1,norm1,depth_sci1,zdoseprofile1,LET_zfluenceprofile1,norm_sim1,D_fluence_mini1,shotnumber1,PC1)
 function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci,zdoseprofile,LET_zfluenceprofile,norm_sim,D_fluence_mini,shotnumber,PC)
 #PLOT
 
@@ -681,4 +736,5 @@ ax.plot(depth_sci,zdoseprofile/area_sim,
     return
 
 function3(rcfdose2,rcfdepth2,rcferr2,rcfname2,area_rcf2,area_rcfcorrected2,D_rcf2,Derr_rcf2,depth_sci2,LET_zdoseprofile2)
+function3(rcfdose1,rcfdepth1,rcferr1,rcfname1,area_rcf1,area_rcfcorrected1,D_rcf1,Derr_rcf1,depth_sci1,LET_zdoseprofile1)
 function3(rcfdose,rcfdepth,rcferr,rcfname,area_rcf,area_rcfcorrected,D_rcf,Derr_rcf,depth_sci,LET_zdoseprofile)
