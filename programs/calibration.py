@@ -64,7 +64,7 @@ area2=np.trapz(dose2[1:len(dose2)-1], depth2[1:len(depth2)-1])
 
 
 
-outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/11PC/151.5MeV/DoseToWater_151500KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/11PC/152.5MeV107/DoseToWater_152500KeVproton_PVT_11PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/DoseToWater_153MeVproton_PVT_11PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -80,7 +80,7 @@ dose_sci1=zdoseprofile1
 
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_doseweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/11PC/151.5MeV/LET_doseweighted_151500KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/11PC/152.5MeV107/LET_doseweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/LET_doseweighted_153MeVproton_PVT_11PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -91,7 +91,7 @@ LET_zdoseprofile1=LET_zdoseprofile1[::-1]
 LET_zdoseprofile1[0]=LET_zdoseprofile1[1]
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_fluenceweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/11PC/151.5MeV/LET_fluenceweighted_151500KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/11PC/152.5MeV107/LET_fluenceweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/LET_fluenceweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -230,10 +230,10 @@ norm_rcf=1/rcfdose.max()
 norm_rcf1=1/rcfdose1.max()    #area_rcf
 norm_rcf2=1/rcfdose2.max()
 norm=1/dose.max()#area
-norm1=1/dose1.max()#area
-norm2=1/dose2.max()#area
+norm1=1/dose1.max()
+norm2=1/dose2.max()#
 norm_sim=1/zdoseprofile.max() #area_sim
-norm_sim1=1/zdoseprofile1.max() #area_sim
+norm_sim1=1/zdoseprofile1[7] #area_sim
 norm_sim2=1/zdoseprofile2.max() #area_sim
 
 #norm_rcf=1/area_rcf
