@@ -15,9 +15,9 @@ d:Ge/Collimator2/metall/HL       = 16.5 mm
 d:Ge/Collimator2/metall/Rmax     = 9 cm
 
 ### erzeuge zylinderfˆrmiges Loch im Messingzylinder ###
-s:Ge/Collimator2/hole/Type	= "TsBox"
+s:Ge/Collimator2/hole/Type	= "TsCylinder"
 s:Ge/Collimator2/hole/Parent	= "Collimator2/metall"
 s:Ge/Collimator2/hole/Material	= Ge/Collimator2/empty
-d:Ge/Collimator2/hole/HLX	= 57.5 mm
-d:Ge/Collimator2/hole/HLY		= 57.75  mm
+d:Ge/Collimator2/hole/HL	= 16.5 mm
+d:Ge/Collimator2/hole/Rmax	= 10  mm
 d:Ge/Collimator2/hole/HLZ	= Ge/Collimator2/metall/HL m
