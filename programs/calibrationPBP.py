@@ -29,9 +29,7 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 ###############################################################################
 
 #RCF data
-
-directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-02/'
-#directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-02/'
+directory='/Users/angelacorvino/Documents/GitHub/miniscidom/pictures/2021-09-02/'
 filename='RCF21CW.csv'
 rcfdepth,rcfdose,rcferr,area_rcf,rcfname=read_datarcf(directory,filename)
 
@@ -43,8 +41,7 @@ rcfdepth2,rcfdose2,rcferr2,area_rcf2,rcfname2=read_datarcf(directory,filename2)
 
 #September 2021
 s=0.073825 #[mm/pixel ]
-#directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-02/notnormalized/'
-directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-02/notnormalized/'
+directory='/Users/angelacorvino/Documents/GitHub/miniscidom/pictures/2021-09-02/notnormalized/'
 dose,depth,tof,shotnumber=read_dose(directory,'notnormalizedmean_array1.npy',s)
 dose1,depth1,tof1,shotnumber1=read_dose(directory,'notnormalizedmean_array19.npy',s)
 dose2,depth2,tof2,shotnumber2=read_dose(directory,'notnormalizedmean_array17.npy',s)
@@ -60,9 +57,7 @@ area2=np.trapz(dose2[3:len(dose2)-7], depth[3:len(depth2)-7])
 
 
 
-outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/DoseToWater_9210KeVproton_PVT_7PC_1Dscorer.csv'
-#outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/DoseToWater_9210KeVproton_PVT_6PC_1Dscorer.csv'
-#outputfile_topas = '/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/Single/DoseToWater_9210KeVproton_PVT_6PC_1Dscorer.csv'
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/DoseToWater_9210KeVproton_PVT_7PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -76,8 +71,7 @@ dose_sci1=zdoseprofile1
 
 
 
-outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/DoseToWater_9210KeVproton_PVT_6PC_1Dscorer.csv'
-#outputfile_topas = '/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/Single/DoseToWater_9210KeVproton_PVT_6PC_1Dscorer.csv'
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/DoseToWater_9210KeVproton_PVT_6PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -91,13 +85,9 @@ dose_sci2=zdoseprofile2
 
 
 
-
-
 #Simulation
-outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/DoseToWater_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
-#outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/DoseToWater_9210KeVproton_PVT_7PC_1Dscorer.csv'
-#outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/DoseToWater_9210KeVproton_PVT_6PC_1Dscorer.csv'
-#outputfile_topas = '/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/Single/DoseToWater_9210KeVproton_PVT_6PC_1Dscorer.csv'
+
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/DoseToWater_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -111,9 +101,8 @@ dose_sci=zdoseprofile
 
 
 
-outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
-#outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_doseweighted_9210KeVproton_PVT_7PC_1Dscorer.csv'
-#outputfile_topas = '/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/Single/LET_doseweighted_9210KeVproton_PVT_6PC_1Dscorer.csv'
+#outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/LET_doseweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix= np.array(df)# convert dataframe df to array
@@ -122,9 +111,8 @@ LET_zdoseprofile=LET_doseprofile.zmeanprofile
 LET_zdoseprofile=LET_zdoseprofile[::-1]
 LET_zdoseprofile[0]=LET_zdoseprofile[1]
 
-#outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9210KeVproton_PVT_7PC_1Dscorer.csv'
-outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
-#outputfile_topas = '/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/Single/LET_fluenceweighted_9210KeVproton_PVT_6PC_1Dscorer.csv'
+#outputfile_topas = '/home/corvin22/Simulationhemera/data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix= np.array(df)# convert dataframe df to array
@@ -132,6 +120,46 @@ LET_fluenceprofile=Get_profile(topas_datamatrix, 149,1)
 LET_zfluenceprofile=LET_fluenceprofile.zmeanprofile
 LET_zfluenceprofile=LET_zfluenceprofile[::-1]
 LET_zfluenceprofile[0]=LET_zfluenceprofile[1]
+
+
+
+
+
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/LET_fluenceweighted_9210KeVproton_PVT_7PC_1Dscorer.csv'
+header = pd.read_csv(outputfile_topas, nrows = 7)
+df = pd.read_csv(outputfile_topas, comment='#', header=None)
+topas_datamatrix= np.array(df)# convert dataframe df to array
+LET_fluenceprofile1=Get_profile(topas_datamatrix, 149,1)
+LET_zfluenceprofile1=LET_fluenceprofile1.zmeanprofile
+LET_zfluenceprofile1=LET_zfluenceprofile1[::-1]
+LET_zfluenceprofile1[0]=LET_zfluenceprofile1[1]
+
+
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/LET_fluenceweighted_9210KeVproton_PVT_7PC_1Dscorer.csv'
+header = pd.read_csv(outputfile_topas, nrows = 7)
+df = pd.read_csv(outputfile_topas, comment='#', header=None)
+topas_datamatrix= np.array(df)# convert dataframe df to array
+LET_doseprofile1=Get_profile(topas_datamatrix, 149,1)
+LET_zdoseprofile1=LET_doseprofile1.zmeanprofile
+LET_zdoseprofile1=LET_zdoseprofile1[::-1]
+LET_zdoseprofile1[0]=LET_zdoseprofile1[1]
+
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/LET_fluenceweighted_9210KeVproton_PVT_6PC_1Dscorer.csv'
+header = pd.read_csv(outputfile_topas, nrows = 7)
+df = pd.read_csv(outputfile_topas, comment='#', header=None)
+topas_datamatrix= np.array(df)# convert dataframe df to array
+LET_fluenceprofile2=Get_profile(topas_datamatrix, 149,1)
+LET_zfluenceprofile2=LET_fluenceprofile2.zmeanprofile
+LET_zfluenceprofile2=LET_zfluenceprofile2[::-1]
+LET_zfluenceprofile2[0]=LET_zfluenceprofile2[1]
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/LET_fluenceweighted_9210KeVproton_PVT_6PC_1Dscorer.csv'
+header = pd.read_csv(outputfile_topas, nrows = 7)
+df = pd.read_csv(outputfile_topas, comment='#', header=None)
+topas_datamatrix= np.array(df)# convert dataframe df to array
+LET_doseprofile2=Get_profile(topas_datamatrix, 149,1)
+LET_zdoseprofile2=LET_doseprofile2.zmeanprofile
+LET_zdoseprofile2=LET_zdoseprofile2[::-1]
+LET_zdoseprofile2[0]=LET_zdoseprofile2[1]
 
 
 depth_sci= np.arange(0,len(zdoseprofile),1)*s
@@ -175,8 +203,8 @@ def function1(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b):
     return D_rcf,Derr_rcf,area_rcfcorrected
 
 D_rcf,Derr_rcf,area_rcfcorrected=function1(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b)
-#D_rcf1,Derr_rcf1,area_rcfcorrected1=function1(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b)
-#D_rcf2,Derr_rcf2,area_rcfcorrected2=function1(rcfdepth2,rcfdose2,rcferr2,depth_sci2,LET_zdoseprofile2,a,b)
+D_rcf1,Derr_rcf1,area_rcfcorrected1=function1(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b)
+D_rcf2,Derr_rcf2,area_rcfcorrected2=function1(rcfdepth2,rcfdose2,rcferr2,depth_sci,LET_zdoseprofile2,a,b)
 
 
 """LET correction simulations in scintillator """
@@ -188,7 +216,7 @@ k=207/10000 #[g/MeV cm^2]
 a=0.9 #scintillator efficiency
 dx= 65 #µm scintillator spatial resolution
 ddx=1 #spatial resolution error
-k=k/dscintillator*10#[micrometers/kev]
+k=k*10#[micrometers/kev]
 #SIMULATED LET IN Scintillator starting from TOF of a scidom shot
 
 def function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_rcfcorrected):
@@ -212,8 +240,6 @@ def function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_r
     norm_fluence_mini=1/dosecorrection(dose,S_fluence_mini,a,k,dx).max()
 
 
-
-
     D_a_mini=dosecorrection(dose,S_a_mini,a,k,dx)
     #D_a_up_mini=dosecorrection(dose,S_a_up_mini,a,k,dx)*norm_a_mini
     #D_a_low_mini=dosecorrection(dose,S_a_low_mini,a,k,dx)*norm_a_mini
@@ -229,8 +255,8 @@ def function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_r
 
     return D_a_mini,D_fluence_mini
 
-#D_a_mini2,D_fluence_mini2=function2(dose2,depth2,depth_sci2,LET_zdoseprofile2,LET_zfluenceprofile2,s,area_rcfcorrected2)
-#D_a_mini1,D_fluence_mini1=function2(dose1,depth1,depth_sci1,LET_zdoseprofile1,LET_zfluenceprofile1,s,area_rcfcorrected1)
+D_a_mini2,D_fluence_mini2=function2(dose2,depth2,depth_sci,LET_zdoseprofile2,LET_zfluenceprofile2,s,area_rcfcorrected2)
+D_a_mini1,D_fluence_mini1=function2(dose1,depth1,depth_sci,LET_zdoseprofile1,LET_zfluenceprofile1,s,area_rcfcorrected1)
 D_a_mini,D_fluence_mini=function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_rcfcorrected)
 
 
@@ -238,29 +264,21 @@ D_a_mini,D_fluence_mini=function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zflu
 ###############################################################################
 
 
+def plotfunction(depth,dose,err,norm,rcfdepth,rcfdose,rcferr,norm_rcf,color1,color2,PC,rcfname,s):
 
 
-
-
-plt.figure(1) # creates a figure in which we plot
-#plt.plot( np.arange(0,149,1)*s,zdoseprofile*norm_sim,
-#                                                                    '.',
-#                                                                  markersize=12,
-#                                          color=sns.color_palette(  "Paired")[2],
-#                                                       label=' {}'.format(PC))
-
-plt.errorbar(  np.arange(0,len(dose),1)*s,                              dose*norm,
+    plt.errorbar(depth,                              dose*norm,
                                                                    yerr=err*norm,
                                                                        xerr=None,
                                                                          fmt='.',
                                                                          markersize=12,
-                                          color=sns.color_palette(  "Paired")[0],
-                                         ecolor=sns.color_palette(  "Paired")[0],
+                                                                   color=color1,
+                                                                  ecolor=color1,
                                                                  elinewidth=None,
                                                         label=' Miniscidom {}'.format(PC))
 
 
-plt.fill_between(np.arange(0,len(dose),1)*s,
+    plt.fill_between(depth,
                                                              dose*norm-err*norm,
                                                            dose*norm + err*norm,
                                           color=sns.color_palette(  "Paired")[0],
@@ -272,107 +290,63 @@ plt.fill_between(np.arange(0,len(dose),1)*s,
 
 
 
-plt.errorbar( rcfdepth,                                          rcfdose*norm_rcf,
+    plt.errorbar( rcfdepth,                                          rcfdose*norm_rcf,
                                                             yerr=rcferr*norm_rcf,
                                                                       xerr=None,
                                                                         fmt='.',
-                                          color=sns.color_palette(  "Paired")[1],
+                                                                    color=color2,
                                                                     markersize=12,
-                                         ecolor=sns.color_palette(  "Paired")[1],
+                                                                  ecolor=color2,
                                                                  elinewidth=None,
                                                  label='{}'.format(rcfname))
 
-plt.fill_between(rcfdepth,
+    plt.fill_between(rcfdepth,
                                                 rcfdose*norm_rcf-rcferr*norm_rcf,
                                                 rcfdose*norm_rcf+rcferr*norm_rcf,
-                                          color=sns.color_palette(  "Paired")[1],
+                                          color=color2,
                                                                        alpha=0.1)
 
 
+    return
+
+def plotfunction1(depth_sci,dose_sci,norm_sim,rcfdepth,rcfdose,rcferr,norm_rcf,color1,color2,PC,rcfname,s):
+
+
+    plt.plot(depth_sci,dose_sci*norm_sim,
+                                                                                '.',
+                                                                     color=color1,
+                                                                     Markersize=12,
+                                                            label=' {}'.format(PC))
 
 
 
-
-
-
-
-#plt.plot( np.arange(0,149,1)*s,zdoseprofile1*norm_sim1,
-#                                                                        '.',
-#                                                                  markersize=12,
-#                                          color=sns.color_palette(  "Paired")[2],
-#                                                       label=' {}'.format(PC1))
-
-
-
-plt.errorbar(  np.arange(0,len(dose1),1)*s,                              dose1*norm1,
-                                                                   yerr=err1*norm1,
-                                                                       xerr=None,
-                                                                         fmt='.',
-                                                                         markersize=12,
-                                          color=sns.color_palette(  "Paired")[2],
-                                         ecolor=sns.color_palette(  "Paired")[2],
-                                                                 elinewidth=None,
-                                                        label=' Miniscidom {}'.format(PC1))
-
-
-plt.fill_between(np.arange(0,len(dose1),1)*s,
-                                                             dose1*norm1-err1*norm1,
-                                                           dose1*norm1 + err1*norm1,
-                                          color=sns.color_palette(  "Paired")[2],
-                                                                      alpha=0.5)
-
-
-
-
-
-
-plt.errorbar( rcfdepth1,                                          rcfdose1*norm_rcf1,
-                                                            yerr=rcferr1*norm_rcf1,
+    plt.errorbar( rcfdepth,                                          rcfdose*norm_rcf,
+                                                            yerr=rcferr*norm_rcf,
                                                                       xerr=None,
                                                                         fmt='.',
-                                          color=sns.color_palette(  "Paired")[3],
+                                                                    color=color2,
                                                                     markersize=12,
-                                         ecolor=sns.color_palette(  "Paired")[3],
+                                                                  ecolor=color2,
                                                                  elinewidth=None,
-                                                 label='{}'.format(rcfname1))
+                                                 label='{}'.format(rcfname))
 
-plt.fill_between(rcfdepth1,
-                                                rcfdose1*norm_rcf1-rcferr1*norm_rcf1,
-                                                rcfdose1*norm_rcf1+rcferr1*norm_rcf1,
-                                          color=sns.color_palette(  "Paired")[3],
+    plt.fill_between(rcfdepth,
+                                                rcfdose*norm_rcf-rcferr*norm_rcf,
+                                                rcfdose*norm_rcf+rcferr*norm_rcf,
+                                          color=color2,
                                                                        alpha=0.1)
+    return
 
 
+def plotfunction2(depth_sci,dose_sci,norm_sim,LET_zfluenceprofile,color1,PC,zlim):
 
+    plt.plot(depth_sci[0:zlim],LET_zfluenceprofile[0:zlim],
+                                                                            '.',
+                                                                   color=color1,
+                                                                   Markersize=12,
+                                               label='{} '.format(PC))
 
-
-
-#plt.plot( np.arange(0,149,1)*s,zdoseprofile2*norm_sim2,
-#                                                                        '.',
-#                                                                  markersize=12,
-#                                          color=sns.color_palette(  "Paired")[2],
-                                                       # label=' {}'.format(PC2))
-
-
-
-
-
-plt.errorbar(  np.arange(0,len(dose2),1)*s,                              dose2*norm2,
-                                                                   yerr=err2*norm2,
-                                                                       xerr=None,
-                                                                         fmt='.',
-                                                                         markersize=12,
-                                          color=sns.color_palette(  "Paired")[8],
-                                         ecolor=sns.color_palette(  "Paired")[8],
-                                                                 elinewidth=None,
-                                label=' Miniscidom {}'.format(PC2))
-
-
-plt.fill_between(np.arange(0,len(dose2),1)*s,
-                                                             dose2*norm2-err2*norm2,
-                                                           dose2*norm2 + err2*norm2,
-                                          color=sns.color_palette(  "Paired")[8],
-                                                                      alpha=0.3)
+    return
 
 
 
@@ -380,29 +354,11 @@ plt.fill_between(np.arange(0,len(dose2),1)*s,
 
 
 
+plt.figure(1)
 
-
-
-plt.errorbar( rcfdepth2,                                          rcfdose2*norm_rcf2,
-                                                            yerr=rcferr2*norm_rcf2,
-                                                                      xerr=None,
-                                                                        fmt='.',
-                                          color=sns.color_palette(  "Paired")[9],
-                                                                    markersize=12,
-                                         ecolor=sns.color_palette(  "Paired")[9],
-                                                                 elinewidth=None,
-                                                 label='{}'.format(rcfname1))
-
-plt.fill_between(rcfdepth,
-                                                rcfdose2*norm_rcf2-rcferr2*norm_rcf2,
-                                                rcfdose2*norm_rcf2+rcferr2*norm_rcf2,
-                                          color=sns.color_palette(  "Paired")[9],
-                                                                       alpha=0.1)
-
-
-
-
-
+plotfunction(depth,dose,err,norm,rcfdepth,rcfdose,rcferr,norm_rcf,sns.color_palette("Paired")[0],sns.color_palette(  "Paired")[1],PC,rcfname,s)
+plotfunction(depth1,dose1,err1,norm1,rcfdepth1,rcfdose1,rcferr1,norm_rcf1,sns.color_palette(  "Paired")[2],sns.color_palette(  "Paired")[3],PC1,rcfname1,s)
+plotfunction(depth2,dose2,err2,norm2,rcfdepth2,rcfdose2,rcferr2,norm_rcf2,sns.color_palette(  "Paired")[8],sns.color_palette(  "Paired")[9],PC2,rcfname2,s)
 
 
 
@@ -410,7 +366,7 @@ plt.title('Depth-dose distribution shape comparison',fontsize=26)
 plt.xlabel(" Depth[mm] ",fontsize=24)
 plt.ylabel('Relative Dose in water ',fontsize=24)
 #plt.legend(title='E_{primary}=92.10 MeV',fontsize=24,loc=3,markerscale=2,title_fontsize=24)
-plt.legend(title='',fontsize=24,loc=3,markerscale=3)
+plt.legend(title='',fontsize=24,loc=3,markerscale=3,title_fontsize=20)
 plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
 plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
 plt.minorticks_on()
@@ -418,26 +374,62 @@ plt.tick_params(axis='x', which='major', labelsize=22)
 plt.tick_params(axis='y', which='major', labelsize=22)
 
 
+
+
+
+
+
+plt.figure(2)
+
+
+plotfunction1(depth_sci,dose_sci,norm_sim,rcfdepth,rcfdose,rcferr,norm_rcf,sns.color_palette(  "Paired")[0],sns.color_palette(  "Paired")[1],PC,rcfname,s)
+plotfunction1(depth_sci,dose_sci1,norm_sim1,rcfdepth1,rcfdose1,rcferr1,norm_rcf1,sns.color_palette(  "Paired")[2],sns.color_palette(  "Paired")[3],PC1,rcfname1,s)
+plotfunction1(depth_sci,dose_sci2,norm_sim2,rcfdepth2,rcfdose2,rcferr2,norm_rcf2,sns.color_palette(  "Paired")[8],sns.color_palette(  "Paired")[9],PC2,rcfname2,s)
+
+
+plt.legend(fontsize=20,loc=3,markerscale=3)
+plt.title('Simulated Dose in scintillator',fontsize=20)
+plt.xlabel(" Depth[mm] ",fontsize=20)
+plt.ylabel('Relative Dose in water ',fontsize=20)
+plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
+plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
+
+plt.tick_params(axis='x', which='major', labelsize=20)
+plt.tick_params(axis='y', which='major', labelsize=20)
+
+plt.figure(3)
+plotfunction2(depth_sci,dose_sci,norm_sim,LET_zfluenceprofile,sns.color_palette(  "Paired")[1],PC,190)
+plotfunction2(depth_sci,dose_sci1,norm_sim1,LET_zfluenceprofile1,sns.color_palette(  "Paired")[3],PC1,190)
+plotfunction2(depth_sci,dose_sci2,norm_sim2,LET_zfluenceprofile2,sns.color_palette(  "Paired")[9],PC2,150)
+
+
+plt.title('Simulated fluence-weighted LET',fontsize=20)
+plt.legend(fontsize=20,loc=2,markerscale=3)
+plt.ylabel("LET [KeV/um]",fontsize=20)
+plt.xlabel(" Depth[mm] ",color="black",fontsize=20)
+plt.gca().yaxis.set_label_position("right")
+plt.ylim([-1,18])
+plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
+plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
+plt.tick_params(axis='y', labelsize=20,which='both', labelleft=False, labelright=True)
+plt.tick_params(axis='x',which='both', labelsize=20)
+
 plt.show()
-
-
-
-
-
-
-
 ####################################################################################
 
 
 
 
 
-norm_rcf=1/area_rcf
-#norm_rcf1=1/area_rcf1
-norm=1/area
-#norm1=1/area1
-#norm2=1/area2
-norm_sim=1/area_sim
+norm_rcf=1/rcfdose.max()
+norm_rcf1=1/rcfdose1.max()    #area_rcf
+norm_rcf2=1/rcfdose2.max()
+norm=1/dose.max()#area
+norm1=1/dose1.max()
+norm2=1/dose2.max()#
+norm_sim=1/zdoseprofile.max() #area_sim
+norm_sim1=1/zdoseprofile1.max() #area_sim
+norm_sim2=1/zdoseprofile2.max() #area_sim
 
 
 
@@ -451,52 +443,57 @@ norm_sim=1/area_sim
 
 
 
+def function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci,zdoseprofile,LET_zfluenceprofile,norm_sim,D_fluence_mini,shotnumber,PC):
+    fig, ax = plt.subplots()
+    ax2 = ax.twinx()
 
-fig, ax = plt.subplots()
-ax2 = ax.twinx()
 
 
-ax.errorbar( rcfdepth,                                          rcfdose*norm_rcf,
+    ax.plot(depth,
+                                                                D_fluence_mini,
+                                                                                '.',
+                                            color=sns.color_palette(  "Paired")[10],
+                                                     label='LET corrected dose',
+                                                                      Markersize=12,
+                                                                      zorder=10)
+
+
+
+    ax.errorbar( rcfdepth,                                          rcfdose*norm_rcf,
                                                             yerr=rcferr*norm_rcf,
                                                                       xerr=None,
                                                                         fmt='.',
                                           color=sns.color_palette(  "Paired")[1],
-                                                                    markersize=8,
+                                                                    markersize=12,
                                          ecolor=sns.color_palette(  "Paired")[1],
                                                                  elinewidth=None,
-                                                 label='{} measured dose'.format(rcfname))
+                                                 label='{} measured dose'.format(rcfname),
+                                                                                 zorder=4)
 
-ax.fill_between(rcfdepth,
+    ax.fill_between(rcfdepth,
                                                 rcfdose*norm_rcf-rcferr*norm_rcf,
                                                 rcfdose*norm_rcf+rcferr*norm_rcf,
                                           color=sns.color_palette(  "Paired")[1],
                                                                        alpha=0.1)
 
-ax.errorbar(  np.arange(0,len(dose),1)*s,                              dose*norm,
+    ax.errorbar(  np.arange(0,len(dose),1)*s,                              dose*norm,
                                                                    yerr=err*norm,
                                                                        xerr=None,
                                                                          fmt='.',
+                                                                         markersize=12,
                                           color=sns.color_palette(  "Paired")[3],
                                          ecolor=sns.color_palette(  "Paired")[3],
                                                                  elinewidth=None,
-                                                        label=' Miniscidom reconstruction 5mm ROI ')
+                                             label=' Miniscidom reconstruction ',
+                                              zorder=3)
 
-ax.errorbar(  np.arange(0,len(dose1),1)*s,                              dose1*norm1,
-                                                                   yerr=err*norm1,
-                                                                       xerr=None,
-                                                                         fmt='.',
-                                          color=sns.color_palette(  "Paired")[8],
-                                         ecolor=sns.color_palette(  "Paired")[8],
-                                                                 elinewidth=None,
-                                             label=' Miniscidom reconstruction 6mm ROI ')
-
-ax.fill_between(np.arange(0,len(dose),1)*s,
+    ax.fill_between(np.arange(0,len(dose),1)*s,
                                                              dose*norm-err*norm,
                                                            dose*norm + err*norm,
                                           color=sns.color_palette(  "Paired")[3],
                                                                       alpha=0.5)
 
-"""
+    """
 ax.errorbar( rcfdepth,                                  D_rcf/area_rcfcorrected ,
                                                  yerr=Derr_rcf/area_rcfcorrected,
                                                                       xerr=None,
@@ -520,105 +517,74 @@ ax2.plot(depth_sci,LET_zdoseprofile,
                                                                    Markersize=8,
                                                     label='LET (doseweighted) ')
 
-"""
 
-ax2.plot(depth_sci[0:190],LET_zfluenceprofile[0:190],
+
+    ax2.plot(depth_sci[0:150],LET_zfluenceprofile[0:150],
                                                                             '.',
-                                            color=sns.color_palette(  "Paired")[5],
-                                                                   Markersize=8,
-                                               label='LET (fluence weighted) ')
+                                            color=sns.color_palette(  "Paired")[4],
+                                                                   Markersize=12,
+                                               label='LET(fluence weighted) ',
+                                                                 zorder=3)
 
 
 
 
-ax.plot( np.arange(0,149,1)*s,zdoseprofile*norm_sim,
+    ax.plot( np.arange(0,149,1)*s,zdoseprofile*norm_sim,
                                                                             '.',
-                                         color=sns.color_palette(  "Paired")[6],
-                                                                  Markersize=11,
-                label='Simulated Dose in scintillator Eo={}0 KeV '.format(energy))
+                                         color=sns.color_palette(  "Paired")[7],
+                                                                  Markersize=12,
+                label='Simulated Dose Eo={} KeV '.format(energy),
+                                                                    zorder=2)
 
 
 
 
 
-"""
-ax.plot(depth,
+
+    ax.plot(depth,
                                                         D_a_mini/D_a_mini.max(),
                                                                             '.',
                                           color=sns.color_palette(  "Paired")[9],
                                         label='LET(dose weighted) corrected dose',
                                                                   Markersize=11)
 
-"""
-ax.plot(depth,
-                                                                    D_fluence_mini,
-                                                                            '.',
-                                        color=sns.color_palette(  "Paired")[10],
-                                    label='LET(fluence weighted) corrected dose',
-                                                                  Markersize=11)
+
+    """
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-plt.title('Depth-dose distribution shape comparison {} shot n.{}'.format(PC,shotnumber),
-                                                                    fontsize=22,
+    plt.title('Depth-dose distribution shape comparison {} shot n.{}'.format(PC,shotnumber),
+                                                                    fontsize=24,
                                                                   fontdict=None,
                                                                   loc='center',
                                                                        pad=None)
 
+    #ax.set_ylim([0,0.2])
+    #ax2.set_ylim([0,20])
+    #ax2.set_ylabel("LET [KeV/um]",color=sns.color_palette(  "Paired")[5],fontsize=16)
+    ax.set_ylabel(" Relative Dose ",color="Green",fontsize=22)
+    ax.set_xlabel(" Depth[mm] ",color="black",fontsize=22)
+    ax.legend( title='',fontsize=20,loc=4,markerscale=3).set_zorder(0)
+    #ax2.legend( title='',fontsize=20,loc=6,markerscale=3).set_zorder(0)
+    #ax2.grid(b=True,color='k',linestyle='-',alpha=0.2)
+    ax.grid(b=True,color='k',linestyle='dotted',alpha=0.2)
+    ax.tick_params(axis='x', which='major', labelsize=22)
+    #ax2.tick_params(axis='y', which='major',colors=sns.color_palette(  "Paired")[5], labelsize=22)
+    ax.tick_params(axis='y', which='major',colors='green', labelsize=22)
 
-#ax.set_ylim([0,0.2])
+    plt.show()
+    return
 
-ax2.set_ylabel("LET [KeV/um]",color=sns.color_palette(  "Paired")[5],fontsize=16)
-ax.set_ylabel(" Relative Dose ",color="Green",fontsize=16)
-ax.set_xlabel(" Depth[mm] ",color="black",fontsize=16)
-
-ax.legend( title='',fontsize=20,loc=7)
-ax2.legend( title='',fontsize=20,loc=4)
-
-
-
-ax2.grid(b=True,color='k',linestyle='-',alpha=0.2)
-ax.grid(b=True,color='k',linestyle='dotted',alpha=0.2)
-
-ax.tick_params(axis='x', which='major', labelsize=16)
-ax2.tick_params(axis='y', which='major',colors=sns.color_palette(  "Paired")[5], labelsize=16)
-ax.tick_params(axis='y', which='major',colors='green', labelsize=16)
+function4(rcfdepth2,rcfdose2,norm_rcf2,rcferr2,rcfname2,dose2,depth2,err2,norm2,depth_sci,zdoseprofile2,LET_zfluenceprofile2,norm_sim2,D_fluence_mini2,shotnumber2,PC2)
+function4(rcfdepth1,rcfdose1,norm_rcf1,rcferr1,rcfname1,dose1,depth1,err1,norm1,depth_sci,zdoseprofile1,LET_zfluenceprofile1,norm_sim1,D_fluence_mini1,shotnumber1,PC1)
+function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci,zdoseprofile,LET_zfluenceprofile,norm_sim,D_fluence_mini,shotnumber,PC)
 
 
 
 #PLOT
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -777,10 +743,10 @@ calib6PC1PMMA=3078.69 #mGy/MU
 dose21CW=calib6PC1PMMA*MU21CW/1000
 ratio=rcfdose.max()/dose21CW
 doseMU=np.array([4.01,4.04,4.12,4.26,4.57,5.14])
-irrtime=np.array([50.37,24.75,12.53,6.433,3.453,1.942])/60
+irrtime=np.array([50.37,24.75,12.53,6.433,3.453,1.942])
 doserate=doseMU*ratio/irrtime
 
-directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-02/notnormalized/'
+directory='/Users/angelacorvino/Documents/GitHub/miniscidom/pictures/2021-09-02/notnormalized/'
 #directory='/home/corvin22/Desktop/miniscidom/pictures/2021-08-13/notnormalized/'
 filename0 ='notnormalizedmean_array1.npy'
 dose0,depth,tof,numbe0r=read_dose(directory,filename0,s)
@@ -866,7 +832,7 @@ def plotfunction(depth,dose,err,norm,doserate,D_fluence_mini,color1,s):
                                                                          color=color1,
                                                                          ecolor=color1,
                                                                  elinewidth=None,
-                                             label=f' Doserate={doserate:.2f}Gy/min')
+                                             label=f' Doserate={doserate:.2f}Gy/s')
     ax.plot(depth,
                                                                         D_fluence_mini,
                                                                                 '-',
@@ -904,7 +870,7 @@ ax.fill_between(rcfdepth,
                                                         color=sns.color_palette(  "Paired")[0], alpha=0.2)
 
 
-sub_axes = plt.axes([.6, .6, .25, .25])
+sub_axes = plt.axes([.3, .3, .25, .25])
 
 sub_axes.errorbar( np.arange(0,len(dose0),1)[10:40]*s,
                                                             (dose0*norm0)[10:40],
@@ -977,12 +943,6 @@ sub_axes.errorbar( np.arange(0,len(dose5),1)[10:40]*s,
 
 sub_axes.grid(b=True,color='k',linestyle='-',alpha=0.2)
 mark_inset(ax, sub_axes, loc1=2, loc2=3, fc="none", ec="0.5")
-
-
-
-
-
-
 
 
 

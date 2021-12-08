@@ -8,7 +8,8 @@ import seaborn as sns
 
 
 
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/Single/7PC/DoseToWater_90MeVproton_PVT_7PC_1Dscorer.csv'
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/DoseToWater_9210KeVproton_PVT_7PC_1Dscorer.csv'
+#outputfile_topas = '/home/corvin22/SimulationOncoray/data/Single/7PC/DoseToWater_90MeVproton_PVT_7PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -20,11 +21,11 @@ zdoseprofile=zdoseprofile[::-1]
 
 (directory,energy,scoringvolume,PC,scorer)= outputfile_topas.split('_')
 #(PC,format)=PC.split('.csv')
-(energy,particle)=energy.split('MeV')
+(energy,particle)=energy.split('KeV')
 
 
-
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/Single/6PC/DoseToWater_90MeVproton_PVT_6PC_1Dscorer.csv'
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/DoseToWater_9210KeVproton_PVT_6PC_1Dscorer.csv'
+#outputfile_topas = '/home/corvin22/SimulationOncoray/data/Single/6PC/DoseToWater_90MeVproton_PVT_6PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -34,11 +35,11 @@ xdoseprofile1=doseprofile1.xmeanprofile
 zdoseprofile1=zdoseprofile1[::-1]
 (directory,energy,scoringvolume,PC1,scorer)= outputfile_topas.split('_')
 #(PC1,format)=PC1.split('.csv')
-(energy1,particle)=energy.split('MeV')
+(energy1,particle)=energy.split('KeV')
 
 
 
-
+"""
 outputfile_topas = '/home/corvin22/SimulationOncoray/data/DoseToWater_90MeVproton_PVT_6PC.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -52,6 +53,7 @@ zdoseprofileprova=doseprofileprova.zmeanprofile
 #(energy1,particle)=energy.split('MeV')
 
 
+"""
 
 
 
@@ -59,9 +61,8 @@ zdoseprofileprova=doseprofileprova.zmeanprofile
 
 
 
-
-
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/DoseToWater_90MeVproton_PVT_6PC_1PMMA.csv'
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/DoseToWater_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv'
+#outputfile_topas = '/home/corvin22/SimulationOncoray/data/DoseToWater_90MeVproton_PVT_6PC_1PMMA.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -71,7 +72,7 @@ xdoseprofile2=doseprofile2.xmeanprofile
 #zdoseprofile=zdoseprofile[::-1]
 (directory,energy,scoringvolume,PC2,PMMA)= outputfile_topas.split('_')
 (PMMA,format)=PMMA.split('.csv')
-(energy2,particle)=energy.split('MeV')
+(energy2,particle)=energy.split('KeV')
 
 
 

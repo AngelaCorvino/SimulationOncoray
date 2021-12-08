@@ -30,8 +30,8 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 
 #RCF data
 
-directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/'
-#directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/'
+
+directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/'
 filename2='RCF21CT.csv'
 filename1='RCF21CR.csv'
 filename='RCF21CP.csv'
@@ -45,8 +45,8 @@ rcfdepth2,rcfdose2,rcferr2,area_rcf2,rcfname2=read_datarcf(directory,filename2)
 
 #September 2021
 s=0.073825 #[mm/pixel ]
-directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/notnormalized/'
-#directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/notnormalized/'
+
+directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/notnormalized/'
 dose2,depth2,tof,shotnumber2=read_dose(directory,'notnormalizedmean_array29.npy',s)
 #dose2=dose2-dose2.min()
 dose,depth,tof,shotnumber=read_dose(directory,'notnormalizedmean_array34.npy',s)
@@ -64,7 +64,7 @@ area2=np.trapz(dose2[1:len(dose2)-1], depth2[1:len(depth2)-1])
 
 
 
-outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/11PC/152.5MeV107/DoseToWater_152500KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/11PC/152.5MeV107/DoseToWater_152500KeVproton_PVT_11PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/DoseToWater_153MeVproton_PVT_11PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -80,7 +80,7 @@ dose_sci1=zdoseprofile1
 
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_doseweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/11PC/152.5MeV107/LET_doseweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/11PC/152.5MeV107/LET_doseweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/LET_doseweighted_153MeVproton_PVT_11PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -91,7 +91,7 @@ LET_zdoseprofile1=LET_zdoseprofile1[::-1]
 LET_zdoseprofile1[0]=LET_zdoseprofile1[1]
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_fluenceweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/11PC/152.5MeV107/LET_fluenceweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/11PC/152.5MeV107/LET_fluenceweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/LET_fluenceweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -119,7 +119,7 @@ area_f_LET1=np.trapz(LET_zfluenceprofile1,depth_sci1)
 
 ########################################################################################################################################
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/DoseToWater_152500KeVproton_PVT_12PC_1Dscorer.csv'
-outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/12PC/152.5MeV/DoseToWater_152500KeVproton_PVT_12PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/12PC/152.5MeV/DoseToWater_152500KeVproton_PVT_12PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -132,7 +132,7 @@ dose_sci2=zdoseprofile2
 
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_doseweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/12PC/152.5MeV/LET_doseweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/12PC/152.5MeV/LET_doseweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/LET_doseweighted_153MeVproton_PVT_12PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -143,7 +143,7 @@ LET_zdoseprofile2=LET_zdoseprofile2[::-1]
 LET_zdoseprofile2[0]=LET_zdoseprofile2[1]
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_fluenceweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/12PC/152.5MeV/LET_fluenceweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/12PC/152.5MeV/LET_fluenceweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/LET_fluenceweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -175,7 +175,7 @@ area_f_LET2=np.trapz(LET_zfluenceprofile2,depth_sci2)
 
 
 
-outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/10PC/152.5MeV/DoseToWater_152500KeVproton_PVT_10PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/10PC/152.5MeV/DoseToWater_152500KeVproton_PVT_10PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/DoseToWater_152500KeVproton_PVT_10PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -191,7 +191,7 @@ area_sim=np.trapz(zdoseprofile[3:len(zdoseprofile)-8],depth_sci[3:len(depth_sci)
 
 
 
-outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/10PC/152.5MeV/LET_fluenceweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/10PC/152.5MeV/LET_fluenceweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/LET_fluenceweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -206,7 +206,7 @@ area_f_LET=np.trapz(LET_zfluenceprofile,depth_sci)
 
 
 
-outputfile_topas='/home/corvin22/Desktop/precoiusthings/SOBP/10PC/152.5MeV/LET_doseweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/10PC/152.5MeV/LET_doseweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/LET_doseweighted_153MeVproton_PVT_10PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -326,6 +326,43 @@ D_a_mini,D_fluence_mini=function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zflu
 
 ###############################################################################
 
+def plotfunction1(depth_sci,dose_sci,norm_sim,rcfdepth,rcfdose,rcferr,norm_rcf,color1,color2,PC,rcfname,s):
+
+
+    plt.plot(depth_sci,dose_sci*norm_sim,
+                                                                                '.',
+                                                                     color=color1,
+                                                                     Markersize=12,
+                                                            label=' {}'.format(PC))
+
+
+
+    plt.errorbar( rcfdepth,                                          rcfdose*norm_rcf,
+                                                            yerr=rcferr*norm_rcf,
+                                                                      xerr=None,
+                                                                        fmt='.',
+                                                                    color=color2,
+                                                                    markersize=12,
+                                                                  ecolor=color2,
+                                                                 elinewidth=None,
+                                                 label='{}'.format(rcfname))
+
+    plt.fill_between(rcfdepth,
+                                                rcfdose*norm_rcf-rcferr*norm_rcf,
+                                                rcfdose*norm_rcf+rcferr*norm_rcf,
+                                          color=color2,
+                                                                       alpha=0.1)
+    return
+
+def plotfunction2(depth_sci,dose_sci,norm_sim,LET_zfluenceprofile,color1,PC,zlim):
+
+    plt.plot(depth_sci[0:zlim],LET_zfluenceprofile[0:zlim],
+                                                                            '.',
+                                                                   color=color1,
+                                                                   Markersize=12,
+                                               label='{} '.format(PC))
+
+    return
 
 plt.figure(1) # creates a figure in which we plot
 plt.plot( np.arange(0,149,1)*s,zdoseprofile*norm_sim,
@@ -343,7 +380,7 @@ plt.errorbar( rcfdepth,                                          rcfdose*norm_rc
                                                                     markersize=12,
                                          ecolor=sns.color_palette(  "Paired")[2],
                                                                  elinewidth=None,
-                                                 label='{} measured dose'.format(rcfname),
+                                                 label='{}'.format(rcfname),
                                                  zorder=2)
 
 plt.fill_between(rcfdepth,
@@ -372,7 +409,7 @@ plt.errorbar( rcfdepth1,                                      rcfdose1*norm_rcf1
                                                                     markersize=12,
                                          ecolor=sns.color_palette(  "Paired")[4],
                                                                  elinewidth=None,
-                                                 label='{} measured dose'.format(rcfname1),
+                                                 label='{}'.format(rcfname1),
                                                  zorder=2)
 
 plt.fill_between(rcfdepth1,
@@ -404,7 +441,7 @@ plt.errorbar( rcfdepth2,                                          rcfdose2*norm_
                                                                     markersize=12,
                                          ecolor=sns.color_palette(  "Paired")[6],
                                                                  elinewidth=None,
-                                                 label='{} measured dose'.format(rcfname2),
+                                                 label='{}'.format(rcfname2),
                                                  zorder=2)
 
 plt.fill_between(rcfdepth,
@@ -416,16 +453,33 @@ plt.fill_between(rcfdepth,
 
 
 
-plt.title('Depth-dose distribution shape comparison',fontsize=26)
-plt.xlabel(" Depth[mm] ",fontsize=24)
-plt.ylabel('Relative Dose in water ',fontsize=24)
-plt.legend(title='E_{primary}=152.5 MeV',fontsize=24,loc=3,markerscale=2,title_fontsize=24)
+plt.title('Depth-dose distribution shape comparison',fontsize=20)
+plt.xlabel(" Depth[mm] ",fontsize=20)
+plt.ylabel('Relative Dose in water ',fontsize=20)
+plt.legend(title='$E_{primary}$=152.5 MeV',fontsize=24,loc=3,markerscale=2,title_fontsize=24)
 plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
 plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
-plt.minorticks_on()
-plt.tick_params(axis='x', which='major', labelsize=22)
-plt.tick_params(axis='y', which='major', labelsize=22)
+plt.tick_params(axis='x', which='major', labelsize=20)
+plt.tick_params(axis='y', which='major', labelsize=20)
 
+
+
+plt.figure(2)
+plotfunction2(depth_sci,dose_sci,norm_sim,LET_zfluenceprofile,sns.color_palette(  "Paired")[3],PC,190)
+plotfunction2(depth_sci,dose_sci1,norm_sim1,LET_zfluenceprofile1,sns.color_palette(  "Paired")[5],PC1,190)
+plotfunction2(depth_sci,dose_sci2,norm_sim2,LET_zfluenceprofile2,sns.color_palette(  "Paired")[7],PC2,190)
+
+
+plt.title('Simulated fluence-weighted LET',fontsize=20)
+plt.legend(fontsize=20,loc=2,markerscale=3)
+plt.ylabel("LET [KeV/um]",fontsize=20)
+plt.xlabel(" Depth[mm] ",color="black",fontsize=20)
+plt.gca().yaxis.set_label_position("right")
+#plt.ylim([-1,18])
+plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
+plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
+plt.tick_params(axis='y', labelsize=20,which='both', labelleft=False, labelright=True)
+plt.tick_params(axis='x',which='both', labelsize=20)
 plt.show()
 
 
@@ -506,7 +560,7 @@ ax2.plot(depth_sci,LET_zdoseprofile,
                                                                    Markersize=8,
                                                     label='LET (doseweighted) ')
 
-  """
+    """
 
     ax2.plot(depth_sci2,LET_zfluenceprofile,
                                                                             '.',
@@ -529,8 +583,8 @@ ax2.plot(depth_sci,LET_zdoseprofile,
 
 
 
-    """
-ax.plot(depth,
+   """
+   ax.plot(depth,
                                                         D_a_mini/D_a_mini.max(),
                                                                             '.',
                                           color=sns.color_palette(  "Paired")[9],
