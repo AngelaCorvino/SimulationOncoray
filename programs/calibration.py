@@ -31,7 +31,7 @@ from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 #RCF data
 
 
-directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/'
+directory='/Users/angelacorvino/Documents/GitHub/miniscidom/pictures/2021-09-01/'
 filename2='RCF21CT.csv'
 filename1='RCF21CR.csv'
 filename='RCF21CP.csv'
@@ -46,7 +46,7 @@ rcfdepth2,rcfdose2,rcferr2,area_rcf2,rcfname2=read_datarcf(directory,filename2)
 #September 2021
 s=0.073825 #[mm/pixel ]
 
-directory='/Users/angelacorvino/Desktop/HZDR/miniscidom/pictures/2021-09-01/notnormalized/'
+directory='/Users/angelacorvino/Documents/GitHub/miniscidom/pictures/2021-09-01/notnormalized/'
 dose2,depth2,tof,shotnumber2=read_dose(directory,'notnormalizedmean_array29.npy',s)
 #dose2=dose2-dose2.min()
 dose,depth,tof,shotnumber=read_dose(directory,'notnormalizedmean_array34.npy',s)
@@ -64,7 +64,7 @@ area2=np.trapz(dose2[1:len(dose2)-1], depth2[1:len(depth2)-1])
 
 
 
-outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/11PC/152.5MeV107/DoseToWater_152500KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/11PC/152.5MeV107/secondcollimator/DoseToWater_152500KeVproton_PVT_11PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/DoseToWater_153MeVproton_PVT_11PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -80,7 +80,7 @@ dose_sci1=zdoseprofile1
 
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_doseweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/11PC/152.5MeV107/LET_doseweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/11PC/152.5MeV107/secondcollimator/LET_doseweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/LET_doseweighted_153MeVproton_PVT_11PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -91,7 +91,7 @@ LET_zdoseprofile1=LET_zdoseprofile1[::-1]
 LET_zdoseprofile1[0]=LET_zdoseprofile1[1]
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_fluenceweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/11PC/152.5MeV107/LET_fluenceweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/11PC/152.5MeV107/secondcollimator/LET_fluenceweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/11PC/LET_fluenceweighted_152500KeVproton_PVT_11PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -119,7 +119,7 @@ area_f_LET1=np.trapz(LET_zfluenceprofile1,depth_sci1)
 
 ########################################################################################################################################
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/DoseToWater_152500KeVproton_PVT_12PC_1Dscorer.csv'
-outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/12PC/152.5MeV/DoseToWater_152500KeVproton_PVT_12PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/12PC/152.5MeV/secondcollimator/DoseToWater_152500KeVproton_PVT_12PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -132,7 +132,7 @@ dose_sci2=zdoseprofile2
 
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_doseweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/12PC/152.5MeV/LET_doseweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/12PC/152.5MeV/secondcollimator/LET_doseweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/LET_doseweighted_153MeVproton_PVT_12PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -143,7 +143,7 @@ LET_zdoseprofile2=LET_zdoseprofile2[::-1]
 LET_zdoseprofile2[0]=LET_zdoseprofile2[1]
 
 #outputfile_topas = '/home/corvin22/Simulationhemera/data/SOBP/LET_fluenceweighted_14960KeVproton_PVT_11PC_1Dscorer.csv'
-outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/12PC/152.5MeV/LET_fluenceweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/12PC/152.5MeV/secondcollimator/LET_fluenceweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/LET_fluenceweighted_152500KeVproton_PVT_12PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -261,7 +261,7 @@ def function1(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b):
     return D_rcf,Derr_rcf,area_rcfcorrected
 
 D_rcf,Derr_rcf,area_rcfcorrected=function1(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b)
-D_rcf1,Derr_rcf1,area_rcfcorrected1=function1(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b)
+D_rcf1,Derr_rcf1,area_rcfcorrected1=function1(rcfdepth,rcfdose1,rcferr1,depth_sci1,LET_zdoseprofile1,a,b)
 D_rcf2,Derr_rcf2,area_rcfcorrected2=function1(rcfdepth2,rcfdose2,rcferr2,depth_sci2,LET_zdoseprofile2,a,b)
 ####################################################################################
 
@@ -272,11 +272,11 @@ D_rcf2,Derr_rcf2,area_rcfcorrected2=function1(rcfdepth2,rcfdose2,rcferr2,depth_s
 dS=0 #theoretical values
 dscintillator= 1.023 #[g/cm^3] scintillator density
 dactivelayer=1.2 #[g/cm^3]
-k=207/10000 #[g/MeV cm^2]
+k=207.0/10000 #[g/MeV cm^2]
 a=0.9 #scintillator efficiency
 dx= 65 #µm scintillator spatial resolution
 ddx=1 #spatial resolution error
-k=k/dscintillator*10#[micrometers/kev]
+k=k*10#[micrometers/kev]
 #SIMULATED LET IN Scintillator starting from TOF of a scidom shot
 
 def function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_rcfcorrected):
@@ -488,15 +488,21 @@ plt.show()
 
 def function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci2,zdoseprofile,LET_zfluenceprofile,norm_sim,D_fluence_mini,shotnumber,PC):
     fig, ax = plt.subplots()
-    ax2 = ax.twinx()
+    fig.subplots_adjust(right=0.70)
 
+    twin1 = ax.twinx()
+    twin2 = ax.twinx()
+
+    twin2.spines['right'].set_position(("axes", 1.2))
+
+    plt.rc('text', usetex=True)
 
 
     ax.plot(depth,
                                                                 D_fluence_mini,
                                                                                 '.',
                                             color=sns.color_palette(  "Paired")[10],
-                                        label='LET(fluence weighted) corrected dose',
+                                              label=r'$D_{quenchingcorrection}$',
                                                                       Markersize=12,
                                                                       zorder=10)
 
@@ -510,7 +516,7 @@ def function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth
                                                                     markersize=12,
                                          ecolor=sns.color_palette(  "Paired")[1],
                                                                  elinewidth=None,
-                                                 label='{} measured dose'.format(rcfname),
+                                                 label=r'$D_{}$'.format(rcfname),
                                                                                  zorder=4)
 
     ax.fill_between(rcfdepth,
@@ -527,7 +533,7 @@ def function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth
                                           color=sns.color_palette(  "Paired")[3],
                                          ecolor=sns.color_palette(  "Paired")[3],
                                                                  elinewidth=None,
-                                             label=' Miniscidom reconstruction ',
+                                                      label=r'$D_{miniscidom} $',
                                               zorder=3)
 
     ax.fill_between(np.arange(0,len(dose),1)*s,
@@ -537,7 +543,7 @@ def function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth
                                                                       alpha=0.5)
 
     """
-ax.errorbar( rcfdepth,                                  D_rcf/area_rcfcorrected ,
+    ax.errorbar( rcfdepth,                                  D_rcf/area_rcfcorrected ,
                                                  yerr=Derr_rcf/area_rcfcorrected,
                                                                       xerr=None,
                                                                         fmt='.',
@@ -548,13 +554,13 @@ ax.errorbar( rcfdepth,                                  D_rcf/area_rcfcorrected 
                               label='LET(dose weighted)corrected {} dose'.format(rcfname))
 
 
-ax.fill_between(rcfdepth,
+    ax.fill_between(rcfdepth,
                               D_rcf/area_rcfcorrected-Derr_rcf/area_rcfcorrected,
                               D_rcf/area_rcfcorrected+Derr_rcf/area_rcfcorrected,
                                           color=sns.color_palette(  "Paired")[2],
                                                                        alpha=0.1)
 
-ax2.plot(depth_sci,LET_zdoseprofile,
+    ax2.plot(depth_sci,LET_zdoseprofile,
                                                                             '.',
                                          color=sns.color_palette(  "Paired")[4],
                                                                    Markersize=8,
@@ -562,12 +568,20 @@ ax2.plot(depth_sci,LET_zdoseprofile,
 
     """
 
-    ax2.plot(depth_sci2,LET_zfluenceprofile,
+    twin1.plot(depth_sci,LET_zfluenceprofile,
                                                                             '.',
                                             color=sns.color_palette(  "Paired")[4],
                                                                    Markersize=12,
-                                               label='LET (fluence weighted) ',
+                                               label=r'$LET_{fluence}$',
                                                                  zorder=1)
+
+
+    twin2.plot(depth_sci,(1+k*LET_zfluenceprofile),
+                                                                                '^',
+                                                                       markersize=5,
+                                                color=sns.color_palette("Paired")[9],
+                                                                 label='(1+KB*LET)',
+                                                                         zorder=1)
 
 
 
@@ -576,14 +590,14 @@ ax2.plot(depth_sci,LET_zdoseprofile,
                                                                             '.',
                                          color=sns.color_palette(  "Paired")[7],
                                                                   Markersize=12,
-                label='Simulated Dose in scintillator Eo={} KeV '.format(energy),
+                                                      label=r'$D_{simulated}$',
                                                                     zorder=2)
 
 
 
 
 
-   """
+    """
    ax.plot(depth,
                                                         D_a_mini/D_a_mini.max(),
                                                                             '.',
@@ -598,23 +612,28 @@ ax2.plot(depth_sci,LET_zdoseprofile,
 
 
 
-
+    plt.rc('text', usetex=False)
     plt.title('Depth-dose distribution shape comparison {} shot n.{}'.format(PC,shotnumber),
                                                                     fontsize=24,
                                                                   fontdict=None,
                                                                   loc='center',
                                                                        pad=None)
 
-    #ax.set_ylim([0,0.2])
-    ax2.set_ylabel("LET [KeV/um]",color=sns.color_palette(  "Paired")[5],fontsize=16)
+
+    #twin2.set_yticks([1.53,1.73,1.93])
+    #twin2.set_yticks([1.4,1.6,1.8,2])
+    twin2.set_ylabel("a.u.",color=sns.color_palette(  "Paired")[9],fontsize=22)
+    twin2.tick_params(axis='y', which='major',colors=sns.color_palette(  "Paired")[9], labelsize=22)
+    twin2.legend( title='',fontsize=20,loc=9,markerscale=3).set_zorder(0)
+    twin1.set_ylabel("LET [KeV/um]",color=sns.color_palette(  "Paired")[5],fontsize=22)
     ax.set_ylabel(" Relative Dose ",color="Green",fontsize=22)
     ax.set_xlabel(" Depth[mm] ",color="black",fontsize=22)
     ax.legend( title='',fontsize=20,loc=4,markerscale=3)
-    ax2.legend( title='',fontsize=20,loc=6,markerscale=3)
-    ax2.grid(b=True,color='k',linestyle='-',alpha=0.2)
+    twin1.legend( title='',fontsize=20,loc=6,markerscale=3)
+    twin1.grid(b=True,color='k',linestyle='-',alpha=0.2)
     ax.grid(b=True,color='k',linestyle='dotted',alpha=0.2)
     ax.tick_params(axis='x', which='major', labelsize=22)
-    ax2.tick_params(axis='y', which='major',colors=sns.color_palette(  "Paired")[5], labelsize=22)
+    twin1.tick_params(axis='y', which='major',colors=sns.color_palette(  "Paired")[5], labelsize=22)
     ax.tick_params(axis='y', which='major',colors='green', labelsize=22)
 
 
@@ -734,29 +753,6 @@ def function3(rcfdose,rcfdepth,rcferr,rcfname,area_rcf,area_rcfcorrected,D_rcf,D
                                                             ecolor='lightcoral',
                                                                  elinewidth=None)
     sub_axes.grid(b=True,color='k',linestyle='-',alpha=0.2)
-
-
-
-
-
-
-
-
-
-    """"
-ax.plot( np.arange(0,149,1)*s,zdoseprofileprova1/zdoseprofileprova1.max(),
-                                                                            '.',
-                                        color=sns.color_palette(  "Paired")[8],
-                                                                 Markersize=11,
-                            label='Simulated Dose in scintillator Eo= KeV '.format(energy))
-
-
-
-ax.plot(depth_sci,zdoseprofile/area_sim,
-                                                                            'g.',
-                                                                  Markersize=11,
-                            label='Simulated Dose in scintillator Eo={} KeV '.format(energy))
-    """
 
 
 
