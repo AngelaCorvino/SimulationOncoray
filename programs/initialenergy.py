@@ -26,10 +26,9 @@ from getprofile import Get_profile
 #RCF data
 
 directory= '~/Documents/GitHub/SimulationOncoray/pictures/2021-09-02/'
-filename=directory+'RCF21CY.csv'
-depth,rcfdose=read_datarcf(filename)
-rcferr=rcfdose*(546/10000)
-area_rcf=np.trapz(rcfdose[0:len(rcfdose)], depth[0:len(depth)])
+filename='RCF21CY.csv'
+depth,rcfdose,rcferr,area_rcf,rcfname=read_datarcf(directory,filename)
+
 
 """
 

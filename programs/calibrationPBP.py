@@ -168,9 +168,9 @@ area_LET=np.trapz(LET_zdoseprofile,depth_sci)
 area_f_LET=np.trapz(LET_zfluenceprofile,depth_sci)
 
 
-#norm_rcf=1/rcfdose.max()
-#norm_rcf1=1/rcfdose1.max()    #area_rcf
-#norm_rcf2=1/rcfdose2.max()
+norm_rcf=1/rcfdose.max()
+norm_rcf1=1/rcfdose1.max()    #area_rcf
+norm_rcf2=1/rcfdose2.max()
 norm=1/dose.max()#area
 norm1=1/dose1.max()#area
 norm2=1/dose2.max()#area
@@ -178,9 +178,9 @@ norm_sim=1/zdoseprofile.max() #area_sim
 norm_sim1=1/zdoseprofile1.max() #area_sim
 norm_sim2=1/zdoseprofile2.max() #area_sim
 
-norm_rcf=1/area_rcf
-norm_rcf1=1/area_rcf1
-norm_rcf2=1/area_rcf2
+#norm_rcf=1/area_rcf
+#norm_rcf1=1/area_rcf1
+#norm_rcf2=1/area_rcf2
 #norm=1/area
 #norm1=1/area1
 #norm2=1/area2
@@ -244,7 +244,7 @@ def function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_r
     norm_dose_mini=area_rcfcorrected/area_corrected
     #norm_fluence_mini=1/area_f_corrected
     norm_fluence_mini=1/dosecorrection(dose,S_fluence_mini,a,k,dx).max()
-
+    #norm_fluence_mini=1/dosecorrection(dose,S_fluence_mini,a,k,dx)[10]
 
     D_dose_mini=dosecorrection(dose,S_dose_mini,a,k,dx)
     #D_a_up_mini=dosecorrection(dose,S_a_up_mini,a,k,dx)*norm_a_mini
@@ -604,9 +604,145 @@ function4(rcfdepth2,rcfdose2,norm_rcf2,rcferr2,rcfname2,dose2,depth2,err2,norm2,
 function4(rcfdepth1,rcfdose1,norm_rcf1,rcferr1,rcfname1,dose1,depth1,err1,norm1,depth_sci,zdoseprofile1,LET_zfluenceprofile1,norm_sim1,D_fluence_mini1,shotnumber1,PC1,L_fluence_mini1)
 function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci,zdoseprofile,LET_zfluenceprofile,norm_sim,D_fluence_mini,shotnumber,PC,L_fluence_mini)
 
+################### PLOT 6PC BACKGROUND ISSUE
 
 
-#PLOT
+
+def background(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci,zdoseprofile,LET_zfluenceprofile,norm_sim,D_fluence_mini,shotnumber,PC,L_fluence_mini):
+
+
+    plt.rc('text', usetex=True)
+
+    plt.plot(depth,
+                                                                D_fluence_mini,
+                                                                                '.',
+                                            color=sns.color_palette(  "Paired")[10],
+                                                     label=r'$D_{quenchingcorrection}$',
+                                                                      Markersize=12,
+                                                                      zorder=10)
+
+
+
+
+    plt.errorbar( rcfdepth,                                          rcfdose*norm_rcf,
+                                                            yerr=rcferr*norm_rcf,
+                                                                      xerr=None,
+                                                                        fmt='.',
+                                          color=sns.color_palette(  "Paired")[1],
+                                                                    markersize=12,
+                                         ecolor=sns.color_palette(  "Paired")[1],
+                                                                 elinewidth=None,
+                                                 label=r'$D_{RCF}$',
+                                                                                 zorder=4)
+
+    plt.fill_between(rcfdepth,
+                                                rcfdose*norm_rcf-rcferr*norm_rcf,
+                                                rcfdose*norm_rcf+rcferr*norm_rcf,
+                                          color=sns.color_palette(  "Paired")[1],
+                                                                       alpha=0.1)
+
+    plt.errorbar(  np.arange(0,len(dose),1)*s,                              dose*norm,
+                                                                   yerr=err*norm,
+                                                                       xerr=None,
+                                                                         fmt='.',
+                                                                         markersize=12,
+                                          color=sns.color_palette(  "Paired")[3],
+                                         ecolor=sns.color_palette(  "Paired")[3],
+                                                                 elinewidth=None,
+                                             label=r'$D_{miniscidom} $',
+                                              zorder=3)
+
+    plt.fill_between(np.arange(0,len(dose),1)*s,
+                                                             dose*norm-err*norm,
+                                                           dose*norm + err*norm,
+                                          color=sns.color_palette(  "Paired")[3],
+                                                                      alpha=0.5)
+
+    """
+ax.errorbar( rcfdepth,                                  D_rcf/area_rcfcorrected ,
+                                                 yerr=Derr_rcf/area_rcfcorrected,
+                                                                      xerr=None,
+                                                                        fmt='.',
+                                          color=sns.color_palette(  "Paired")[2],
+                                                                   markersize=8,
+                                        ecolor=sns.color_palette(  "Paired")[2],
+                                                                 elinewidth=None,
+                              label='LET(dose weighted)corrected {} dose'.format(rcfname))
+
+
+ax.fill_between(rcfdepth,
+                              D_rcf/area_rcfcorrected-Derr_rcf/area_rcfcorrected,
+                              D_rcf/area_rcfcorrected+Derr_rcf/area_rcfcorrected,
+                                          color=sns.color_palette(  "Paired")[2],
+                                                                       alpha=0.1)
+
+ax2.plot(depth_sci,LET_zdoseprofile,
+                                                                            '.',
+                                         color=sns.color_palette(  "Paired")[4],
+                                                                   Markersize=8,
+                                                    label='LET (doseweighted) ')
+
+    """
+
+
+
+
+    """
+    ax.plot(depth,
+                                                        D_dose_mini/D_dose_mini.max(),
+                                                                            '.',
+                                          color=sns.color_palette(  "Paired")[9],
+                                        label='LET(dose weighted) corrected dose',
+                                                                  Markersize=11)
+    """
+
+
+
+
+
+
+    plt.rc('text', usetex=False)
+
+
+    plt.title('Depth-dose distribution shape comparison {}'.format(PC,shotnumber),
+                                                                    fontsize=24,
+                                                                  fontdict=None,
+                                                                  loc='center',
+                                                                       pad=None)
+
+
+    plt.ylabel(" Relative Dose ",color="Green",fontsize=22)
+    plt.xlabel(" Depth[mm] ",color="black",fontsize=22)
+    plt.legend( title='',fontsize=20,loc=2,markerscale=3)
+    plt.grid(b=True,color='k',linestyle='dotted',alpha=0.2)
+    plt.tick_params(axis='x', which='major', labelsize=22)
+    plt.tick_params(axis='y', which='major',colors='green', labelsize=22)
+
+    plt.show()
+    return
+
+norm_rcf=1/rcfdose[0]
+norm_rcf1=1/rcfdose1[0]    #area_rcf
+norm_rcf2=1/rcfdose2[0]
+norm=1/dose[10]#area
+norm1=1/dose1[10]#area
+norm2=1/dose2[10]#area
+
+
+background(rcfdepth2,rcfdose2,norm_rcf2,rcferr2,rcfname2,dose2,depth2,err2,norm2,depth_sci,zdoseprofile2,LET_zfluenceprofile2,norm_sim2,D_fluence_mini2,shotnumber2,PC2,L_fluence_mini2)
+background(rcfdepth1,rcfdose1,norm_rcf1,rcferr1,rcfname1,dose1,depth1,err1,norm1,depth_sci,zdoseprofile1,LET_zfluenceprofile1,norm_sim1,D_fluence_mini1,shotnumber1,PC1,L_fluence_mini1)
+background(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci,zdoseprofile,LET_zfluenceprofile,norm_sim,D_fluence_mini,shotnumber,PC,L_fluence_mini)
+
+
+
+
+
+
+
+
+
+
+##########PLOT RCF LET CORRECTION
 
 
 def function5(rcfdepth,rcfdose,rcferr,norm_rcf,D_rcf,Derr_rcf,norm_rcfcorrected,depth_sci,LET_zdoseprofile,rcfname):

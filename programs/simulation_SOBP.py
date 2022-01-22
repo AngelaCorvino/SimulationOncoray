@@ -30,7 +30,7 @@ area=np.trapz(dose[3:len(dose)-1], depth[3:len(depth)-1])
 
 
 
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_10PC_SOBP_2Dscorer.csv'
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/SOBP/10PC/DoseToWater_150MeVproton_PVT_10PC_SOBP_2Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -45,7 +45,7 @@ xdoseprofile=doseprofile.xmeanprofile
 
 
 
-outputfile_topas ='/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_12PC_SOBP_2Dscorer.csv'
+outputfile_topas ='/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/SOBP/12PC/DoseToWater_150MeVproton_PVT_12PC_SOBP_2Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -59,7 +59,7 @@ xdoseprofile1=doseprofile1.xmeanprofile
 
 
 
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_11PC_SOBP_2Dscorer.csv'
+outputfile_topas = '/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/SOBP/11PC/DoseToWater_150MeVproton_PVT_11PC_SOBP_2Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
 topas_datamatrix = np.array(df)# convert dataframe df to array
@@ -70,39 +70,6 @@ zdoseprofile2=zdoseprofile2[::-1]
 (directory,energy,scoringvolume,PC2,SOBP,scorer)= outputfile_topas.split('_')
 #(PMMA,format)=PMMA.split('.csv')
 (energy2,particle)=energy.split('MeV')
-
-
-
-"""
-outputfile_topas = '/home/corvin22/SimulationOncoray/data/SOBP/DoseToWater_150MeVproton_PVT_11PC_SOBP._2Dscorerbis.csv'
-header = pd.read_csv(outputfile_topas, nrows = 7)
-df = pd.read_csv(outputfile_topas, comment='#', header=None)
-topas_datamatrix = np.array(df)# convert dataframe df to array
-doseprofile3=Get_profile(topas_datamatrix, 170,161)
-zdoseprofile3=doseprofile3.zmeanprofile
-xdoseprofile3=doseprofile3.xmeanprofile
-#zdoseprofile3=zdoseprofile3[::-1]
-(directory,energy,scoringvolume,PC3,SOBP,scorer)= outputfile_topas.split('_')
-#(PMMA,format)=PMMA.split('.csv')
-(energy3,particle)=energy.split('MeV')
-
-
-"""
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 s=0.0634
@@ -149,14 +116,14 @@ plt.plot(np.arange(0,170,1)*s, zdoseprofile3/np.max(zdoseprofile3),
 #plt.plot(np.arange(0,numberof_zbins,1)*s, zmeanprofile2/np.max(zmeanprofile2),'.-',label='{7PC}')
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
 
-plt.title('Dose scored in Miniscidom',fontsize=26)
-plt.xlabel('z direction [mm]',fontsize=24)
+plt.title('Depth dose profile scored in miniSCIDOM',fontsize=26)
+plt.xlabel('z [mm]',fontsize=24)
 plt.ylabel('Relative Dose in water ',fontsize=24)
 
 
 
 
-plt.legend(title='E_{primary}=150 MeV',fontsize=24,loc=4,markerscale=2,title_fontsize=24)
+plt.legend(title='$D_{MS}, E_{primary}=150 MeV$',fontsize=24,loc=4,markerscale=2,title_fontsize=24)
 plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
 plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
 plt.minorticks_on()
@@ -204,14 +171,14 @@ plt.plot(np.arange(0,161,1)*s, xdoseprofile2/np.max(xdoseprofile2),
 #plt.plot(np.arange(0,numberof_zbins,1)*s, zmeanprofile2/np.max(zmeanprofile2),'.-',label='{7PC}')
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
 
-plt.title('Dose scored in Miniscidom',fontsize=26)
+plt.title('Lateral dose profile scored in miniSCIDOM',fontsize=26)
 plt.xlabel('x direction [mm]',fontsize=24)
 plt.ylabel('Relative Dose in water ',fontsize=24)
 
 
 
 
-plt.legend(title='E_{primary}=150 MeV',fontsize=24,loc=4,markerscale=2,title_fontsize=24)
+plt.legend(title='$D_{MS}, E_{primary}=150 MeV$',fontsize=24,loc=4,markerscale=2,title_fontsize=24)
 plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
 plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
 plt.minorticks_on()
@@ -223,7 +190,7 @@ plt.tick_params(axis='y', which='major', labelsize=22)
 
 
 
-
+"""
 
 s1=0.073825
 
@@ -302,7 +269,7 @@ plt.plot(np.arange(0,149,1)*s1, zdoseprofile2/np.max(zdoseprofile2),
 
 
 
-"""
+
 ax.errorbar(  np.arange(0,len(dose),1)*s,                              dose*norm,
                                                                    yerr=err*norm,
                                                                        xerr=None,
@@ -311,7 +278,7 @@ ax.errorbar(  np.arange(0,len(dose),1)*s,                              dose*norm
                                          ecolor=sns.color_palette(  "Paired")[3],
                                                                  elinewidth=None,
                                              label='  ')
-"""
+
 #plt.plot(np.arange(0,numberof_zbins,1)*s, zmeanprofile2/np.max(zmeanprofile2),'.-',label='{7PC}')
 #plt.plot(depthPVT, dosePVT,'.-',label='{70 MeV protons ,0cm distance}') # plots depth on x, dose on y, and uses default layout
 
@@ -336,7 +303,7 @@ plt.show()
 
 
 
-"""
+
 
 
 directory='/home/corvin22/Desktop/miniscidom/pictures/2021-09-01/'
