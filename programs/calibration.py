@@ -333,7 +333,7 @@ def plotfunction1(depth_sci,dose_sci,norm_sim,rcfdepth,rcfdose,rcferr,norm_rcf,c
                                                                                 '.',
                                                                      color=color1,
                                                                      Markersize=12,
-                                                            label=' {}'.format(PC))
+                                                            label=' {}'.(format)(PC))
 
 
 

@@ -243,8 +243,8 @@ def function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_r
                                                                         depth[3:len(depth)-12]) #eliminate first 4 points
     norm_dose_mini=area_rcfcorrected/area_corrected
     #norm_fluence_mini=1/area_f_corrected
-    norm_fluence_mini=1/dosecorrection(dose,S_fluence_mini,a,k,dx).max()
-    #norm_fluence_mini=1/dosecorrection(dose,S_fluence_mini,a,k,dx)[10]
+    #norm_fluence_mini=1/dosecorrection(dose,S_fluence_mini,a,k,dx).max()
+    norm_fluence_mini=1/dosecorrection(dose,S_fluence_mini,a,k,dx)[10]
 
     D_dose_mini=dosecorrection(dose,S_dose_mini,a,k,dx)
     #D_a_up_mini=dosecorrection(dose,S_a_up_mini,a,k,dx)*norm_a_mini
@@ -610,10 +610,16 @@ function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci
 
 def background(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci,zdoseprofile,LET_zfluenceprofile,norm_sim,D_fluence_mini,shotnumber,PC,L_fluence_mini):
 
+    D_fluence_mini_int=np.interp(rcfdepth,depth,D_fluence_mini)
+
+    fig, ax = plt.subplots()
+
+
+    twin1 = ax.twinx()
 
     plt.rc('text', usetex=True)
 
-    plt.plot(depth,
+    ax.plot(depth,
                                                                 D_fluence_mini,
                                                                                 '.',
                                             color=sns.color_palette(  "Paired")[10],
@@ -624,7 +630,7 @@ def background(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,dept
 
 
 
-    plt.errorbar( rcfdepth,                                          rcfdose*norm_rcf,
+    ax.errorbar( rcfdepth,                                          rcfdose*norm_rcf,
                                                             yerr=rcferr*norm_rcf,
                                                                       xerr=None,
                                                                         fmt='.',
@@ -635,13 +641,13 @@ def background(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,dept
                                                  label=r'$D_{RCF}$',
                                                                                  zorder=4)
 
-    plt.fill_between(rcfdepth,
+    ax.fill_between(rcfdepth,
                                                 rcfdose*norm_rcf-rcferr*norm_rcf,
                                                 rcfdose*norm_rcf+rcferr*norm_rcf,
                                           color=sns.color_palette(  "Paired")[1],
                                                                        alpha=0.1)
 
-    plt.errorbar(  np.arange(0,len(dose),1)*s,                              dose*norm,
+    ax.errorbar(  np.arange(0,len(dose),1)*s,                              dose*norm,
                                                                    yerr=err*norm,
                                                                        xerr=None,
                                                                          fmt='.',
@@ -652,7 +658,7 @@ def background(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,dept
                                              label=r'$D_{miniscidom} $',
                                               zorder=3)
 
-    plt.fill_between(np.arange(0,len(dose),1)*s,
+    ax.fill_between(np.arange(0,len(dose),1)*s,
                                                              dose*norm-err*norm,
                                                            dose*norm + err*norm,
                                           color=sns.color_palette(  "Paired")[3],
@@ -698,7 +704,12 @@ ax2.plot(depth_sci,LET_zdoseprofile,
 
 
 
-
+    twin1.plot(rcfdepth,np.abs((D_fluence_mini_int-rcfdose*norm_rcf)/rcfdose*norm_rcf)*100,
+                                                                            '.',
+                                            color=sns.color_palette(  "Paired")[4],
+                                                                   Markersize=13,
+                                               label=r'|$\frac{D_{quenchingcorrection}-D_{RCF}}{D_{RCF}}$|',
+                                                                 zorder=0)
 
 
     plt.rc('text', usetex=False)
@@ -711,12 +722,17 @@ ax2.plot(depth_sci,LET_zdoseprofile,
                                                                        pad=None)
 
 
-    plt.ylabel(" Relative Dose ",color="Green",fontsize=22)
-    plt.xlabel(" Depth[mm] ",color="black",fontsize=22)
-    plt.legend( title='',fontsize=20,loc=2,markerscale=3)
-    plt.grid(b=True,color='k',linestyle='dotted',alpha=0.2)
-    plt.tick_params(axis='x', which='major', labelsize=22)
-    plt.tick_params(axis='y', which='major',colors='green', labelsize=22)
+    ax.set_ylabel(" Relative Dose ",color="Green",fontsize=22)
+    ax.set_xlabel(" Depth[mm] ",color="black",fontsize=22)
+    ax.legend( title='',fontsize=20,loc=2,markerscale=3)
+    ax.grid(b=True,color='k',linestyle='dotted',alpha=0.2)
+    ax.tick_params(axis='x', which='major', labelsize=22)
+    ax.tick_params(axis='y', which='major',colors='green', labelsize=22)
+    twin1.set_ylabel("Deviation [$\%$]",color=sns.color_palette(  "Paired")[5],fontsize=22)
+    twin1.legend( title='',fontsize=20,loc=6,markerscale=3)
+    twin1.grid(b=True,color='k',linestyle='-',alpha=0.2)
+    twin1.tick_params(axis='y', which='major',colors=sns.color_palette(  "Paired")[5], labelsize=22)
+
 
     plt.show()
     return
