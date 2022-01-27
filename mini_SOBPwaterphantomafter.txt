@@ -15,7 +15,7 @@ d:Ge/BeamPosition/RotX   = 180 deg
 s:So/FBTR1/Type             = "Beam"
 s:So/FBTR1/Component        = "BeamPosition"
 s:So/FBTR1/BeamParticle     = "proton"
-d:So/FBTR1/BeamEnergy       = 149.6 MeV
+d:So/FBTR1/BeamEnergy       = 150 MeV
 u:So/FBTR1/BeamEnergySpread = 0.77
 # Beam profile is gaussian in x- und y
 s:So/FBTR1/BeamPositionDistribution = "Gaussian"
@@ -126,31 +126,29 @@ dc:Ge/Collimator2/distance/HL =	Ge/Collimator2/TransZ	- 183 mm
 
 #d:Ge/PCplates/block/distance/HL= Ge/PCplates/block/TransZ - Ge/PCplates/block/HLZ cm
 
-includeFile = waterPhantom.txt
+#includeFile = waterPhantom.txt
 ### Positionierung des dritten Kollimators in der Welt ###
 ####ifthe phantom is after before the collimator
-dc:Ge/WaterPhantom/TransZ		= Ge/Collimator2/TransZ - 106.75  mm #(Ge/WaterPhantom/water/HLZ plus second collimator HLZ)
-d:Ge/WaterPhantom/distance/HL=Ge/WaterPhantom/TransZ	- Ge/WaterPhantom/water/HLZ mm
+#dc:Ge/WaterPhantom/TransZ		= Ge/Collimator2/TransZ - 106.75  mm #(Ge/WaterPhantom/water/HLZ plus second collimator HLZ)
+#d:Ge/WaterPhantom/distance/HL=Ge/WaterPhantom/TransZ	- Ge/WaterPhantom/water/HLZ mm
 
 ##########################################################################
-includeFile = thirdCollimator.txt
-d:Ge/Collimator3/TransZ	=Ge/WaterPhantom/distance/HL - Ge/Collimator3/metall/HLZ cm
+#includeFile = thirdCollimator.txt
+#d:Ge/Collimator3/TransZ	=Ge/WaterPhantom/distance/HL - Ge/Collimator3/metall/HLZ cm
 
 #s:Ge/Collimator3/DrawingStyle      = "Solid"
 
 ####ifthe phantom is after the collimator
 ##########################################################################
 ### 3. Kollimator ###
-#includeFile = thirdCollimator.txt
+includeFile = thirdCollimator.txt
 ### Positionierung des dritten Kollimators in der Welt ###
-#dc:Ge/Collimator3/TransZ		= Ge/PCplates/block/distance/HL - Ge/Collimator3/metall/HLZ cm #(d:Ge/PCplates/block/HLZ	+ 3,35)
-
-#d:Ge/Collimator3/TransZ	=Ge/Collimator2/distance/HL - Ge/Collimator3/metall/HLZ cm
-
-#s:Ge/Collimator3/DrawingStyle      = "Solid"
-#d:Ge/Collimator3/distance/HL= Ge/Collimator3/TransZ	-  Ge/Collimator3/metall/HLZ cm
+d:Ge/Collimator3/TransZ	=Ge/Collimator2/distance/HL - Ge/Collimator3/metall/HLZ cm
+s:Ge/Collimator3/DrawingStyle      = "Solid"
+d:Ge/Collimator3/distance/HL= Ge/Collimator3/TransZ	-  Ge/Collimator3/metall/HLZ cm
 ####ifthe phantom is after the collimator
-#dc:Ge/WaterPhantom/TransZ		= Ge/Collimator3/distance/HL - Ge/WaterPhantom/water/HLZ cm     #(Ge/WaterPhantom/water/HLZ plus third collimator HLZ)
+includeFile = waterPhantom.txt
+d:Ge/WaterPhantom/TransZ		= Ge/Collimator3/distance/HL - Ge/WaterPhantom/water/HLZ cm     #(Ge/WaterPhantom/water/HLZ plus third collimator HLZ)
 ##########################################################################
 
 
@@ -222,7 +220,6 @@ u:Gr/ViewA/Zoom					= 3.
 #d:Gr/ViewA/AxesSize      = 0.1 m
 
 i:Gr/ViewA/tracking/storeTrajectories= 100
-
 i:Gr/ViewA/multithreading/maxEventQueueSize =1000
 b:Gr/ViewA/HiddenLineRemovalForTrajectories	= "True"
 b:Gr/ViewA/IncludeAxes			   	= "True"
@@ -230,26 +227,26 @@ d:Gr/ViewA/AxesSize				      = 5 cm
 b:Ge/World/Invisible				    = "True"
 
 b:Gr/Enable			                = "True"
-#b:Ge/QuitIfOverlapDetected	= "True"
+b:Ge/QuitIfOverlapDetected	= "True"
 
 b:Ts/PauseBeforeSequence 	      = "True"
 b:Ts/PauseBeforeQuit		        = "True"
 b:Ts/UseQt                      = "True"
 
 ### Number of simulated particles ###
-#i:So/FBTR1/NumberOfHistoriesInRun = 100000
-i:So/FBTR1/NumberOfHistoriesInRun = 1000
+i:Ts/Seed    = 10
+i:So/FBTR1/NumberOfHistoriesInRun = 100
 i:Ts/ShowHistoryCountAtInterval = 1000
 
 #disable graphics
 #b:Gr/Enable = "False"
 
-# don't stop anywhere
+## don't stop anywhere
 #b:Ts/PauseBeforeInit     = "False"
 #b:Ts/PauseBeforeSequence = "False"
 #b:Ts/PauseBeforeQuit     = "False"
 
-# don't get confused just because of a few interrupted histories
+## don't get confused just because of a few interrupted histories
 i:Ts/MaxInterruptedHistories  = 1000
 
-i:Ts/NumberOfThreads				        = 60
+i:Ts/NumberOfThreads				        = 16

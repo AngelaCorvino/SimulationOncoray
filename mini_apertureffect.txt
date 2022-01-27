@@ -211,7 +211,7 @@ d:Gr/ViewA/Phi					      = 0 deg
 #s:Gr/ViewA/Projection				= "Perspective"
 s:Gr/ViewA/Projection				  = "Orthogonal"
 #d:Gr/ViewA/PerspectiveAngle			= 30 deg
-u:Gr/ViewA/Zoom					= 1.
+uv:Gr/ViewA/Scale					= 3  1 1 1 #zoom in different dimensions
 
 #s:Gr/ViewA/AxesComponent = "PVTscintillator"
 #s:Gr/ViewA/AxesComponent = "Absorber"
