@@ -185,7 +185,7 @@ norm_sim1=1/area_sim1
 print(len(depth_sci))
 print(len(LET_zfluenceprofile))
 print(len(dose_sci))
-"""Qyenching simulated curves  in scintillator """
+"""Quenching simulated curves  in scintillator """
 
 dS=0 #theoretical values
 dscintillator= 1.023 #[g/cm^3] scintillator density
@@ -210,7 +210,7 @@ def quenching(dose,s,dose_sci,depth_sci,LET_zfluenceprofile,k):
 dosequenched_sci,norm_que=quenching(dose,s,dose_sci,depth_sci,LET_zfluenceprofile,k)
 dosequenched_sci1,norm1_que=quenching(dose1,s,dose_sci1,depth_sci,LET_zfluenceprofile1,k)
 dosequenched_sci2,norm2_que=quenching(dose2,s,dose_sci2,depth_sci,LET_zfluenceprofile2,k)
-print(len(dosequenched_sci))
+
 
 
 def plotfunction(depth,dose,err,norm,depth_sci,dosequenched_sci,norm_que,color1,color2,PC,s):

@@ -20,10 +20,11 @@ from readcsv import read_data_let_mini
 from readcsv import read_data_scintillatorsimulateddose
 from readcsv import read_data_scintillatorsimulateddose_it
 from readcsv import read_data_mini
+from read2Dtopasoutput import readtopasoutput
 from Birkmodel import lightcorrection
 from Birkmodel import dosecorrection
 from getprofile import Get_profile
-from RCFresponse import rcfdosecorrection
+from RCFresponse import rcfcorrection
 from mpl_toolkits.axes_grid1.inset_locator import mark_inset
 
 ###############################################################################
@@ -54,50 +55,13 @@ area1=np.trapz(dose1[3:len(dose1)-7], depth[3:len(depth1)-7])
 area2=np.trapz(dose2[3:len(dose2)-7], depth[3:len(depth2)-7])
 
 
-def readtopasoutput(directory,filename,filenameLETdose,filenameLETfluence,nz,nx):
-    outputfile_topas=directory+filename
-    header = pd.read_csv(outputfile_topas, nrows = 7)
-    df = pd.read_csv(outputfile_topas, comment='#', header=None)
-    topas_datamatrix = np.array(df)# convert dataframe df to array
-    doseprofile=Get_profile(topas_datamatrix, nz,nx)
-    zdoseprofile=doseprofile.zmeanprofile
-    zdoseprofile=zdoseprofile[::-1]
-    (dir,energy,scoringvolume,PC,dimension)= outputfile_topas.split('_')
-    (energy,particle)=energy.split('KeV')
-    depth_sci= np.arange(0,len(zdoseprofile),1)*s
-    area_sim=np.trapz(zdoseprofile[3:len(zdoseprofile)-3],depth_sci[3:len(depth_sci)-3])
-    norm_sim=1/zdoseprofile.max()
-    #norm_sim=1/area_sim
-
-    outputfile_topasLET=directory+filenameLETdose
-    header = pd.read_csv(outputfile_topasLET, nrows = 7)
-    df = pd.read_csv(outputfile_topasLET, comment='#', header=None)
-    topas_datamatrix= np.array(df)# convert dataframe df to array
-    LET_doseprofile=Get_profile(topas_datamatrix, 149,1)
-    LET_zdoseprofile=LET_doseprofile.zmeanprofile
-    LET_zdoseprofile=LET_zdoseprofile[::-1]
-    LET_zdoseprofile[0]=LET_zdoseprofile[1]
-    area_LET=np.trapz(LET_zdoseprofile,depth_sci)
-
-    outputfile_topasLETfluence=directory+filenameLETfluence
-    header = pd.read_csv(outputfile_topasLETfluence, nrows = 7)
-    df = pd.read_csv(outputfile_topasLETfluence, comment='#', header=None)
-    topas_datamatrix= np.array(df)# convert dataframe df to array
-    LET_fluenceprofile=Get_profile(topas_datamatrix, 149,1)
-    LET_zfluenceprofile=LET_fluenceprofile.zmeanprofile
-    LET_zfluenceprofile=LET_zfluenceprofile[::-1]
-    LET_zfluenceprofile[0]=LET_zfluenceprofile[1]
-    area_f_LET=np.trapz(LET_zfluenceprofile,depth_sci)
-
-
-    return depth_sci,zdoseprofile,LET_zdoseprofile,LET_zfluenceprofile,area_LET,area_f_LET,norm_sim,energy,PC
-
 directory="/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/"
 depth_sci,zdoseprofile,LET_zdoseprofile,LET_zfluenceprofile,area_LET,area_f_LET,norm_sim,energy,PC=readtopasoutput(directory,
                             'DoseToWater_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv',
                        'LET_doseweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv',
                     'LET_fluenceweighted_9160KeVproton_PVT_6PC1PMMA_1Dscorer.csv',
-                                                                            149,1)
+                                                                            149,1,
+                                                                            'KeV')
 dose_sci=zdoseprofile
 
 
@@ -106,7 +70,8 @@ depth_sci1,zdoseprofile1,LET_zdoseprofile1,LET_zfluenceprofile1,area_LET1,area_f
                                'DoseToWater_92100KeVproton_PVT_7PC_1Dscorer.csv',
                           'LET_doseweighted_92100KeVproton_PVT_7PC_1Dscorer.csv',
                        'LET_fluenceweighted_92100KeVproton_PVT_7PC_1Dscorer.csv',
-                                                                           149,1)
+                                                                           149,1,
+                                                                           'KeV')
 dose_sci1=zdoseprofile1
 
 directory2='/Users/angelacorvino/Documents/GitHub/SimulationOncoray/data/Single/'
@@ -114,27 +79,27 @@ depth_sci2,zdoseprofile2,LET_zdoseprofile2,LET_zfluenceprofile2,area_LET2,area_f
                                'DoseToWater_9210KeVproton_PVT_6PC_1Dscorer.csv',
                                'LET_doseweighted_9210KeVproton_PVT_6PC_1Dscorer.csv',
                                'LET_fluenceweighted_9210KeVproton_PVT_6PC_1Dscorer.csv',
-                                                                          149,1)
+                                                                          149,1,
+                                                                          'KeV')
 dose_sci2=zdoseprofile2
 
 
-#############################################################################
+#################################################################################
 """Normalization"""
 
 norm_rcf=1/rcfdose.max()
-norm_rcf1=1/rcfdose1.max()    #area_rcf
+norm_rcf1=1/rcfdose1.max()
 norm_rcf2=1/rcfdose2.max()
-norm=1/dose.max()#area
-norm1=1/dose1.max()#area
-norm2=1/dose2.max()#area
-
+norm=1/dose.max()
+norm1=1/dose1.max()
+norm2=1/dose2.max()
 
 #norm_rcf=1/area_rcf
 #norm_rcf1=1/area_rcf1
 #norm_rcf2=1/area_rcf2
 
 
-
+#################################################################################
 
 
 
@@ -143,16 +108,9 @@ norm2=1/dose2.max()#area
 a=-0.0251
 b= 1.02
 
-def rcfcorrection(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b):
-    S=np.interp(np.arange(0,len(rcfdose),1)*s,depth_sci,LET_zdoseprofile)
-    D_rcf=rcfdosecorrection(rcfdose,S,a,b)
-    Derr_rcf=rcfdosecorrection(rcferr,S,a,b)
-    area_rcfcorrected=np.trapz(rcfdosecorrection(rcfdose,S,a,b),rcfdepth)
-    return D_rcf,Derr_rcf,area_rcfcorrected
-
-D_rcf,Derr_rcf,area_rcfcorrected=rcfcorrection(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b)
-D_rcf1,Derr_rcf1,area_rcfcorrected1=rcfcorrection(rcfdepth1,rcfdose1,rcferr1,depth_sci,LET_zdoseprofile1,a,b)
-D_rcf2,Derr_rcf2,area_rcfcorrected2=rcfcorrection(rcfdepth2,rcfdose2,rcferr2,depth_sci,LET_zdoseprofile2,a,b)
+D_rcf,Derr_rcf,area_rcfcorrected=rcfcorrection(rcfdepth,rcfdose,rcferr,depth_sci,LET_zdoseprofile,a,b,s)
+D_rcf1,Derr_rcf1,area_rcfcorrected1=rcfcorrection(rcfdepth1,rcfdose1,rcferr1,depth_sci,LET_zdoseprofile1,a,b,s)
+D_rcf2,Derr_rcf2,area_rcfcorrected2=rcfcorrection(rcfdepth2,rcfdose2,rcferr2,depth_sci,LET_zdoseprofile2,a,b,s)
 
 #norm_rcfcorrected=1./D_rcf.max()
 #norm_rcfcorrected1=1./D_rcf1.max()
@@ -432,15 +390,11 @@ ax2.plot(depth_sci,LET_zdoseprofile,
                                                                   fontdict=None,
                                                                   loc='center',
                                                                        pad=None)
-    #twin2.set_ylim([LET_zfluenceprofile.min()[0:100],LET_zfluenceprofile[0:100].max()])
 
-    #twin2.set_yticks(np.arange(min((1+k*LET_zfluenceprofile)[0:100]), max((1+k*LET_zfluenceprofile)[0:100]), 30))
-    twin2.set_yticks([1.8,2,2.2,2.4,2.6,2.8,3,3.2,3.4,3.6,3.8])
-    #twin2.set_ylim([2,4])
+
     twin2.set_ylabel("a.u.",color=sns.color_palette(  "Paired")[9],fontsize=22)
     twin2.tick_params(axis='y', which='major',colors=sns.color_palette(  "Paired")[9], labelsize=22)
     twin2.legend( title='',fontsize=20,loc=1,markerscale=3).set_zorder(0)
-
     twin1.set_ylabel("LET [KeV/um]",color=sns.color_palette(  "Paired")[5],fontsize=22)
     twin1.legend( title='',fontsize=20,loc=6,markerscale=3)
     twin1.grid(b=True,color='k',linestyle='-',alpha=0.2)
@@ -740,9 +694,6 @@ plt.legend(fontsize=20,loc=3,markerscale=3)
 plt.title('Simulated Dose in scintillator',fontsize=20)
 plt.xlabel(" Depth[mm] ",fontsize=20)
 plt.ylabel('Relative Dose in water ',fontsize=20)
-plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
-plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
-
 plt.tick_params(axis='x', which='major', labelsize=20)
 plt.tick_params(axis='y', which='major', labelsize=20)
 
