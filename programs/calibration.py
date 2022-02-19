@@ -109,14 +109,6 @@ area_f_LET1=np.trapz(LET_zfluenceprofile1,depth_sci1)
 
 
 
-
-
-
-
-
-
-
-
 ########################################################################################################################################
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/12PC/DoseToWater_152500KeVproton_PVT_12PC_1Dscorer.csv'
 outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/12PC/152.5MeV/secondcollimator/DoseToWater_152500KeVproton_PVT_12PC_1Dscorer.csv'
@@ -159,17 +151,21 @@ area_f_LET2=np.trapz(LET_zfluenceprofile2,depth_sci2)
 
 
 
-
-
-
-
-
-
 #######################################################################################################################################
 
-
-
-
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/10PC/152.5MeV/secondcollimator/DoseToWater_152500KeVproton_PVT_10PC_1Dscorer.csv'
+#outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/DoseToWater_152500KeVproton_PVT_10PC_1Dscorer.csv'
+header = pd.read_csv(outputfile_topas, nrows = 7)
+df = pd.read_csv(outputfile_topas, comment='#', header=None)
+topas_datamatrix = np.array(df)# convert dataframe df to array
+doseprofile=Get_profile(topas_datamatrix, 149,1)
+zdoseprofile=doseprofile.zmeanprofile
+zdoseprofile=zdoseprofile[::-1]
+dose_sciprova=zdoseprofile
+(directory,energy,scoringvolume,PC,dimension)= outputfile_topas.split('_')
+(energy,particle)=energy.split('KeV')
+depth_sci= np.arange(0,len(zdoseprofile),1)*s
+area_sim=np.trapz(zdoseprofile[3:len(zdoseprofile)-8],depth_sci[3:len(depth_sci)-8])
 
 
 
@@ -191,7 +187,9 @@ area_sim=np.trapz(zdoseprofile[3:len(zdoseprofile)-8],depth_sci[3:len(depth_sci)
 
 
 
-outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/10PC/152.5MeV/LET_fluenceweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
+
+
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/10PC/152.5MeV/secondcollimator/LET_fluenceweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/LET_fluenceweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -200,13 +198,9 @@ LET_fluenceprofile=Get_profile(topas_datamatrix, 149,1)
 LET_zfluenceprofile=LET_fluenceprofile.zmeanprofile
 LET_zfluenceprofile=LET_zfluenceprofile[::-1]
 LET_zfluenceprofile[0]=LET_zfluenceprofile[1]
-
-
 area_f_LET=np.trapz(LET_zfluenceprofile,depth_sci)
 
-
-
-outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/10PC/152.5MeV/LET_doseweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
+outputfile_topas='/Users/angelacorvino/Desktop/TOPASpreciousimulation/SOBP/10PC/152.5MeV/secondcollimator/LET_doseweighted_152500KeVproton_PVT_10PC_1Dscorer.csv'
 #outputfile_topas='/Users/angelacorvino/Desktop/GitHub/SimulationOncoray/data/SOBP/10PC/LET_doseweighted_153MeVproton_PVT_10PC_1Dscorer.csv'
 header = pd.read_csv(outputfile_topas, nrows = 7)
 df = pd.read_csv(outputfile_topas, comment='#', header=None)
@@ -248,7 +242,7 @@ norm_sim2=1/zdoseprofile2.max() #area_sim
 ##############################################################################
 
 
-""" correction of RCf measure with LET (doseweighted ) simulations in scintillator"""
+""" correction of RCF measurements with LET (doseweighted ) simulations in scintillator"""
 
 a=-0.0251
 b= 1.02
@@ -279,15 +273,12 @@ ddx=1 #spatial resolution error
 k=k*10#[micrometers/kev]
 #SIMULATED LET IN Scintillator starting from TOF of a scidom shot
 
-def function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_rcfcorrected):
+def birkcorrection(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_rcfcorrected):
 
 
     ys_ana_mini=LET_zdoseprofile
     ys_fluence_mini=LET_zfluenceprofile
-
     S_a_mini=np.interp(np.arange(0,len(dose),1)*s,depth_sci,ys_ana_mini)
-    #S_a_low_mini=np.interp(np.arange(0,len(dose),1)*s,depth_sci,ys_ana_lower_mini)
-    #S_a_up_mini=np.interp(np.arange(0,len(dose),1)*s,depth_sci,ys_ana_upper_mini)
     S_fluence_mini=np.interp(np.arange(0,len(dose),1)*s,depth_sci,ys_fluence_mini)
 
 
@@ -298,9 +289,6 @@ def function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_r
     norm_dose_mini=area_rcfcorrected/area_corrected
     #norm_fluence_mini=1/area_f_corrected
     norm_fluence_mini=1/dosecorrection(dose,S_fluence_mini,a,k,dx).max()
-
-
-
 
     D_a_mini=dosecorrection(dose,S_a_mini,a,k,dx)
     #D_a_up_mini=dosecorrection(dose,S_a_up_mini,a,k,dx)*norm_a_mini
@@ -313,31 +301,30 @@ def function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_r
     #L_a_low_mini=lightcorrection(S_a_low_mini,a,k,dx)
 
     Dabsolute_fluence_mini=dosecorrection(dose,S_fluence_mini,a,k,dx)*norm_dose_mini* lightcorrection(S_fluence_mini,a,k,dx)
-
-
     return D_a_mini,D_fluence_mini
 
-D_a_mini2,D_fluence_mini2=function2(dose2,depth2,depth_sci2,LET_zdoseprofile2,LET_zfluenceprofile2,s,area_rcfcorrected2)
-D_a_mini1,D_fluence_mini1=function2(dose1,depth1,depth_sci1,LET_zdoseprofile1,LET_zfluenceprofile1,s,area_rcfcorrected1)
-D_a_mini,D_fluence_mini=function2(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_rcfcorrected)
+D_a_mini2,D_fluence_mini2=birkcorrection(dose2,depth2,depth_sci2,LET_zdoseprofile2,LET_zfluenceprofile2,s,area_rcfcorrected2)
+D_a_mini1,D_fluence_mini1=birkcorrection(dose1,depth1,depth_sci1,LET_zdoseprofile1,LET_zfluenceprofile1,s,area_rcfcorrected1)
+D_a_mini,D_fluence_mini=birkcorrection(dose,depth,depth_sci,LET_zdoseprofile,LET_zfluenceprofile,s,area_rcfcorrected)
 
 
 
 
-###############################################################################
+################################################################################
+""" PLOTTING FUNCTIONS """
 
 def plotfunction1(depth_sci,dose_sci,norm_sim,rcfdepth,rcfdose,rcferr,norm_rcf,color1,color2,PC,rcfname,s):
 
 
     plt.plot(depth_sci,dose_sci*norm_sim,
-                                                                                '.',
+                                                                            '.',
                                                                      color=color1,
                                                                      Markersize=12,
-                                                            label=' {}'.(format)(PC))
+                                                            label='{}'.format(PC))
 
 
 
-    plt.errorbar( rcfdepth,                                          rcfdose*norm_rcf,
+    plt.errorbar( rcfdepth,                                     rcfdose*norm_rcf,
                                                             yerr=rcferr*norm_rcf,
                                                                       xerr=None,
                                                                         fmt='.',
@@ -345,12 +332,12 @@ def plotfunction1(depth_sci,dose_sci,norm_sim,rcfdepth,rcfdose,rcferr,norm_rcf,c
                                                                     markersize=12,
                                                                   ecolor=color2,
                                                                  elinewidth=None,
-                                                 label='{}'.format(rcfname))
+                                                      label='{}'.format(rcfname))
 
     plt.fill_between(rcfdepth,
                                                 rcfdose*norm_rcf-rcferr*norm_rcf,
                                                 rcfdose*norm_rcf+rcferr*norm_rcf,
-                                          color=color2,
+                                                                    color=color2,
                                                                        alpha=0.1)
     return
 
@@ -360,133 +347,12 @@ def plotfunction2(depth_sci,dose_sci,norm_sim,LET_zfluenceprofile,color1,PC,zlim
                                                                             '.',
                                                                    color=color1,
                                                                    Markersize=12,
-                                               label='{} '.format(PC))
+                                                          label='{} '.format(PC))
 
     return
 
-plt.figure(1) # creates a figure in which we plot
-plt.plot( np.arange(0,149,1)*s,zdoseprofile*norm_sim,
 
-                                                                    '.',
-                                                                  markersize=12,
-                                          color=sns.color_palette(  "Paired")[3],
-                                                       label=' {}'.format(PC))
-
-plt.errorbar( rcfdepth,                                          rcfdose*norm_rcf,
-                                                            yerr=rcferr*norm_rcf,
-                                                                      xerr=None,
-                                                                        fmt='.',
-                                          color=sns.color_palette(  "Paired")[2],
-                                                                    markersize=12,
-                                         ecolor=sns.color_palette(  "Paired")[2],
-                                                                 elinewidth=None,
-                                                 label='{}'.format(rcfname),
-                                                 zorder=2)
-
-plt.fill_between(rcfdepth,
-                                                rcfdose*norm_rcf-rcferr*norm_rcf,
-                                                rcfdose*norm_rcf+rcferr*norm_rcf,
-                                          color=sns.color_palette(  "Paired")[2],
-                                                                       alpha=0.1,
-                                                                       zorder=2)
-
-
-
-
-plt.plot( np.arange(0,149,1)*s,zdoseprofile1*norm_sim1,
-                                                                        '.',
-                                                                  markersize=12,
-                                          color=sns.color_palette(  "Paired")[5],
-                                                       label=' {}'.format(PC1),
-                                                       zorder=1)
-
-
-plt.errorbar( rcfdepth1,                                      rcfdose1*norm_rcf1,
-                                                            yerr=rcferr1*norm_rcf1,
-                                                                      xerr=None,
-                                                                        fmt='.',
-                                          color=sns.color_palette(  "Paired")[4],
-                                                                    markersize=12,
-                                         ecolor=sns.color_palette(  "Paired")[4],
-                                                                 elinewidth=None,
-                                                 label='{}'.format(rcfname1),
-                                                 zorder=2)
-
-plt.fill_between(rcfdepth1,
-                                                rcfdose1*norm_rcf1-rcferr1*norm_rcf1,
-                                                rcfdose1*norm_rcf1+rcferr1*norm_rcf1,
-                                          color=sns.color_palette(  "Paired")[4],
-                                                                       alpha=0.1,
-                                                                       zorder=2)
-
-
-
-
-
-
-plt.plot( np.arange(0,149,1)*s,zdoseprofile2*norm_sim2,
-                                                                        '.',
-                                                                  markersize=12,
-                                          color=sns.color_palette(  "Paired")[7],
-                                                       label=' {}'.format(PC2),
-                                                       zorder=1)
-
-
-
-plt.errorbar( rcfdepth2,                                          rcfdose2*norm_rcf2,
-                                                            yerr=rcferr2*norm_rcf2,
-                                                                      xerr=None,
-                                                                        fmt='.',
-                                          color=sns.color_palette(  "Paired")[6],
-                                                                    markersize=12,
-                                         ecolor=sns.color_palette(  "Paired")[6],
-                                                                 elinewidth=None,
-                                                 label='{}'.format(rcfname2),
-                                                 zorder=2)
-
-plt.fill_between(rcfdepth,
-                                                rcfdose2*norm_rcf2-rcferr2*norm_rcf2,
-                                                rcfdose2*norm_rcf2+rcferr2*norm_rcf2,
-                                          color=sns.color_palette(  "Paired")[6],
-                                                                       alpha=0.1,
-                                                                       zorder=2)
-
-
-
-plt.title('Depth-dose distribution shape comparison',fontsize=20)
-plt.xlabel(" Depth[mm] ",fontsize=20)
-plt.ylabel('Relative Dose in water ',fontsize=20)
-plt.legend(title='$E_{primary}$=152.5 MeV',fontsize=24,loc=3,markerscale=2,title_fontsize=24)
-plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
-plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
-plt.tick_params(axis='x', which='major', labelsize=20)
-plt.tick_params(axis='y', which='major', labelsize=20)
-
-
-
-plt.figure(2)
-plotfunction2(depth_sci,dose_sci,norm_sim,LET_zfluenceprofile,sns.color_palette(  "Paired")[3],PC,190)
-plotfunction2(depth_sci,dose_sci1,norm_sim1,LET_zfluenceprofile1,sns.color_palette(  "Paired")[5],PC1,190)
-plotfunction2(depth_sci,dose_sci2,norm_sim2,LET_zfluenceprofile2,sns.color_palette(  "Paired")[7],PC2,190)
-
-
-plt.title('Simulated fluence-weighted LET',fontsize=20)
-plt.legend(fontsize=20,loc=2,markerscale=3)
-plt.ylabel("LET [KeV/um]",fontsize=20)
-plt.xlabel(" Depth[mm] ",color="black",fontsize=20)
-plt.gca().yaxis.set_label_position("right")
-#plt.ylim([-1,18])
-plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
-plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
-plt.tick_params(axis='y', labelsize=20,which='both', labelleft=False, labelright=True)
-plt.tick_params(axis='x',which='both', labelsize=20)
-plt.show()
-
-
-
-
-
-def function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci2,zdoseprofile,LET_zfluenceprofile,norm_sim,D_fluence_mini,shotnumber,PC):
+def plotfunction4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci2,zdoseprofile,LET_zfluenceprofile,norm_sim,D_fluence_mini,shotnumber,PC):
     fig, ax = plt.subplots()
     fig.subplots_adjust(right=0.70)
 
@@ -631,7 +497,6 @@ def function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth
     ax.legend( title='',fontsize=20,loc=4,markerscale=3)
     twin1.legend( title='',fontsize=20,loc=6,markerscale=3)
     twin1.grid(b=True,color='k',linestyle='-',alpha=0.2)
-    ax.grid(b=True,color='k',linestyle='dotted',alpha=0.2)
     ax.tick_params(axis='x', which='major', labelsize=22)
     twin1.tick_params(axis='y', which='major',colors=sns.color_palette(  "Paired")[5], labelsize=22)
     ax.tick_params(axis='y', which='major',colors='green', labelsize=22)
@@ -640,18 +505,7 @@ def function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth
     return
 
 
-function4(rcfdepth2,rcfdose2,norm_rcf2,rcferr2,rcfname2,dose2,depth2,err2,norm2,depth_sci2,zdoseprofile2,LET_zfluenceprofile2,norm_sim2,D_fluence_mini2,shotnumber2,PC2)
-function4(rcfdepth1,rcfdose1,norm_rcf1,rcferr1,rcfname1,dose1,depth1,err1,norm1,depth_sci1,zdoseprofile1,LET_zfluenceprofile1,norm_sim1,D_fluence_mini1,shotnumber1,PC1)
-function4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci,zdoseprofile,LET_zfluenceprofile,norm_sim,D_fluence_mini,shotnumber,PC)
-#PLOT
-
-
-
-
-
-
-
-def function3(rcfdose,rcfdepth,rcferr,rcfname,area_rcf,area_rcfcorrected,D_rcf,Derr_rcf,depth_sci,LET_zdoseprofile):
+def plotfunction3(rcfdose,rcfdepth,rcferr,rcfname,area_rcf,area_rcfcorrected,D_rcf,Derr_rcf,depth_sci,LET_zdoseprofile):
 
 
     fig, ax = plt.subplots()
@@ -761,7 +615,7 @@ def function3(rcfdose,rcfdepth,rcferr,rcfname,area_rcf,area_rcfcorrected,D_rcf,D
                                                                             '.',
                                          color=sns.color_palette(  "Paired")[2],
                                                                   Markersize=12,
-                                                                   label='LET  dose-weighted')
+                                                     label='LET  dose-weighted')
 
 
     ax.set_ylim([0.02,0.15])
@@ -772,19 +626,64 @@ def function3(rcfdose,rcfdepth,rcferr,rcfname,area_rcf,area_rcfcorrected,D_rcf,D
     ax2.legend( title='',fontsize=20,loc=6,markerscale=3)
     ax2.grid(b=True,color='k',linestyle='-',alpha=0.2)
     ax.grid(b=True,color='k',linestyle='dotted',alpha=0.2)
-
     ax.tick_params(axis='x', which='major', labelsize=22)
     ax2.tick_params(axis='y', which='major',colors=sns.color_palette(  "Paired")[2],
-                                                                   labelsize=22)
+                                                                    labelsize=22)
     ax.tick_params(axis='y', which='major',colors='blue', labelsize=22)
 
-#plt.title('Shape comparison {} '.format(rcfname),fontsize=22)
+
 
     mark_inset(ax, sub_axes, loc1=2, loc2=3, fc="none", ec="0.5")
-
     plt.show()
     return
+##############################################################################
+"""PLOTS"""
 
-function3(rcfdose2,rcfdepth2,rcferr2,rcfname2,area_rcf2,area_rcfcorrected2,D_rcf2,Derr_rcf2,depth_sci2,LET_zdoseprofile2)
-function3(rcfdose1,rcfdepth1,rcferr1,rcfname1,area_rcf1,area_rcfcorrected1,D_rcf1,Derr_rcf1,depth_sci1,LET_zdoseprofile1)
-function3(rcfdose,rcfdepth,rcferr,rcfname,area_rcf,area_rcfcorrected,D_rcf,Derr_rcf,depth_sci,LET_zdoseprofile)
+
+
+plt.figure(1) # creates a figure in which we plot
+
+plotfunction1(np.arange(0,149,1)*s,zdoseprofile,norm_sim,rcfdepth,rcfdose,rcferr,norm_rcf,sns.color_palette("Paired")[3],sns.color_palette("Paired")[2],PC,rcfname,s)
+plotfunction1(np.arange(0,149,1)*s,zdoseprofile1,norm_sim1,rcfdepth1,rcfdose1,rcferr1,norm_rcf1,sns.color_palette("Paired")[5],sns.color_palette("Paired")[4],PC1,rcfname1,s)
+plotfunction1(np.arange(0,149,1)*s,zdoseprofile2,norm_sim2,rcfdepth2,rcfdose2,rcferr2,norm_rcf2,sns.color_palette("Paired")[7],sns.color_palette("Paired")[6],PC2,rcfname2,s)
+
+plt.title('Depth-dose distribution shape comparison',fontsize=20)
+plt.xlabel(" Depth[mm] ",fontsize=20)
+plt.ylabel('Relative Dose in water ',fontsize=20)
+plt.legend(title='$E_{primary}$=152.5 MeV',fontsize=24,loc=3,markerscale=2,title_fontsize=24)
+plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
+plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
+plt.tick_params(axis='x', which='major', labelsize=20)
+plt.tick_params(axis='y', which='major', labelsize=20)
+
+
+
+plt.figure(2)
+
+plotfunction2(depth_sci,dose_sci,norm_sim,LET_zfluenceprofile,sns.color_palette(  "Paired")[3],PC,190)
+plotfunction2(depth_sci,dose_sci1,norm_sim1,LET_zfluenceprofile1,sns.color_palette(  "Paired")[5],PC1,190)
+plotfunction2(depth_sci,dose_sci2,norm_sim2,LET_zfluenceprofile2,sns.color_palette(  "Paired")[7],PC2,190)
+
+
+plt.title('Simulated fluence-weighted LET',fontsize=20)
+plt.legend(fontsize=20,loc=2,markerscale=3)
+plt.ylabel("LET [KeV/um]",fontsize=20)
+plt.xlabel(" Depth[mm] ",color="black",fontsize=20)
+plt.gca().yaxis.set_label_position("right")
+#plt.ylim([-1,18])
+plt.grid(b=True, which='major', color='k', linestyle='-',alpha=0.2)
+plt.grid(b=True, which='minor', color='k', linestyle='-', alpha=0.2)
+plt.tick_params(axis='y', labelsize=20,which='both', labelleft=False, labelright=True)
+plt.tick_params(axis='x',which='both', labelsize=20)
+plt.show()
+
+
+
+plotfunction4(rcfdepth2,rcfdose2,norm_rcf2,rcferr2,rcfname2,dose2,depth2,err2,norm2,depth_sci2,zdoseprofile2,LET_zfluenceprofile2,norm_sim2,D_fluence_mini2,shotnumber2,PC2)
+plotfunction4(rcfdepth1,rcfdose1,norm_rcf1,rcferr1,rcfname1,dose1,depth1,err1,norm1,depth_sci1,zdoseprofile1,LET_zfluenceprofile1,norm_sim1,D_fluence_mini1,shotnumber1,PC1)
+plotfunction4(rcfdepth,rcfdose,norm_rcf,rcferr,rcfname,dose,depth,err,norm,depth_sci,zdoseprofile,LET_zfluenceprofile,norm_sim,D_fluence_mini,shotnumber,PC)
+
+
+plotfunction3(rcfdose2,rcfdepth2,rcferr2,rcfname2,area_rcf2,area_rcfcorrected2,D_rcf2,Derr_rcf2,depth_sci2,LET_zdoseprofile2)
+plotfunction3(rcfdose1,rcfdepth1,rcferr1,rcfname1,area_rcf1,area_rcfcorrected1,D_rcf1,Derr_rcf1,depth_sci1,LET_zdoseprofile1)
+plotfunction3(rcfdose,rcfdepth,rcferr,rcfname,area_rcf,area_rcfcorrected,D_rcf,Derr_rcf,depth_sci,LET_zdoseprofile)
