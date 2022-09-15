@@ -2,4 +2,4 @@
 
 This repositpry contains simulations for the ONCORAy proton beamline. The simulations are written for TOPAS while the code used to analize simulated data is written in Python.
 
-<img src="SimulationOncoray/beamline.png" width="1000"/>
+<img src="beamline.png" width="1000"/>
